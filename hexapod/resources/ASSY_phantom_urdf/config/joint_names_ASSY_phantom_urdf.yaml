@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'ref_to_torso_joint', 'LF1', 'LF2', 'LF3', 'LM1', 'LM2', 'LM3', 'LB1', 'LB2', 'LB3', 'RF1', 'RF2', 'RF3', 'RM1', 'RM2', 'RM3', 'RB1', 'RB2', 'RB3', ]

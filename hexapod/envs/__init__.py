@@ -1,1 +1,1 @@
-from simple_driving.envs.simple_driving_env import SimpleDrivingEnv
+from hexapod.envs.hexapod_env import HexapodEnv
