@@ -2,8 +2,7 @@
 
 in this repo, hexy pybullet env will be make based on simplecar
 
-https://github.com/GerardMaggiolino/Gym-Medium-Post
-urdf 기반의 단순한 gym env 및 TRPO 학습 example
+https://github.com/GerardMaggiolino/Gym-Medium-Post: urdf 기반의 단순한 gym env 및 TRPO 학습 example
 여기서 [agent.py](http://agent.py) 는 SB3의 일부 기능에 해당하고, main.py는 train_first.py(우리가 쓰던)에 해당한다
 여기서 주의 깊게 볼 것은 gym env를 만드는 구조로, [https://gerardmaggiolino.medium.com/creating-openai-gym-environments-with-pybullet-part-2-a1441b9a4d8e](https://gerardmaggiolino.medium.com/creating-openai-gym-environments-with-pybullet-part-2-a1441b9a4d8e)
 도 같이 참고해보면 이해가 빠를 것이다.
