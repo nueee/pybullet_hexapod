@@ -27,7 +27,7 @@ event_callback = EveryNTimesteps(
 
 
 def main():
-    env = make_vec_env("Hexapod-v0", n_envs=4)
+    env = gym.make("Hexapod-v0")
     model = PPO(
         "MlpPolicy",
         env=env,
@@ -45,7 +45,7 @@ def main():
     # model = PPO.load(path='{existing model path...}', env=env)
 
     model.learn(
-        int(1e5),  # total timesteps used for learning
+        int(1e2),  # total timesteps used for learning
         callback=event_callback,  # every n_steps, save the model.
         tb_log_name='tb_{trial_name}'
         # ,reset_num_timesteps=False   # if you need to continue learning by loading existing model, use this option.
@@ -53,13 +53,13 @@ def main():
 
     # start rendering the current model.
     obs = env.reset()
+    env.render()
     while True:
         action, _ = model.predict(obs.astype(np.float32))
         obs, _, done, _ = env.step(action)
-        env.render()
-        if done:
-            obs = env.reset()
-            time.sleep(1/60)
+        #if done:
+        #    obs = env.reset()
+        #    time.sleep(1/60)
 
 
 if __name__ == '__main__':
