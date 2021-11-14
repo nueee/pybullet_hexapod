@@ -13,8 +13,8 @@ class Hexapod:
         )
         self.hexapod = p.loadURDF(
             fileName=f_name,
-            basePosition=[0, 0, 0.1],
-            baseOrientation=p.getQuaternionFromEuler([np.pi/2, 0, 0]),
+            basePosition=[0.0, 0.0, 0.1],
+            baseOrientation=p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0]),
             physicsClientId=client
         )
 
@@ -41,17 +41,25 @@ class Hexapod:
             physicsClientId=self.client
         )
 
-    def get_observation(self):
-        # Get the joint position
+    def get_joint_values(self):
+        # Get the joint states
         observation = np.array(p.getJointStates(self.hexapod, self.legJoints, self.client))[:, 0]
 
         return observation
 
-    def get_position(self):
+    def get_center_position(self):
+        # get the center cartesian and euler angles
         pos, ang = p.getBasePositionAndOrientation(self.hexapod, self.client)
         ang = p.getEulerFromQuaternion(ang)
+        pos, ang = np.array(pos), np.array(ang)
 
         return pos, ang
+
+    def get_joint_torques(self):
+        # get the torques applied on joints
+        torques = np.array(p.getJointStates(self.hexapod, self.legJoints, self.client))[:, 3]
+
+        return torques
 
     # def reset_hexapod(self):
     #     for i in range(p.getNumJoints(self.hexapod, self.client)):
