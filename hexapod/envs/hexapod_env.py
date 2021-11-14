@@ -22,7 +22,7 @@ class HexapodEnv(gym.Env):
         )
 
         self.np_random, _ = gym.utils.seeding.np_random()
-        self.client = p.connect(p.DIRECT)
+        self.client = p.connect(p.GUI)
 
         p.setTimeStep(1/60, self.client)  # probably, dt is 1/60 sec?
 
@@ -124,8 +124,8 @@ class HexapodEnv(gym.Env):
         frame = p.getCameraImage(100, 100, view_matrix, proj_matrix)[2]
         frame = np.reshape(frame, (100, 100, 4))
         self.rendered_img.set_data(frame)
-        plt.draw()
-        plt.pause(.00001)
+        #plt.draw()
+        #plt.pause(.00001)
 
     def close(self):
         p.disconnect(self.client)
