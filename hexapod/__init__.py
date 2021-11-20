@@ -7,7 +7,7 @@ register(
 )
 
 register(
-    id='HexapodRenderEnv-v0',
+    id='HexapodRender-v0',
     entry_point='hexapod.envs:HexapodRenderEnv'
 )
 

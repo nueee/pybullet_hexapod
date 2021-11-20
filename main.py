@@ -54,7 +54,7 @@ def main():
 
     env.close()
 
-    rendering = gym.make("HexapodRenderEnv-v0")
+    rendering = gym.make("HexapodRender-v0")
 
     # start rendering the current model.
     obs = rendering.reset()
