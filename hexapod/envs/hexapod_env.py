@@ -1,37 +1,38 @@
 import gym
 import numpy as np
-import math
 import time
 import pybullet as p
 from hexapod.resources.hexapod import Hexapod
 from hexapod.resources.plane import Plane
-import matplotlib.pyplot as plt
 
 
 class HexapodEnv(gym.Env):
-    metadata = {'render.modes': ['human']}
+    def __init__(self, render=False):
+        joint_number = 18
+        buffer_size = 3
+        servo_high_limit = 1.5
+        servo_low_limit = -1.5
+        self.dt = 1/60
 
-    def __init__(self):
         self.action_space = gym.spaces.box.Box(
-            low=np.array([-1.5]*18, dtype=np.float32),
-            high=np.array([1.5]*18, dtype=np.float32)
+            low=np.array([servo_low_limit]*joint_number, dtype=np.float32),
+            high=np.array([servo_high_limit]*joint_number, dtype=np.float32)
         )
         self.observation_space = gym.spaces.box.Box(
-            low=np.array([-1.5]*108, dtype=np.float32),  # 3*18+3*18 = 108
-            high=np.array([1.5]*108, dtype=np.float32)
+            low=np.array([servo_low_limit]*joint_number*2*buffer_size, dtype=np.float32),  # 3*18+3*18 = 108
+            high=np.array([servo_high_limit]*joint_number*2*buffer_size, dtype=np.float32)
         )
 
         self.np_random, _ = gym.utils.seeding.np_random()
-        self.client = p.connect(p.GUI)
+        self.client = p.connect(p.GUI if render else p.DIRECT)
 
-        p.setTimeStep(1/60, self.client)  # probably, dt is 1/60 sec?
+        p.setTimeStep(self.dt, self.client)  # probably, dt is 1/60 sec?
 
-        self._jnt_buffer = np.zeros((3, 18), dtype=np.float32)
-        self._act_buffer = np.zeros((3, 18), dtype=np.float32)
+        self._jnt_buffer = np.zeros((buffer_size, joint_number), dtype=np.float32)
+        self._act_buffer = np.zeros((buffer_size, joint_number), dtype=np.float32)
         self.hexapod = None
         self.done = False
-        self.rendered_img = None
-        self.render_rot_matrix = None
+        self.render_size = 1000
         self.reset()
         
     @property
@@ -99,11 +100,7 @@ class HexapodEnv(gym.Env):
 
         return np.array(self.determine_observation, dtype=np.float32)
 
-    def render(self, mode='human'):
-        if self.rendered_img is None:
-            self.rendered_img = plt.imshow(np.zeros((100, 100, 4)))
-
-        # Base information
+    def render(self, mode='rgbarray'):
         hex_id, client_id = self.hexapod.get_ids()
         proj_matrix = p.computeProjectionMatrixFOV(
             fov=80,
@@ -112,20 +109,20 @@ class HexapodEnv(gym.Env):
             farVal=100
         )
         pos, ori = [list(l) for l in p.getBasePositionAndOrientation(hex_id, client_id)]
-        pos[2] = 0.2
+        pos = np.add(pos, [0.5, 0, 0.1])
 
         # Rotate camera direction
         rot_mat = np.array(p.getMatrixFromQuaternion(ori)).reshape(3, 3)
-        camera_vec = np.matmul(rot_mat, [1, 0, 0])
-        up_vec = np.matmul(rot_mat, np.array([0, 0, 1]))
+        camera_vec = np.matmul(rot_mat, [-1, 0, 0])
+        up_vec = np.matmul(rot_mat, np.array([0, 1, 0]))
         view_matrix = p.computeViewMatrix(pos, pos + camera_vec, up_vec)
 
         # Display image
-        frame = p.getCameraImage(100, 100, view_matrix, proj_matrix)[2]
-        frame = np.reshape(frame, (100, 100, 4))
-        self.rendered_img.set_data(frame)
-        #plt.draw()
-        #plt.pause(.00001)
+        rgb_array = p.getCameraImage(self.render_size, self.render_size, view_matrix, proj_matrix)[2]
+        rgb_array = np.reshape(rgb_array, (self.render_size, self.render_size, 4))
+
+        return rgb_array
+
 
     def close(self):
         p.disconnect(self.client)

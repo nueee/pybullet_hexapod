@@ -2,6 +2,7 @@ import time
 import numpy as np
 import gym
 import hexapod
+import cv2
 from typing import Callable
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EveryNTimesteps, CheckpointCallback
@@ -51,15 +52,18 @@ def main():
         # ,reset_num_timesteps=False   # if you need to continue learning by loading existing model, use this option.
     )
 
+    env.close()
+
+    rendering = gym.make("HexapodRender-v0")
+
     # start rendering the current model.
-    obs = env.reset()
-    env.render()
-    while True:
+    obs = rendering.reset()
+    for i in range(1000):
         action, _ = model.predict(obs.astype(np.float32))
-        obs, _, done, _ = env.step(action)
-        #if done:
-        #    obs = env.reset()
-        #    time.sleep(1/60)
+        obs, _, done, _ = rendering.step(action)
+        rendering.render()
+        if done:
+            obs = rendering.reset()
 
 
 if __name__ == '__main__':
