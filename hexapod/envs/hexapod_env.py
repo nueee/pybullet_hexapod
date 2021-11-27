@@ -32,7 +32,7 @@ class HexapodEnv(gym.Env):
         self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self.hexapod = None
         self.done = False
-        self.render_size = 100
+        self.render_size = 1000
         self.reset()
         
     @property
@@ -69,11 +69,11 @@ class HexapodEnv(gym.Env):
         # calculate the reward function
         # (velocity to <+x> + epsilon) / (rms of applied torque + epsilon) / (error to <+-y> + epsilon)
         # each of epsilon will be determined by their corresponding parameter's 'general' dimensions
-        reward = (pos_del[0] + 0.01) / (torque_rms + 1.0) / (np.abs(curr_pos[1]) + 0.5)
+        reward = (pos_del[1] + 0.001) / (torque_rms + 1.0) / (np.abs(curr_pos[0]) + 0.5)
 
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[1]) > 0.5 or curr_pos[2] < 0.08 or np.abs(curr_ang[2]) > 0.5:
+        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
 
         return self.get_observation, reward, self.done, {}

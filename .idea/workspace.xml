@@ -3,8 +3,98 @@
   <component name="ChangeListManager">
     <list default="true" id="33a911c1-e963-48d6-aa82-7853f6786b12" name="Changes" comment="changed directory and file names">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ASSY_phantom_urdf.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save_model_{trial_name}/hexapod_model_{trial_name}_10000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_{trial_name}/hexapod_model_{trial_name}_10000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_load.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.avi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_{trial_name}/hexapod_model_{trial_name}_10000_steps.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_1/events.out.tfevents.1636873640.nue16-H81M-S2VP.23625.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_10/events.out.tfevents.1637383205.nue16-H81M-S2VP.6797.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_11/events.out.tfevents.1637383243.nue16-H81M-S2VP.6823.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_12/events.out.tfevents.1637383284.nue16-H81M-S2VP.6849.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_13/events.out.tfevents.1637383408.nue16-H81M-S2VP.6877.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_14/events.out.tfevents.1637387332.nue16-H81M-S2VP.8321.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_15/events.out.tfevents.1637388703.nue16-H81M-S2VP.8855.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_16/events.out.tfevents.1637388776.nue16-H81M-S2VP.8884.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_17/events.out.tfevents.1637388791.nue16-H81M-S2VP.8914.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_18/events.out.tfevents.1637388859.nue16-H81M-S2VP.8940.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_19/events.out.tfevents.1637388925.nue16-H81M-S2VP.8977.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_2/events.out.tfevents.1636883833.nue16-H81M-S2VP.1611.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_20/events.out.tfevents.1637388958.nue16-H81M-S2VP.9007.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_21/events.out.tfevents.1637389021.nue16-H81M-S2VP.9035.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_22/events.out.tfevents.1637389620.nue16-H81M-S2VP.9251.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_23/events.out.tfevents.1637389663.nue16-H81M-S2VP.9287.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_24/events.out.tfevents.1637389691.nue16-H81M-S2VP.9308.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_25/events.out.tfevents.1637389709.nue16-H81M-S2VP.9330.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_26/events.out.tfevents.1637389737.nue16-H81M-S2VP.9356.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_27/events.out.tfevents.1637389796.nue16-H81M-S2VP.9384.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_28/events.out.tfevents.1637389999.nue16-H81M-S2VP.9469.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_29/events.out.tfevents.1637390932.nue16-H81M-S2VP.9597.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_3/events.out.tfevents.1636883953.nue16-H81M-S2VP.1828.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_30/events.out.tfevents.1637390973.nue16-H81M-S2VP.9630.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_31/events.out.tfevents.1637391208.nue16-H81M-S2VP.9672.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_32/events.out.tfevents.1637391252.nue16-H81M-S2VP.9704.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_33/events.out.tfevents.1637391309.nue16-H81M-S2VP.9729.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_34/events.out.tfevents.1637391349.nue16-H81M-S2VP.9757.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_35/events.out.tfevents.1637391518.nue16-H81M-S2VP.9814.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_36/events.out.tfevents.1637391648.nue16-H81M-S2VP.9860.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_37/events.out.tfevents.1637391688.nue16-H81M-S2VP.9886.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_38/events.out.tfevents.1637391732.nue16-H81M-S2VP.9916.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_39/events.out.tfevents.1637391775.nue16-H81M-S2VP.9941.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_4/events.out.tfevents.1636884919.nue16-H81M-S2VP.2545.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_40/events.out.tfevents.1637391798.nue16-H81M-S2VP.9965.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_41/events.out.tfevents.1637391862.nue16-H81M-S2VP.9996.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_42/events.out.tfevents.1637391903.nue16-H81M-S2VP.10021.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_43/events.out.tfevents.1637391976.nue16-H81M-S2VP.10059.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_44/events.out.tfevents.1637392002.nue16-H81M-S2VP.10081.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_45/events.out.tfevents.1637392082.nue16-H81M-S2VP.10126.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_46/events.out.tfevents.1637392264.nue16-H81M-S2VP.10172.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_47/events.out.tfevents.1637392456.nue16-H81M-S2VP.10212.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_48/events.out.tfevents.1637392513.nue16-H81M-S2VP.10244.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_49/events.out.tfevents.1637392643.nue16-H81M-S2VP.10295.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_5/events.out.tfevents.1636885247.nue16-H81M-S2VP.2677.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_50/events.out.tfevents.1637392668.nue16-H81M-S2VP.10316.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_51/events.out.tfevents.1637393037.nue16-H81M-S2VP.10408.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_52/events.out.tfevents.1637393244.nue16-H81M-S2VP.10455.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_53/events.out.tfevents.1637393272.nue16-H81M-S2VP.10478.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_54/events.out.tfevents.1637393359.nue16-H81M-S2VP.10515.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_55/events.out.tfevents.1637393393.nue16-H81M-S2VP.10540.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_56/events.out.tfevents.1637393491.nue16-H81M-S2VP.10574.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_57/events.out.tfevents.1637393594.nue16-H81M-S2VP.10618.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_58/events.out.tfevents.1637393785.nue16-H81M-S2VP.10659.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_59/events.out.tfevents.1637393806.nue16-H81M-S2VP.10682.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_6/events.out.tfevents.1636885304.nue16-H81M-S2VP.2946.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_60/events.out.tfevents.1637394184.nue16-H81M-S2VP.10755.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_61/events.out.tfevents.1637394220.nue16-H81M-S2VP.10779.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_62/events.out.tfevents.1637394283.nue16-H81M-S2VP.10807.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_63/events.out.tfevents.1637395247.nue16-H81M-S2VP.10950.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_64/events.out.tfevents.1637395277.nue16-H81M-S2VP.10978.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_65/events.out.tfevents.1637396536.nue16-H81M-S2VP.11300.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_67/events.out.tfevents.1637396590.nue16-H81M-S2VP.11363.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_68/events.out.tfevents.1637396617.nue16-H81M-S2VP.11389.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_69/events.out.tfevents.1637396660.nue16-H81M-S2VP.11414.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_7/events.out.tfevents.1637382924.nue16-H81M-S2VP.6670.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_70/events.out.tfevents.1637396744.nue16-H81M-S2VP.11463.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_71/events.out.tfevents.1637986943.nue16-H81M-S2VP.5065.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_72/events.out.tfevents.1637987076.nue16-H81M-S2VP.5197.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_73/events.out.tfevents.1637987629.nue16-H81M-S2VP.5375.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_74/events.out.tfevents.1637987717.nue16-H81M-S2VP.5437.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_75/events.out.tfevents.1637987808.nue16-H81M-S2VP.5478.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_76/events.out.tfevents.1637987855.nue16-H81M-S2VP.5495.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_77/events.out.tfevents.1637987909.nue16-H81M-S2VP.5528.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_78/events.out.tfevents.1637988694.nue16-H81M-S2VP.5799.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_79/events.out.tfevents.1637988839.nue16-H81M-S2VP.5946.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_8/events.out.tfevents.1637383016.nue16-H81M-S2VP.6727.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_80/events.out.tfevents.1637989089.nue16-H81M-S2VP.6000.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_81/events.out.tfevents.1637990113.nue16-H81M-S2VP.6262.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_82/events.out.tfevents.1637990344.nue16-H81M-S2VP.6329.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_83/events.out.tfevents.1637990583.nue16-H81M-S2VP.6657.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_84/events.out.tfevents.1637990692.nue16-H81M-S2VP.7007.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_85/events.out.tfevents.1637990728.nue16-H81M-S2VP.7143.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_86/events.out.tfevents.1637990930.nue16-H81M-S2VP.7807.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_{trial_name}/tb_{trial_name}_9/events.out.tfevents.1637383072.nue16-H81M-S2VP.6753.0" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

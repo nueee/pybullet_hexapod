@@ -28,13 +28,6 @@ class Hexapod:
         return self.hexapod, self.client
 
     def apply_action(self, action):
-        p.setJointMotorControl2(
-            self.hexapod,
-            0,
-            controlMode=p.POSITION_CONTROL,
-            force=0,
-            physicsClientId=self.client
-        )
         p.setJointMotorControlArray(
             self.hexapod,
             self.legJoints,
