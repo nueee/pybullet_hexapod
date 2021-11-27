@@ -1,12 +1,11 @@
-import time
 import numpy as np
 import gym
 import hexapod
-import cv2
 from typing import Callable
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EveryNTimesteps, CheckpointCallback
 from stable_baselines3.common.env_util import make_vec_env
+from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecNormalize
 
 
 def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], float]:
@@ -28,7 +27,9 @@ event_callback = EveryNTimesteps(
 
 
 def main():
-    env = gym.make("Hexapod-v0")
+    env = make_vec_env("Hexapod-v0", n_envs=4, seed=0, vec_env_cls=SubprocVecEnv)
+    # env = SubprocVecEnv([lambda: gym.make("Hexapod-v0")])
+    env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
     model = PPO(
         "MlpPolicy",
         env=env,
