@@ -8,19 +8,19 @@ from hexapod.resources.plane import Plane
 
 class HexapodEnv(gym.Env):
     def __init__(self, render=False):
-        joint_number = 18
-        buffer_size = 3
+        self.joint_number = 18
+        self.buffer_size = 3
         servo_high_limit = 1.5
         servo_low_limit = -1.5
         self.dt = 1/60
 
         self.action_space = gym.spaces.box.Box(
-            low=np.array([servo_low_limit]*joint_number, dtype=np.float32),
-            high=np.array([servo_high_limit]*joint_number, dtype=np.float32)
+            low=np.array([servo_low_limit]*self.joint_number, dtype=np.float32),
+            high=np.array([servo_high_limit]*self.joint_number, dtype=np.float32)
         )
         self.observation_space = gym.spaces.box.Box(
-            low=np.array([servo_low_limit]*joint_number*2*buffer_size, dtype=np.float32),  # 3*18+3*18 = 108
-            high=np.array([servo_high_limit]*joint_number*2*buffer_size, dtype=np.float32)
+            low=np.array([servo_low_limit]*self.joint_number*2*self.buffer_size, dtype=np.float32),  # 3*18+3*18 = 108
+            high=np.array([servo_high_limit]*self.joint_number*2*self.buffer_size, dtype=np.float32)
         )
 
         self.np_random, _ = gym.utils.seeding.np_random()
@@ -28,15 +28,15 @@ class HexapodEnv(gym.Env):
 
         p.setTimeStep(self.dt, self.client)  # probably, dt is 1/60 sec?
 
-        self._jnt_buffer = np.zeros((buffer_size, joint_number), dtype=np.float32)
-        self._act_buffer = np.zeros((buffer_size, joint_number), dtype=np.float32)
+        self._jnt_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
+        self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self.hexapod = None
         self.done = False
-        self.render_size = 1000
+        self.render_size = 100
         self.reset()
         
     @property
-    def determine_observation(self):
+    def get_observation(self):
         # observation is flatten buffer of joint history + action history
         observation = np.concatenate([
             self._jnt_buffer.ravel(),
@@ -73,32 +73,39 @@ class HexapodEnv(gym.Env):
 
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[1]) > 1.0 or curr_pos[2] < 0.02 or np.abs(curr_ang[2]) > 1.0:
+        if np.abs(curr_pos[1]) > 0.5 or curr_pos[2] < 0.08 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
 
-        return self.determine_observation, reward, self.done, {}
+        return self.get_observation, reward, self.done, {}
 
     def seed(self, seed=None):
         self.np_random, seed = gym.utils.seeding.np_random(seed)
         return [seed]
 
     def reset(self):
-        p.resetSimulation(self.client)
-        p.setGravity(0, 0, -9.8)
+        # p.resetSimulation(self.client)
+        # p.setGravity(0, 0, -9.8)
+        # # Reload the plane and hexapod
+        # Plane(self.client)
+        # print("start loading hexapod... "); reset_start_time = time.time()  # debug
+        # self.hexapod = Hexapod(self.client)
+        # reset_end_time = time.time(); print("...end loading hexapod.") # debug
+        # print("elapsed time :", reset_end_time - reset_start_time, "sec.\n")  # debug
 
-        # Reload the plane and hexapod
-        Plane(self.client)
-        print("start loading hexapod... "); reset_start_time = time.time()  # debug
-        self.hexapod = Hexapod(self.client)
-        reset_end_time = time.time(); print("...end loading hexapod.")
-        print("elapsed time :", reset_end_time - reset_start_time, "sec.\n")  # debug
+        if self.hexapod is None:
+            p.resetSimulation(self.client)
+            p.setGravity(0, 0, -9.8)
+            Plane(self.client)
+            self.hexapod = Hexapod(self.client)
+        else:
+            self.hexapod.reset_hexapod()
 
         self.done = False
         # reset history buffers
-        self._jnt_buffer = np.zeros((3, 18), dtype=np.float32)
-        self._act_buffer = np.zeros((3, 18), dtype=np.float32)
+        self._jnt_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
+        self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
 
-        return np.array(self.determine_observation, dtype=np.float32)
+        return np.array(self.get_observation, dtype=np.float32)
 
     def render(self, mode='rgbarray'):
         hex_id, client_id = self.hexapod.get_ids()

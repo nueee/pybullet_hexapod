@@ -46,7 +46,7 @@ def main():
     # model = PPO.load(path='{existing model path...}', env=env)
 
     model.learn(
-        int(1e2),  # total timesteps used for learning
+        int(1e4),  # total timesteps used for learning
         callback=event_callback,  # every n_steps, save the model.
         tb_log_name='tb_{trial_name}'
         # ,reset_num_timesteps=False   # if you need to continue learning by loading existing model, use this option.

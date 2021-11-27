@@ -7,14 +7,17 @@ import numpy as np
 class Hexapod:
     def __init__(self, client):
         self.client = client
+
+        self.init_pos = [0.0, 0.0, 0.1]
+        self.init_ori = p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0])
         f_name = os.path.join(
             os.path.dirname(__file__),
             'ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf'
         )
         self.hexapod = p.loadURDF(
             fileName=f_name,
-            basePosition=[0.0, 0.0, 0.1],
-            baseOrientation=p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0]),
+            basePosition=self.init_pos,
+            baseOrientation=self.init_ori,
             physicsClientId=client
         )
 
@@ -61,8 +64,8 @@ class Hexapod:
 
         return torques
 
-    # def reset_hexapod(self):
-    #     for i in range(p.getNumJoints(self.hexapod, self.client)):
-    #         p.resetJointState(self.hexapod, i, 0.0, 0.0, self.client)
-    #     p.resetBaseVelocity(self.hexapod, [0.0]*3, [0.0]*3, self.client)
-    #     p.resetBasePositionAndOrientation(self.hexapod, [0.0, 0.0, 0.1], [0.0]*4, self.client)
+    def reset_hexapod(self):
+        p.resetBasePositionAndOrientation(self.hexapod, self.init_pos, self.init_ori, self.client)
+        p.resetBaseVelocity(self.hexapod, [0.0]*3, [0.0]*3, self.client)
+        for i in range(p.getNumJoints(self.hexapod, self.client)):
+            p.resetJointState(self.hexapod, i, 0.0, 0.0, self.client)
