@@ -2,11 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33a911c1-e963-48d6-aa82-7853f6786b12" name="Changes" comment="changed directory and file names">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/export.log" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/export.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LB_calf.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LB_calf.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LB_foot.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LB_foot.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LB_thigh.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LB_thigh.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LF_calf.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LF_calf.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LF_foot.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LF_foot.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LF_thigh.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LF_thigh.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LM_calf.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LM_calf.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LM_foot.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LM_foot.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LM_thigh.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/LM_thigh.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RB_calf.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RB_calf.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RB_foot.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RB_foot.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RB_thigh.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RB_thigh.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RF_calf.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RF_calf.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RF_foot.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RF_foot.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RF_thigh.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RF_thigh.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RM_calf.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RM_calf.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RM_foot.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RM_foot.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RM_thigh.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/RM_thigh.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/reference_plate.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/reference_plate.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/torso.STL" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/meshes/torso.STL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
