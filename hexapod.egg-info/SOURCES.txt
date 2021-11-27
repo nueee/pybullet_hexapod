@@ -1,0 +1,7 @@
+README.md
+setup.py
+hexapod.egg-info/PKG-INFO
+hexapod.egg-info/SOURCES.txt
+hexapod.egg-info/dependency_links.txt
+hexapod.egg-info/requires.txt
+hexapod.egg-info/top_level.txt
