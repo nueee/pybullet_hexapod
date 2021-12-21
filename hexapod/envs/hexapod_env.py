@@ -30,6 +30,8 @@ restitution is not easy parameter to rand
 '''
 
 ORIGINAL_VALUES = []
+
+
 class HexapodEnv(gym.Env):
     def __init__(self, render=False):
         self.joint_number = 18
@@ -59,8 +61,8 @@ class HexapodEnv(gym.Env):
         self.render_size = 1000
         self.reset()
         # get initial values for Domain Randomization 
-        for i in range(-1,18,1):
-        	ORIGINAL_VALUES.append(p.getDynamicsInfo(1,i))
+        for i in range(-1, 18, 1):
+            ORIGINAL_VALUES.append(p.getDynamicsInfo(1, i))
         print("original values") 
         print(ORIGINAL_VALUES) 
         
@@ -93,7 +95,8 @@ class HexapodEnv(gym.Env):
         pos_del = curr_pos - prev_pos
         # ang_del = curr_ang - prev_ang  # unused
 
-        torque_rms = np.sqrt(np.mean(np.square(self.hexapod.get_joint_torques())))  # get torques applied on joints
+        torques = self.hexapod.get_joint_torques()
+        torque_rms = np.sqrt(np.mean(np.square(torques)))  # get torques applied on joints
 
         # calculate the reward function
         # (velocity to <+x> + epsilon) / (rms of applied torque + epsilon) / (error to <+-y> + epsilon)
@@ -105,7 +108,14 @@ class HexapodEnv(gym.Env):
         if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
 
-        return self.get_observation, reward, self.done, {}
+        info = {
+            # 'reward': reward,
+            # 'forward delta': pos_del[1],
+            # 'side delta': curr_pos[0],
+            'torques': torques
+        }
+
+        return self.get_observation, reward, self.done, info
 
     def seed(self, seed=None):
         self.np_random, seed = gym.utils.seeding.np_random(seed)
@@ -120,7 +130,6 @@ class HexapodEnv(gym.Env):
         # self.hexapod = Hexapod(self.client)
         # reset_end_time = time.time(); print("...end loading hexapod.") # debug
         # print("elapsed time :", reset_end_time - reset_start_time, "sec.\n")  # debug
-        
 
         if self.hexapod is None:
             p.resetSimulation(self.client)
@@ -131,19 +140,19 @@ class HexapodEnv(gym.Env):
             # Domain Randomization PART!!!!!!!!!!!!!!!!
             print("see Dynamics")
             for i in range(-1,18,1):
-            	print(p.getDynamicsInfo(1,i)[0])
+                print(p.getDynamicsInfo(1,i)[0])
             # 1. Mass Randomization 
             print("mass rand")
             for i in range(-1,18,1): 
-            	#print(ORIGINAL_VALUES[i+1][0])
+                # print(ORIGINAL_VALUES[i+1][0])
             
-            	if load: # if it is model loading phase, return to original parameters 
-            		p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),spinningFriction=ORIGINAL_VALUES[i+1][-3]*(1),rollingFriction=ORIGINAL_VALUES[i+1][-4]*(1),)
-            	else:
-            		p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=ORIGINAL_VALUES[i+1][1]*(0.8+0.4*np.random.random()),spinningFriction=ORIGINAL_VALUES[i+1][-3]*(0.8+0.4*np.random.random()),rollingFriction=ORIGINAL_VALUES[i+1][-4]*(0.8+0.4*np.random.random()),) # localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
-		    	
-            	#,localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
-            	
+                if load: # if it is model loading phase, return to original parameters
+                    p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),spinningFriction=ORIGINAL_VALUES[i+1][-3]*(1),rollingFriction=ORIGINAL_VALUES[i+1][-4]*(1),)
+                else:
+                    p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=ORIGINAL_VALUES[i+1][1]*(0.8+0.4*np.random.random()),spinningFriction=ORIGINAL_VALUES[i+1][-3]*(0.8+0.4*np.random.random()),rollingFriction=ORIGINAL_VALUES[i+1][-4]*(0.8+0.4*np.random.random()),) # localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
+
+                # ,localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
+
             self.hexapod.reset_hexapod()
 
         self.done = False

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/pybullet_hexy_from_simplecar.iml" filepath="$PROJECT_DIR$/.idea/pybullet_hexy_from_simplecar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pybullet_hexapod.iml" filepath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" />
     </modules>
   </component>
 </project>
