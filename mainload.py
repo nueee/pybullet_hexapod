@@ -12,12 +12,12 @@ from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecNorm
 #env = SubprocVecEnv([lambda: gym.make("Hexapod-v0")])
 #env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
 
-rendering = gym.make("Hexapod-v0")
+rendering = gym.make("HexapodRender-v0")
 model = PPO.load(path='./save_model_1204/A/hexapod_model_1204A_1000000_steps', env=rendering)
 
 # start rendering the current model.
 obs = rendering.reset()
-#rendering.render()
+rendering.render()
 for i in range(1000):
 	action, _ = model.predict(obs.astype(np.float32))
 	obs, _, done, _ = rendering.step(action)
