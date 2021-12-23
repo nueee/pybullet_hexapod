@@ -15,11 +15,11 @@ from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecNormalize
 
 def analog_to_digital(x):
-	r = (100*x + 150)*1023/300
+	r = (x + 2.62)*1023/5.24
 	return np.floor(r+0.5)  
 
 def digital_to_analog(x): 
-	return ((x*300/1023)-150)/100
+	return (x*5.24/1023)-2.62
 	
 def _readline(serial): # https://coderedirect.com/questions/211612/using-pyserial-is-it-possible-to-wait-for-data
     eol = b'r'
