@@ -4,6 +4,8 @@ import time
 import pybullet as p
 from hexapod.resources.hexapod import Hexapod
 from hexapod.resources.plane import Plane
+from gravity_acc import CONFIG
+import configparser
 
 '''Domain Randomization Documents(Temporary)
 From Jie Tan et.al
@@ -30,27 +32,26 @@ restitution is not easy parameter to rand
 '''
 
 ORIGINAL_VALUES = []
-
-
 class HexapodEnv(gym.Env):
     def __init__(self, render=False):
         self.joint_number = 18
         self.buffer_size = 3
-        servo_high_limit = 1.5
-        servo_low_limit = -1.5
+        self.servo_high_limit = 2.62
+        self.servo_low_limit = -2.62
         self.dt = 1/60
 
         self.action_space = gym.spaces.box.Box(
-            low=np.array([servo_low_limit]*self.joint_number, dtype=np.float32),
-            high=np.array([servo_high_limit]*self.joint_number, dtype=np.float32)
+            low=np.array([self.servo_low_limit]*self.joint_number, dtype=np.float32),
+            high=np.array([self.servo_high_limit]*self.joint_number, dtype=np.float32)
         )
         self.observation_space = gym.spaces.box.Box(
-            low=np.array([servo_low_limit]*self.joint_number*2*self.buffer_size, dtype=np.float32),  # 3*18+3*18 = 108
-            high=np.array([servo_high_limit]*self.joint_number*2*self.buffer_size, dtype=np.float32)
+            low=np.array([self.servo_low_limit]*self.joint_number*2*self.buffer_size, dtype=np.float32),  # 3*18+3*18 = 108
+            high=np.array([self.servo_high_limit]*self.joint_number*2*self.buffer_size, dtype=np.float32)
         )
 
         self.np_random, _ = gym.utils.seeding.np_random()
         self.client = p.connect(p.GUI if render else p.DIRECT)
+        
 
         p.setTimeStep(self.dt, self.client)  # probably, dt is 1/60 sec?
 
@@ -61,8 +62,8 @@ class HexapodEnv(gym.Env):
         self.render_size = 1000
         self.reset()
         # get initial values for Domain Randomization 
-        for i in range(-1, 18, 1):
-            ORIGINAL_VALUES.append(p.getDynamicsInfo(1, i))
+        for i in range(-1,18,1):
+        	ORIGINAL_VALUES.append(p.getDynamicsInfo(1,i))
         print("original values") 
         print(ORIGINAL_VALUES) 
         
@@ -95,6 +96,7 @@ class HexapodEnv(gym.Env):
         pos_del = curr_pos - prev_pos
         # ang_del = curr_ang - prev_ang  # unused
 
+
         torques = self.hexapod.get_joint_torques()
         torque_rms = np.sqrt(np.mean(np.square(torques)))  # get torques applied on joints
 
@@ -107,7 +109,7 @@ class HexapodEnv(gym.Env):
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
         if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
-
+        
         info = {
             # 'reward': reward,
             # 'forward delta': pos_del[1],
@@ -130,29 +132,37 @@ class HexapodEnv(gym.Env):
         # self.hexapod = Hexapod(self.client)
         # reset_end_time = time.time(); print("...end loading hexapod.") # debug
         # print("elapsed time :", reset_end_time - reset_start_time, "sec.\n")  # debug
+        
 
         if self.hexapod is None:
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.8)
+            
+            # g value setting 
+            config_obj = configparser.ConfigParser()
+            config_obj.read("./configfile.ini")
+            dbparam = config_obj["postgresql"]
+            p.setGravity(0,0,float(dbparam["g"]))
+            print("set gravity to" + str(dbparam))
             Plane(self.client)
             self.hexapod = Hexapod(self.client)
         else:
             # Domain Randomization PART!!!!!!!!!!!!!!!!
             print("see Dynamics")
             for i in range(-1,18,1):
-                print(p.getDynamicsInfo(1,i)[0])
+            	print(p.getDynamicsInfo(1,i)[0])
             # 1. Mass Randomization 
             print("mass rand")
             for i in range(-1,18,1): 
-                # print(ORIGINAL_VALUES[i+1][0])
+            	#print(ORIGINAL_VALUES[i+1][0])
             
-                if load: # if it is model loading phase, return to original parameters
-                    p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),spinningFriction=ORIGINAL_VALUES[i+1][-3]*(1),rollingFriction=ORIGINAL_VALUES[i+1][-4]*(1),)
-                else:
-                    p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=ORIGINAL_VALUES[i+1][1]*(0.8+0.4*np.random.random()),spinningFriction=ORIGINAL_VALUES[i+1][-3]*(0.8+0.4*np.random.random()),rollingFriction=ORIGINAL_VALUES[i+1][-4]*(0.8+0.4*np.random.random()),) # localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
-
-                # ,localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
-
+            	if load: # if it is model loading phase, return to original parameters 
+            		p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),restitution=ORIGINAL_VALUES[i+1][-6],localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(1),ORIGINAL_VALUES[i+1][-8][1]*(1),ORIGINAL_VALUES[i+1][-8][2]*(1)))
+            	else:
+            		p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=(0.5+0.75*(np.random.random())),restitution=(0.0001+0.8999*np.random.random()),localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][1]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][2]*(0.8+0.4*np.random.random()))) # localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
+		    	
+            	#,localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
+            	
             self.hexapod.reset_hexapod()
 
         self.done = False
