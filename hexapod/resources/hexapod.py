@@ -21,6 +21,9 @@ class Hexapod:
             physicsClientId=client
         )
 
+        print("id")
+        print(self.hexapod)
+
         self.legJoints = range(18)
         self.jointForces = np.array([1.0]*18)
 
