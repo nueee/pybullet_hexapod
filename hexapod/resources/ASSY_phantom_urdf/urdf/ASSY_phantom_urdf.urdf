@@ -5,50 +5,10 @@
 <robot
   name="ASSY_phantom_urdf">
   <link
-    name="reference_plate">
-    <inertial>
-      <origin
-        xyz="0.00050140295586751 0.00476768059132254 -0.00220937750942808"
-        rpy="1.57 0 0" />
-      <mass
-        value="0.00690770093421999" />
-      <inertia
-        ixx="2.23765892159588E-06"
-        ixy="1.65130603814035E-08"
-        ixz="1.00658310536628E-09"
-        iyy="1.33383947729737E-06"
-        iyz="9.57127731069102E-09"
-        izz="3.53984298105267E-06" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/reference_plate.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/reference_plate.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <link
     name="torso">
     <inertial>
       <origin
-        xyz="-1.1466E-15 0.01927 -0.0017132"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <mass
         value="0.73121" />
@@ -84,19 +44,6 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="ref_to_torso_joint"
-    type="continuous">
-    <origin
-      xyz="0 0 0"
-      rpy="1.5708 0 1.5708" />
-    <parent
-      link="reference_plate" />
-    <child
-      link="torso" />
-    <axis
-      xyz="0 1 0" />
-  </joint>
   <link
     name="LF_thigh">
     <inertial>

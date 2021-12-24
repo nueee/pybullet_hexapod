@@ -28,6 +28,7 @@ class Hexapod:
         self.jointForces = np.array([1.0]*18)
 
     def get_ids(self):
+
         return self.hexapod, self.client
 
     def apply_action(self, action):
@@ -60,8 +61,20 @@ class Hexapod:
 
         return torques
 
-    def reset_hexapod(self):
+    def reset_hexapod(self, fixed=False):
         p.resetBasePositionAndOrientation(self.hexapod, self.init_pos, self.init_ori, self.client)
         p.resetBaseVelocity(self.hexapod, [0.0]*3, [0.0]*3, self.client)
         for i in range(p.getNumJoints(self.hexapod, self.client)):
             p.resetJointState(self.hexapod, i, 0.0, 0.0, self.client)
+        if fixed:
+            p.createConstraint(
+                parentBodyUniqueId=p.getBodyUniqueId(self.hexapod),
+                parentLinkIndex=-1,
+                childBodyUniqueId=-1,
+                childLinkIndex=-1,
+                jointType=p.JOINT_FIXED,
+                jointAxis=[0, 0, 0],
+                parentFramePosition=[0, 0, 0],
+                childFramePosition=[0, 0, 0.5],
+                childFrameOrientation=p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0]),
+            )

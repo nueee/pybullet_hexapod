@@ -4,7 +4,6 @@ import time
 import pybullet as p
 from hexapod.resources.hexapod import Hexapod
 from hexapod.resources.plane import Plane
-from gravity_acc import CONFIG
 import configparser
 
 '''Domain Randomization Documents(Temporary)
@@ -51,7 +50,6 @@ class HexapodEnv(gym.Env):
 
         self.np_random, _ = gym.utils.seeding.np_random()
         self.client = p.connect(p.GUI if render else p.DIRECT)
-        
 
         p.setTimeStep(self.dt, self.client)  # probably, dt is 1/60 sec?
 
@@ -62,8 +60,8 @@ class HexapodEnv(gym.Env):
         self.render_size = 1000
         self.reset()
         # get initial values for Domain Randomization 
-        for i in range(-1,18,1):
-        	ORIGINAL_VALUES.append(p.getDynamicsInfo(1,i))
+        for i in range(-1, 18, 1):
+            ORIGINAL_VALUES.append(p.getDynamicsInfo(1, i))
         print("original values") 
         print(ORIGINAL_VALUES) 
         
@@ -96,7 +94,6 @@ class HexapodEnv(gym.Env):
         pos_del = curr_pos - prev_pos
         # ang_del = curr_ang - prev_ang  # unused
 
-
         torques = self.hexapod.get_joint_torques()
         torque_rms = np.sqrt(np.mean(np.square(torques)))  # get torques applied on joints
 
@@ -123,7 +120,7 @@ class HexapodEnv(gym.Env):
         self.np_random, seed = gym.utils.seeding.np_random(seed)
         return [seed]
 
-    def reset(self,load=False):
+    def reset(self, load=False, fixed=False):
         # p.resetSimulation(self.client)
         # p.setGravity(0, 0, -9.8)
         # # Reload the plane and hexapod
@@ -132,7 +129,6 @@ class HexapodEnv(gym.Env):
         # self.hexapod = Hexapod(self.client)
         # reset_end_time = time.time(); print("...end loading hexapod.") # debug
         # print("elapsed time :", reset_end_time - reset_start_time, "sec.\n")  # debug
-        
 
         if self.hexapod is None:
             p.resetSimulation(self.client)
@@ -150,20 +146,20 @@ class HexapodEnv(gym.Env):
             # Domain Randomization PART!!!!!!!!!!!!!!!!
             print("see Dynamics")
             for i in range(-1,18,1):
-            	print(p.getDynamicsInfo(1,i)[0])
+                print(p.getDynamicsInfo(1,i)[0])
             # 1. Mass Randomization 
             print("mass rand")
             for i in range(-1,18,1): 
-            	#print(ORIGINAL_VALUES[i+1][0])
+                #print(ORIGINAL_VALUES[i+1][0])
             
-            	if load: # if it is model loading phase, return to original parameters 
-            		p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),restitution=ORIGINAL_VALUES[i+1][-6],localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(1),ORIGINAL_VALUES[i+1][-8][1]*(1),ORIGINAL_VALUES[i+1][-8][2]*(1)))
-            	else:
-            		p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=(0.5+0.75*(np.random.random())),restitution=(0.0001+0.8999*np.random.random()),localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][1]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][2]*(0.8+0.4*np.random.random()))) # localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
-		    	
-            	#,localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
-            	
-            self.hexapod.reset_hexapod()
+                if load: # if it is model loading phase, return to original parameters
+                    p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),restitution=ORIGINAL_VALUES[i+1][-6],localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(1),ORIGINAL_VALUES[i+1][-8][1]*(1),ORIGINAL_VALUES[i+1][-8][2]*(1)))
+                else:
+                    p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=(0.5+0.75*(np.random.random())),restitution=(0.0001+0.8999*np.random.random()),localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][1]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][2]*(0.8+0.4*np.random.random()))) # localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
+
+                #,localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
+
+            self.hexapod.reset_hexapod(fixed=fixed)
 
         self.done = False
         # reset history buffers
