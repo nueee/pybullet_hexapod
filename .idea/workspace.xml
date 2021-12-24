@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="">
+    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/24 integration before file structure refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_command_seq.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_command_seq.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/command.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config_make.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config_read.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config_upd.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy_err_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_command_seq.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainload.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainload.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simul_err_calc.py" beforeDir="false" afterPath="$PROJECT_DIR$/simul_err_calc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/urdf_joint_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/urdf_joint_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/just_render.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simul_err_calc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf_joint_test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +48,14 @@
       <option name="presentableId" value="Default" />
       <updated>1639836295572</updated>
     </task>
+    <task id="LOCAL-00001" summary="12/24 integration before file structure refactoring">
+      <created>1640345039599</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1640345039599</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -57,5 +69,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="12/24 integration before file structure refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="12/24 integration before file structure refactoring" />
   </component>
 </project>

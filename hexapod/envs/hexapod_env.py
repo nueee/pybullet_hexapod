@@ -63,8 +63,8 @@ class HexapodEnv(gym.Env):
         # get initial values for Domain Randomization 
         for i in range(-1,18,1):
         	ORIGINAL_VALUES.append(p.getDynamicsInfo(1,i))
-        print("original values") 
-        print(ORIGINAL_VALUES) 
+        #print("original values")
+        #print(ORIGINAL_VALUES)
         
     @property
     def get_observation(self):
@@ -147,11 +147,13 @@ class HexapodEnv(gym.Env):
             self.hexapod = Hexapod(self.client)
         else:
             # Domain Randomization PART!!!!!!!!!!!!!!!!
+            '''
             print("see Dynamics")
             for i in range(-1,18,1):
             	print(p.getDynamicsInfo(1,i)[0])
+            '''
             # 1. Mass Randomization 
-            print("mass rand")
+            #print("mass rand")
             for i in range(-1,18,1): 
             	#print(ORIGINAL_VALUES[i+1][0])
             
