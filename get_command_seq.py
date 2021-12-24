@@ -15,10 +15,10 @@ def write_list_to_csv(x):
 	data_df=DataFrame(data)
 	print(data_df)
 	data_df.to_csv('command.csv')
-	
+
 
 rendering = gym.make("HexapodRender-v0")
-model = PPO.load("./save_model_1212/A/hexapod_model_1212A_10000000_steps.zip")
+model = PPO.load("./save_model_1224/A/hexapod_model_1224A_50000_steps.zip")
 
 # start rendering the current model.
 obs = rendering.reset()

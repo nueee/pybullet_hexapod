@@ -14,7 +14,7 @@ def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], 
     return func
 
 
-date = "1223"
+date = "1224"
 trial = "A"
 
 
@@ -62,7 +62,7 @@ def main():
     # model = PPO.load(path='{existing model path...}', env=env)
 
     model.learn(
-        int(1e5),  # total timesteps used for learning
+        int(5e4),  # total timesteps used for learning
         callback=event_callback,  # every n_steps, save the model.
         tb_log_name='tb_'+date+trial
         # ,reset_num_timesteps=False   # if you need to continue learning by loading existing model, use this option.

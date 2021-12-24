@@ -4,7 +4,6 @@ import time
 import pybullet as p
 from hexapod.resources.hexapod import Hexapod
 from hexapod.resources.plane import Plane
-from gravity_acc import CONFIG
 import configparser
 
 '''Domain Randomization Documents(Temporary)
