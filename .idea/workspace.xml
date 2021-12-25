@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/24 file structure refactoring">
+    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="for checking fixed error">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config_examples/config_make.py" beforeDir="false" afterPath="$PROJECT_DIR$/config_examples/config_make.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainload.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainload.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation_tuning/simul_err_calc.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation_tuning/simul_err_calc.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +75,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640353128546</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="for checking fixed error">
+      <created>1640420124331</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1640420124331</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -90,6 +100,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="12/24 integration before file structure refactoring" />
     <MESSAGE value="12/24 file structure refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="12/24 file structure refactoring" />
+    <MESSAGE value="for checking fixed error" />
+    <option name="LAST_COMMIT_MESSAGE" value="for checking fixed error" />
   </component>
 </project>

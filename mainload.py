@@ -17,7 +17,7 @@ def analog_to_digital(x):
 #env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
 
 rendering = gym.make("HexapodRender-v0")
-model = PPO.load(path='./save_model_1225/A/hexapod_model_1225A_50000_steps', env=rendering)
+model = PPO.load(path='./save_model_1225/A/hexapod_model_1225A_500000_steps', env=rendering)
 
 # start rendering the current model.
 obs = rendering.reset(load=True, fixed=False)

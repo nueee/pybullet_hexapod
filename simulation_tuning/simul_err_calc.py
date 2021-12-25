@@ -100,7 +100,7 @@ def get_brute_force_alpha():
     return bestval, bestalpha
 
 
-print(E([0.5,0.5]))
+print(E([0,0]))
 
 
 # things to keep in mind

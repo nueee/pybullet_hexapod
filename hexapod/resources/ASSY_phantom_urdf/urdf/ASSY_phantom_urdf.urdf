@@ -101,9 +101,6 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
   </joint>
   <link
     name="LF_calf">
@@ -162,9 +159,7 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
   </joint>
   <link
     name="LF_foot">
@@ -223,9 +218,7 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
   </joint>
   <link
     name="LM_thigh">
@@ -284,9 +277,7 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
   </joint>
   <link
     name="LM_calf">
@@ -345,9 +336,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="LM_foot">
@@ -406,9 +396,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="LB_thigh">
@@ -467,9 +456,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="LB_calf">
@@ -528,9 +516,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="LB_foot">
@@ -589,9 +576,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RF_thigh">
@@ -650,9 +636,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RF_calf">
@@ -711,9 +696,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RF_foot">
@@ -772,9 +756,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RM_thigh">
@@ -833,9 +816,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RM_calf">
@@ -894,9 +876,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RM_foot">
@@ -955,9 +936,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RB_thigh">
@@ -1016,9 +996,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RB_calf">
@@ -1077,9 +1056,8 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
+
+
   </joint>
   <link
     name="RB_foot">
@@ -1138,8 +1116,5 @@
       upper="2.62"
       effort="1.5"
       velocity="0" />
-    <dynamics
-      damping="0.5"
-      friction="1" />
   </joint>
 </robot>
