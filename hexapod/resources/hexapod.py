@@ -78,3 +78,7 @@ class Hexapod:
                 childFramePosition=[0, 0, 0.5],
                 childFrameOrientation=p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0]),
             )
+
+    def set_joint_forces(self,joint_forces_array):
+        for i in range(18):
+            self.jointForces[i] = joint_forces_array[i]

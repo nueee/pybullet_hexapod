@@ -38,7 +38,6 @@ class HexapodEnv(gym.Env):
         self.servo_high_limit = 2.62
         self.servo_low_limit = -2.62
         self.dt = 1/60
-
         self.action_space = gym.spaces.box.Box(
             low=np.array([self.servo_low_limit]*self.joint_number, dtype=np.float32),
             high=np.array([self.servo_high_limit]*self.joint_number, dtype=np.float32)
@@ -60,6 +59,19 @@ class HexapodEnv(gym.Env):
         self.render_size = 1000
         self.reset()
         self.id = 1
+
+        # get alpha values for simulation tuning
+
+        config_obj = configparser.ConfigParser()
+        config_obj.read("../configfile.ini")
+        dbparam = config_obj["alpha"]
+        self.joint_damping_alpha = float(dbparam['joint_damping'])
+        self.force_alpha =  float(dbparam['force'])
+        print("self values : ")
+        print(self.joint_damping_alpha,self.force_alpha)
+
+
+
         # get initial values for Domain Randomization 
         for i in range(-1,18,1):
             ORIGINAL_VALUES.append(p.getDynamicsInfo(self.id,i))
@@ -161,10 +173,14 @@ class HexapodEnv(gym.Env):
                 #print(ORIGINAL_VALUES[i+1][0])
             
                 if load: # if it is model loading phase, return to original parameters
-                    p.changeDynamics(self.id,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),restitution=ORIGINAL_VALUES[i+1][-6],localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(1),ORIGINAL_VALUES[i+1][-8][1]*(1),ORIGINAL_VALUES[i+1][-8][2]*(1)))
+                    p.changeDynamics(self.id,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),restitution=ORIGINAL_VALUES[i+1][-6],localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(1),ORIGINAL_VALUES[i+1][-8][1]*(1),ORIGINAL_VALUES[i+1][-8][2]*(1)),jointDamping=0.2-self.joint_damping_alpha)
+                    self.hexapod.set_joint_forces(np.array([1.5-self.force_alpha]*18))
                 else:
-                    p.changeDynamics(self.id,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=(0.5+0.75*(np.random.random())),restitution=(0.0001+0.8999*np.random.random()),localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][1]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][2]*(0.8+0.4*np.random.random())))
-
+                    p.changeDynamics(self.id,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=(0.5+0.75*(np.random.random())),restitution=(0.0001+0.8999*np.random.random()),localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][1]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][2]*(0.8+0.4*np.random.random())),jointDamping=0.2-self.joint_damping_alpha,)
+                    rand_force_array = np.array([1.5-self.force_alpha]*18)
+                    for j in range(18): # init respectively
+                        rand_force_array[j] = rand_force_array[j]*(0.8 + 0.4*np.random.random())
+                    self.hexapod.set_joint_forces(rand_force_array)
 
             self.hexapod.reset_hexapod(fixed=fixed)
 
