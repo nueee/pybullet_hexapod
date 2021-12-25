@@ -60,10 +60,10 @@ class HexapodEnv(gym.Env):
         self.render_size = 1000
         self.reset()
         # get initial values for Domain Randomization 
-        for i in range(-1, 18, 1):
-            ORIGINAL_VALUES.append(p.getDynamicsInfo(1, i))
-        print("original values") 
-        print(ORIGINAL_VALUES) 
+        for i in range(-1,18,1):
+        	ORIGINAL_VALUES.append(p.getDynamicsInfo(1,i))
+        #print("original values")
+        #print(ORIGINAL_VALUES)
         
     @property
     def get_observation(self):
@@ -134,21 +134,25 @@ class HexapodEnv(gym.Env):
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.8)
             
-            # g value setting 
+            # g value setting
+            '''
             config_obj = configparser.ConfigParser()
-            config_obj.read("./configfile.ini")
+            config_obj.read("../../configfile.ini")
             dbparam = config_obj["postgresql"]
             p.setGravity(0,0,float(dbparam["g"]))
             print("set gravity to" + str(dbparam))
             Plane(self.client)
+            '''
             self.hexapod = Hexapod(self.client)
         else:
             # Domain Randomization PART!!!!!!!!!!!!!!!!
+            '''
             print("see Dynamics")
             for i in range(-1,18,1):
-                print(p.getDynamicsInfo(1,i)[0])
+            	print(p.getDynamicsInfo(1,i)[0])
+            '''
             # 1. Mass Randomization 
-            print("mass rand")
+            #print("mass rand")
             for i in range(-1,18,1): 
                 #print(ORIGINAL_VALUES[i+1][0])
             

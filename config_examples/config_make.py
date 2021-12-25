@@ -6,7 +6,7 @@ config.add_section('postgresql')
 config.set('postgresql', 'g', '-9.8')
 # Write the new structure to the new file
 
-with open("./configfile.ini", 'w') as configfile:
+with open("../configfile.ini", 'w') as configfile:
     config.write(configfile)
     
     

@@ -4,7 +4,7 @@ import configparser
 
 config_obj = configparser.ConfigParser()
             
-config_obj.read("./configfile.ini")
+config_obj.read("../configfile.ini")
 
 print("2")
 dbparam = config_obj["postgresql"]

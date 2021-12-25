@@ -69,10 +69,10 @@ pybullet.setTimeStep(0.1)
 
 # Load the URDF file of your robot.
 
-#robot = pybullet.loadURDF(r'./pybullet_hexapod_from_simplecar-main/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf',[0,0,0],useFixedBase=1)
+robot = pybullet.loadURDF(r'../hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf',[0,0,0],useFixedBase=1)
 #robot = pybullet.loadURDF(r'./pybullet_hexapod_from_simplecar-main/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf',[0,0,0],useFixedBase=1)
 
-robot = pybullet.loadURDF(r'./Hexy_referenced3/urdf/Hexy_referenced3.urdf',[0,0,0],useFixedBase=1)
+#robot = pybullet.loadURDF(r'./Hexy_referenced3/urdf/Hexy_referenced3.urdf',[0,0,0],useFixedBase=1)
 get_joint_info(robot)
 
 Joint1_PC = create_joint_position_controller(joint_index =0,lower_limit=-3.14,upper_limit=3.14,inital_position=0)
