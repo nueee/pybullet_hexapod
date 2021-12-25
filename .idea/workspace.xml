@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/24 integration before file structure refactoring">
+    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/24 file structure refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config_make.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config_read.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config_upd.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy_err_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_command_seq.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/just_render.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simul_err_calc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/urdf_joint_test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +46,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640345039599</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="12/24 file structure refactoring">
+      <created>1640353128546</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1640353128546</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -72,6 +70,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="12/24 integration before file structure refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="12/24 integration before file structure refactoring" />
+    <MESSAGE value="12/24 file structure refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="12/24 file structure refactoring" />
   </component>
 </project>

@@ -137,13 +137,15 @@ class HexapodEnv(gym.Env):
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.8)
             
-            # g value setting 
+            # g value setting
+            '''
             config_obj = configparser.ConfigParser()
-            config_obj.read("./configfile.ini")
+            config_obj.read("../../configfile.ini")
             dbparam = config_obj["postgresql"]
             p.setGravity(0,0,float(dbparam["g"]))
             print("set gravity to" + str(dbparam))
             Plane(self.client)
+            '''
             self.hexapod = Hexapod(self.client)
         else:
             # Domain Randomization PART!!!!!!!!!!!!!!!!
