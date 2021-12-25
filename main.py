@@ -14,7 +14,7 @@ def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], 
     return func
 
 
-date = "1224"
+date = "1225"
 trial = "A"
 
 
@@ -32,7 +32,7 @@ event_callback = EveryNTimesteps(
 
 def main():
     # set g to ???
-    
+    '''
     edit = configparser.ConfigParser()
     edit.read("./configfile.ini")
     postgresql = edit["postgresql"]
@@ -40,7 +40,7 @@ def main():
     
     with open('./configfile.ini', 'w') as configfile:
     	edit.write(configfile)
-    
+    '''
 
     env = make_vec_env("Hexapod-v0", n_envs=4, seed=0, vec_env_cls=SubprocVecEnv)
     # env = SubprocVecEnv([lambda: gym.make("Hexapod-v0")])

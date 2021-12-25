@@ -12,7 +12,7 @@ class Hexapod:
         self.init_ori = p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0])
         f_name = os.path.join(
             os.path.dirname(__file__),
-            'ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf'
+            'ASSY_phantom_urdf/urdf/ASSY_phantom_urdf(original).urdf'
         )
         self.hexapod = p.loadURDF(
             fileName=f_name,

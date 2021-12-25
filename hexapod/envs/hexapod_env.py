@@ -59,9 +59,10 @@ class HexapodEnv(gym.Env):
         self.done = False
         self.render_size = 1000
         self.reset()
+        self.id = 0
         # get initial values for Domain Randomization 
         for i in range(-1,18,1):
-        	ORIGINAL_VALUES.append(p.getDynamicsInfo(1,i))
+            ORIGINAL_VALUES.append(p.getDynamicsInfo(self.id,i))
         #print("original values")
         #print(ORIGINAL_VALUES)
         
@@ -153,13 +154,14 @@ class HexapodEnv(gym.Env):
             '''
             # 1. Mass Randomization 
             #print("mass rand")
+
             for i in range(-1,18,1): 
                 #print(ORIGINAL_VALUES[i+1][0])
             
-                if load: # if it is model loading phase, return to original parameters
-                    p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),restitution=ORIGINAL_VALUES[i+1][-6],localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(1),ORIGINAL_VALUES[i+1][-8][1]*(1),ORIGINAL_VALUES[i+1][-8][2]*(1)))
-                else:
-                    p.changeDynamics(1,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=(0.5+0.75*(np.random.random())),restitution=(0.0001+0.8999*np.random.random()),localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][1]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][2]*(0.8+0.4*np.random.random()))) # localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
+                #if load: # if it is model loading phase, return to original parameters
+                p.changeDynamics(self.id,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),restitution=ORIGINAL_VALUES[i+1][-6],localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(1),ORIGINAL_VALUES[i+1][-8][1]*(1),ORIGINAL_VALUES[i+1][-8][2]*(1)))
+                #else:
+                #    p.changeDynamics(self.id,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=(0.5+0.75*(np.random.random())),restitution=(0.0001+0.8999*np.random.random()),localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][1]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][2]*(0.8+0.4*np.random.random()))) # localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
 
                 #,localInertiaDiagnoal=ORIGINAL_VALUES[i+1][2]*(0.5+np.random.random())
 
