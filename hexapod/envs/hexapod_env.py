@@ -57,7 +57,6 @@ class HexapodEnv(gym.Env):
         self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self.hexapod = None
         self.done = False
-        self.render_size = 1000
         self.reset()
         self.id = 1
         # get initial values for Domain Randomization 
@@ -175,7 +174,7 @@ class HexapodEnv(gym.Env):
 
         return np.array(self.get_observation, dtype=np.float32)
 
-    def render(self, mode='rgbarray'):
+    def render(self, mode='rgbarray', render_size=1000):
         hex_id, client_id = self.hexapod.get_ids()
         proj_matrix = p.computeProjectionMatrixFOV(
             fov=80,
@@ -193,8 +192,8 @@ class HexapodEnv(gym.Env):
         view_matrix = p.computeViewMatrix(pos, pos + camera_vec, up_vec)
 
         # Display image
-        rgb_array = p.getCameraImage(self.render_size, self.render_size, view_matrix, proj_matrix)[2]
-        rgb_array = np.reshape(rgb_array, (self.render_size, self.render_size, 4))
+        rgb_array = p.getCameraImage(render_size, render_size, view_matrix, proj_matrix)[2]
+        rgb_array = np.reshape(rgb_array, (render_size, render_size, 4))
 
         return rgb_array
 
