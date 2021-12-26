@@ -15,7 +15,7 @@ def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], 
 
 
 date = "1226"
-trial = "B"
+trial = "power"
 
 
 checkpoint_on_event = CheckpointCallback(
@@ -62,7 +62,7 @@ def main():
     # model = PPO.load(path='{existing model path...}', env=env)
 
     model.learn(
-        int(50000000),  # total timesteps used for learning
+        int(500000),  # total timesteps used for learning
         callback=event_callback,  # every n_steps, save the model.
         tb_log_name='tb_'+date+trial
         # ,reset_num_timesteps=False   # if you need to continue learning by loading existing model, use this option.

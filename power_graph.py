@@ -25,5 +25,6 @@ for i in range(int(args.duration)):
     total_tau.append(np.sum(np.abs(info['torques'])))
 
 time = list(map(lambda t: t*env.dt, range(int(args.duration))))
+print(sum(total_tau))
 plt.plot(time, total_tau)
 plt.show()
