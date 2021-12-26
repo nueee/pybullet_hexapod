@@ -25,7 +25,7 @@ class Hexapod:
         print(self.hexapod)
 
         self.legJoints = range(18)
-        self.jointForces = np.array([1.0]*18)
+        self.jointForces = np.array([1.5]*18)
 
     def get_ids(self):
 
@@ -78,3 +78,7 @@ class Hexapod:
                 childFramePosition=[0, 0, 0.5],
                 childFrameOrientation=p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0]),
             )
+
+    def set_joint_forces(self,joint_forces_array):
+        for i in range(18):
+            self.jointForces[i] = joint_forces_array[i]

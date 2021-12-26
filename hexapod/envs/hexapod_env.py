@@ -31,6 +31,8 @@ restitution is not easy parameter to rand
 '''
 
 ORIGINAL_VALUES = []
+
+
 class HexapodEnv(gym.Env):
     def __init__(self, render=False):
         self.joint_number = 18
@@ -38,14 +40,14 @@ class HexapodEnv(gym.Env):
         self.servo_high_limit = 2.62
         self.servo_low_limit = -2.62
         self.dt = 1/60
-
         self.action_space = gym.spaces.box.Box(
-            low=np.array([self.servo_low_limit]*self.joint_number, dtype=np.float32),
-            high=np.array([self.servo_high_limit]*self.joint_number, dtype=np.float32)
+            low=np.array([self.servo_low_limit] * self.joint_number, dtype=np.float32),
+            high=np.array([self.servo_high_limit] * self.joint_number, dtype=np.float32)
         )
         self.observation_space = gym.spaces.box.Box(
-            low=np.array([self.servo_low_limit]*self.joint_number*2*self.buffer_size, dtype=np.float32),  # 3*18+3*18 = 108
-            high=np.array([self.servo_high_limit]*self.joint_number*2*self.buffer_size, dtype=np.float32)
+            low=np.array([self.servo_low_limit] * self.joint_number * 2 * self.buffer_size, dtype=np.float32),
+            # 3*18+3*18 = 108
+            high=np.array([self.servo_high_limit] * self.joint_number * 2 * self.buffer_size, dtype=np.float32)
         )
 
         self.np_random, _ = gym.utils.seeding.np_random()
@@ -60,12 +62,27 @@ class HexapodEnv(gym.Env):
         self.render_size = 1000
         self.reset()
         self.id = 1
-        # get initial values for Domain Randomization 
-        for i in range(-1,18,1):
-            ORIGINAL_VALUES.append(p.getDynamicsInfo(self.id,i))
-        #print("original values")
-        #print(ORIGINAL_VALUES)
-        
+        self.joint_damping_alpha = 0
+        self.force_alpha = 0
+
+        # get initial values for Domain Randomization
+        for i in range(-1, 18, 1):
+            ORIGINAL_VALUES.append(p.getDynamicsInfo(self.id, i))
+        # print("original values")
+        # print(ORIGINAL_VALUES)
+
+        # get alpha values for simulation tuning
+
+        config_obj = configparser.ConfigParser()
+
+        config_obj.read("../configfile.ini") # add ../ depending on situation
+        dbparam = config_obj["alpha"]
+        self.joint_damping_alpha = float(dbparam['joint_damping'])
+        self.force_alpha =  float(dbparam['force'])
+        print("self values : ")
+        print(self.joint_damping_alpha,self.force_alpha)
+
+
     @property
     def get_observation(self):
         # observation is flatten buffer of joint history + action history
@@ -78,9 +95,13 @@ class HexapodEnv(gym.Env):
 
     def step(self, action):
         prev_pos, prev_ang = self.hexapod.get_center_position()  # get previous center cartesian and euler for reward
-
+        #print("given")
+        #print(action)
         self.hexapod.apply_action(action)  # apply action position on servos
         p.stepSimulation()  # elapse one timestep (above, we assign it as 1/60 s) on pybullet simulation
+
+        #print("got")
+        #print(self.hexapod.get_joint_values())
 
         # update obs buffer and act buffer
         self._jnt_buffer[1:] = self._jnt_buffer[:-1]
@@ -107,7 +128,7 @@ class HexapodEnv(gym.Env):
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
         if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
-        
+
         info = {
             # 'reward': reward,
             # 'forward delta': pos_del[1],
@@ -125,7 +146,7 @@ class HexapodEnv(gym.Env):
         # p.resetSimulation(self.client)
         # p.setGravity(0, 0, -9.8)
         # # Reload the plane and hexapod
-        #Plane(self.client)
+        # Plane(self.client)
         # print("start loading hexapod... "); reset_start_time = time.time()  # debug
         # self.hexapod = Hexapod(self.client)
         # reset_end_time = time.time(); print("...end loading hexapod.") # debug
@@ -134,15 +155,6 @@ class HexapodEnv(gym.Env):
         if self.hexapod is None:
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.8)
-            
-            # g value setting
-            '''
-            config_obj = configparser.ConfigParser()
-            config_obj.read("../../configfile.ini")
-            dbparam = config_obj["postgresql"]
-            p.setGravity(0,0,float(dbparam["g"]))
-            print("set gravity to" + str(dbparam))
-            '''
             Plane(self.client)
 
             self.hexapod = Hexapod(self.client)
@@ -153,18 +165,37 @@ class HexapodEnv(gym.Env):
             print("see Dynamics")
             for i in range(-1,18,1):
             	print(p.getDynamicsInfo(1,i)[0])
+
             '''
-            # 1. Mass Randomization 
-            #print("mass rand")
+            # 1. Mass Randomization
+            # print("mass rand")
 
-            for i in range(-1,18,1):
-                #print(ORIGINAL_VALUES[i+1][0])
-            
-                if load: # if it is model loading phase, return to original parameters
-                    p.changeDynamics(self.id,i,mass=ORIGINAL_VALUES[i+1][0]*(1),lateralFriction=ORIGINAL_VALUES[i+1][1]*(1),restitution=ORIGINAL_VALUES[i+1][-6],localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(1),ORIGINAL_VALUES[i+1][-8][1]*(1),ORIGINAL_VALUES[i+1][-8][2]*(1)))
+            for i in range(-1, 18, 1):
+                # print(ORIGINAL_VALUES[i+1][0])
+
+                if load:  # if it is model loading phase, return to original parameters
+
+                    p.changeDynamics(self.id, i, mass=ORIGINAL_VALUES[i + 1][0] * (1),
+                                     lateralFriction=ORIGINAL_VALUES[i + 1][1] * (1),
+                                     restitution=ORIGINAL_VALUES[i + 1][-6], localInertiaDiagonal=(
+                        ORIGINAL_VALUES[i + 1][-8][0] * (1), ORIGINAL_VALUES[i + 1][-8][1] * (1),
+                        ORIGINAL_VALUES[i + 1][-8][2] * (1)),jointDamping=0.2-self.joint_damping_alpha)
+
+                    self.hexapod.set_joint_forces(np.array([1.5 - self.force_alpha] * 18))
                 else:
-                    p.changeDynamics(self.id,i,mass=ORIGINAL_VALUES[i+1][0]*(0.8+0.4*np.random.random()),lateralFriction=(0.5+0.75*(np.random.random())),restitution=(0.0001+0.8999*np.random.random()),localInertiaDiagonal=(ORIGINAL_VALUES[i+1][-8][0]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][1]*(0.8+0.4*np.random.random()),ORIGINAL_VALUES[i+1][-8][2]*(0.8+0.4*np.random.random())))
 
+                    p.changeDynamics(self.id, i, mass=ORIGINAL_VALUES[i + 1][0] * (0.8 + 0.4 * np.random.random()),
+                                     lateralFriction=(0.5 + 0.75 * (np.random.random())),
+                                     restitution=(0.0001 + 0.8999 * np.random.random()), localInertiaDiagonal=(
+                        ORIGINAL_VALUES[i + 1][-8][0] * (0.8 + 0.4 * np.random.random()),
+                        ORIGINAL_VALUES[i + 1][-8][1] * (0.8 + 0.4 * np.random.random()),
+                        ORIGINAL_VALUES[i + 1][-8][2] * (0.8 + 0.4 * np.random.random())),
+                                     jointDamping=0.2-self.joint_damping_alpha, )
+
+                    rand_force_array = np.array([1.5 - self.force_alpha] * 18)
+                    for j in range(18):  # init respectively
+                        rand_force_array[j] = rand_force_array[j] * (0.8 + 0.4 * np.random.random())
+                    self.hexapod.set_joint_forces(rand_force_array)
 
             self.hexapod.reset_hexapod(fixed=fixed)
 
@@ -197,7 +228,6 @@ class HexapodEnv(gym.Env):
         rgb_array = np.reshape(rgb_array, (self.render_size, self.render_size, 4))
 
         return rgb_array
-
 
     def close(self):
         p.disconnect(self.client)
