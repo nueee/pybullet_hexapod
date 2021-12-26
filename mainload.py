@@ -6,7 +6,7 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EveryNTimesteps, CheckpointCallback
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecNormalize
-
+import time
 
 def analog_to_digital(x):
     r = (x + 2.62)*1023/5.24
@@ -28,5 +28,6 @@ for i in range(10000):
     #print(action)
     #print(obs)
     #print(analog_to_digital(action))
+    #rendering.render()
     if done:
         obs = rendering.reset(load=True,fixed=False)

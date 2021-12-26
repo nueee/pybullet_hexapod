@@ -219,7 +219,7 @@ class HexapodEnv(gym.Env):
         pos = np.add(pos, [0.5, 0, 0.1])
 
         # Rotate camera direction
-        rot_mat = np.array(p.getMatrixFromQuaternion(ori)).reshape(3, 3)
+        rot_mat = np.array([[1,0,0],[0,0,-1],[0,1,0]])
         camera_vec = np.matmul(rot_mat, [-1, 0, 0])
         up_vec = np.matmul(rot_mat, np.array([0, 1, 0]))
         view_matrix = p.computeViewMatrix(pos, pos + camera_vec, up_vec)
