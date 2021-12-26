@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="for checking fixed error">
+    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/26 fixed test possible">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configfile.ini" beforeDir="false" afterPath="$PROJECT_DIR$/configfile.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_tuning/simul_err_calc.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation_tuning/simul_err_calc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainload.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainload.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/power_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/power_graph.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +52,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/anaconda3/lib/python3.8/site-packages/pybullet_utils" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -83,7 +84,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640420124331</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="12/26 fixed test possible">
+      <created>1640505826185</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1640505826185</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -102,6 +110,7 @@
     <MESSAGE value="12/24 integration before file structure refactoring" />
     <MESSAGE value="12/24 file structure refactoring" />
     <MESSAGE value="for checking fixed error" />
-    <option name="LAST_COMMIT_MESSAGE" value="for checking fixed error" />
+    <MESSAGE value="12/26 fixed test possible" />
+    <option name="LAST_COMMIT_MESSAGE" value="12/26 fixed test possible" />
   </component>
 </project>

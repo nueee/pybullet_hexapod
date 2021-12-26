@@ -75,7 +75,7 @@ class HexapodEnv(gym.Env):
 
         config_obj = configparser.ConfigParser()
 
-        config_obj.read("../configfile.ini") # add ../ depending on situation
+        config_obj.read("configfile.ini") # add ../ depending on situation
         dbparam = config_obj["alpha"]
         self.joint_damping_alpha = float(dbparam['joint_damping'])
         self.force_alpha =  float(dbparam['force'])
@@ -123,7 +123,7 @@ class HexapodEnv(gym.Env):
         # (velocity to <+x> + epsilon) / (rms of applied torque + epsilon) / (error to <+-y> + epsilon)
         # each of epsilon will be determined by their corresponding parameter's 'general' dimensions
         reward = (pos_del[1] + 0.001) / (torque_rms + 1.0) / (np.abs(curr_pos[0]) + 0.5)
-
+        #reward = (pos_del[1] + 0.001) / (np.abs(curr_pos[0]) + 0.5)
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
         if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
