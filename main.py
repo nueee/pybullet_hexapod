@@ -14,8 +14,8 @@ def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], 
     return func
 
 
-date = "1225"
-trial = "A"
+date = "1226"
+trial = "B"
 
 
 checkpoint_on_event = CheckpointCallback(
@@ -25,7 +25,7 @@ checkpoint_on_event = CheckpointCallback(
     name_prefix='hexapod_model_'+date+trial
 )
 event_callback = EveryNTimesteps(
-    n_steps=int(5e5),  # every n_steps, save the model
+    n_steps=int(1e5),  # every n_steps, save the model
     callback=checkpoint_on_event
 )
 

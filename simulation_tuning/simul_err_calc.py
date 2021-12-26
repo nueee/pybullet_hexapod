@@ -18,10 +18,19 @@ da = 0.01
 lr = 0.001
 bf_lower_limit = [-0.7, -0.3]
 bf_upper_limit = [0.19, 0.5]
-total_timesteps = 20
+total_timesteps = 20000
 # get command values
 commandValues = [[707, 707, 707, 707, 707, 512, 316, 316, 316, 316, 707, 316, 512, 316, 316, 316, 512, 512,], [512, 512, 316, 512, 316, 316, 512, 707, 512, 512, 512, 707, 707, 512, 707, 316, 707, 512,], [707, 512, 707, 512, 707, 512, 707, 512, 316, 512, 316, 707, 316, 512, 512, 707, 316, 512,], [512, 707, 707, 707, 512, 512, 316, 316, 316, 316, 316, 512, 707, 316, 316, 316, 707, 512,], [707, 316, 316, 512, 316, 316, 707, 707, 707, 512, 512, 707, 707, 707, 512, 316, 707, 512,], [512, 707, 707, 512, 707, 512, 707, 512, 316, 707, 316, 707, 316, 512, 512, 707, 316, 512,], [707, 707, 512, 707, 316, 707, 316, 316, 512, 316, 512, 316, 707, 316, 512, 316, 707, 512,], [512, 316, 512, 316, 316, 316, 707, 707, 512, 512, 707, 707, 707, 707, 512, 707, 512, 512,], [512, 707, 707, 707, 707, 707, 512, 512, 316, 707, 316, 512, 316, 316, 512, 707, 316, 512,], [316, 512, 316, 512, 316, 316, 316, 512, 512, 512, 707, 316, 707, 512, 512, 316, 707, 707,], [316, 316, 512, 316, 512, 316, 707, 707, 512, 707, 707, 707, 316, 512, 512, 707, 316, 512,], [316, 707, 707, 707, 707, 512, 512, 316, 316, 707, 316, 316, 316, 316, 707, 707, 316, 707,], [316, 512, 316, 707, 316, 316, 316, 512, 512, 316, 707, 316, 707, 316, 512, 316, 707, 707,], [512, 512, 707, 316, 707, 316, 707, 707, 512, 707, 512, 707, 316, 512, 512, 707, 316, 512,], [707, 707, 707, 707, 512, 512, 316, 316, 316, 316, 512, 316, 512, 316, 316, 316, 512, 512,], [512, 512, 316, 512, 316, 316, 512, 707, 512, 512, 707, 707, 707, 512, 512, 316, 707, 512,], [707, 512, 707, 512, 707, 707, 707, 512, 316, 512, 316, 707, 316, 512, 512, 707, 316, 512,], [707, 707, 316, 707, 316, 707, 316, 316, 316, 316, 316, 316, 707, 316, 512, 316, 707, 512,], [512, 316, 512, 316, 316, 316, 707, 707, 512, 512, 512, 707, 512, 707, 512, 707, 316, 512,], [512, 707, 707, 707, 707, 512, 512, 316, 316, 512, 512, 316, 316, 316, 512, 512, 316, 707,]]
 # deploy reference data generation from csv file or etc
+SCALE = 2
+for i in range(20):
+    for j in range(18):
+        commandValues[i][j] = np.floor((commandValues[i][j]-512)*SCALE+512)
+        if commandValues[i][j]>=1024:
+            commandValues[i][j] = 1023
+        if commandValues[i][j]<0:
+            commandValues[i][j] = 0
+commandValues = commandValues*1000
 real_data = []
 for i in range(total_timesteps):
 	temp = []
@@ -67,9 +76,8 @@ def E(a):  # temp linear function
     N = len(a)
     write_alpha(a) # upd alpha
     ret = 0
-    rendering = gym.make("Hexapod-v0")
-    obs = rendering.reset(load=True)
-
+    rendering = gym.make("HexapodRender-v0")
+    obs = rendering.reset(load=True,fixed=True)
     #rendering.render()
     for i in range(total_timesteps):
         #print("obs")
@@ -123,17 +131,21 @@ def get_brute_force_alpha():
 
     return bestval, bestalpha
 
-def get_GD_alpha():
-    nowalpha = np.array([0]*2)
+
+def get_GD_alpha(a0):
+    nowalpha = np.array(a0) # init
+
     for i in range(5):
         nowalpha = nowalpha - lr*np.array(GradE(nowalpha))
     return nowalpha,E(nowalpha)
 
 
 write_alpha([0,0])
-#print(E([0.1,0.1]))
 
-print(get_brute_force_alpha())
+print(E([0.2,0.1]))
+
+#print(get_brute_force_alpha())
+
 #print(get_GD_alpha())
 
 # things to keep in mind or test
