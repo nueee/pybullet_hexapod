@@ -59,25 +59,26 @@ class HexapodEnv(gym.Env):
         self.render_size = 1000
         self.reset()
         self.id = 1
+        self.joint_damping_alpha = 0
+        self.force_alpha = 0
+
+        # get initial values for Domain Randomization
+        for i in range(-1,18,1):
+            ORIGINAL_VALUES.append(p.getDynamicsInfo(self.id,i))
+        #print("original values")
+        #print(ORIGINAL_VALUES)
 
         # get alpha values for simulation tuning
-
+        '''
         config_obj = configparser.ConfigParser()
-        config_obj.read("../configfile.ini")
+        
+        config_obj.read("../configfile.ini") # add ../ depending on situation
         dbparam = config_obj["alpha"]
         self.joint_damping_alpha = float(dbparam['joint_damping'])
         self.force_alpha =  float(dbparam['force'])
         print("self values : ")
         print(self.joint_damping_alpha,self.force_alpha)
-
-
-
-        # get initial values for Domain Randomization 
-        for i in range(-1,18,1):
-            ORIGINAL_VALUES.append(p.getDynamicsInfo(self.id,i))
-        #print("original values")
-        #print(ORIGINAL_VALUES)
-        
+        '''
     @property
     def get_observation(self):
         # observation is flatten buffer of joint history + action history
@@ -90,9 +91,13 @@ class HexapodEnv(gym.Env):
 
     def step(self, action):
         prev_pos, prev_ang = self.hexapod.get_center_position()  # get previous center cartesian and euler for reward
-
+        print("given")
+        print(action)
         self.hexapod.apply_action(action)  # apply action position on servos
         p.stepSimulation()  # elapse one timestep (above, we assign it as 1/60 s) on pybullet simulation
+
+        print("got")
+        print(self.hexapod.get_joint_values())
 
         # update obs buffer and act buffer
         self._jnt_buffer[1:] = self._jnt_buffer[:-1]
@@ -146,15 +151,6 @@ class HexapodEnv(gym.Env):
         if self.hexapod is None:
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.8)
-            
-            # g value setting
-            '''
-            config_obj = configparser.ConfigParser()
-            config_obj.read("../../configfile.ini")
-            dbparam = config_obj["postgresql"]
-            p.setGravity(0,0,float(dbparam["g"]))
-            print("set gravity to" + str(dbparam))
-            '''
             Plane(self.client)
 
             self.hexapod = Hexapod(self.client)
@@ -165,6 +161,7 @@ class HexapodEnv(gym.Env):
             print("see Dynamics")
             for i in range(-1,18,1):
             	print(p.getDynamicsInfo(1,i)[0])
+            
             '''
             # 1. Mass Randomization 
             #print("mass rand")

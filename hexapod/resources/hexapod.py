@@ -25,7 +25,7 @@ class Hexapod:
         print(self.hexapod)
 
         self.legJoints = range(18)
-        self.jointForces = np.array([1.0]*18)
+        self.jointForces = np.array([1.5]*18)
 
     def get_ids(self):
 
