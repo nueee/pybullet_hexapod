@@ -78,7 +78,6 @@ def E(a):  # temp linear function
     ret = 0
     rendering = gym.make("HexapodRender-v0")
     obs = rendering.reset(load=True,fixed=True)
-
     #rendering.render()
     for i in range(total_timesteps):
         #print("obs")
@@ -132,17 +131,21 @@ def get_brute_force_alpha():
 
     return bestval, bestalpha
 
+
 def get_GD_alpha(a0):
     nowalpha = np.array(a0) # init
+
     for i in range(5):
         nowalpha = nowalpha - lr*np.array(GradE(nowalpha))
     return nowalpha,E(nowalpha)
 
 
 write_alpha([0,0])
+
 print(E([0.2,0.1]))
 
 #print(get_brute_force_alpha())
+
 #print(get_GD_alpha())
 
 # things to keep in mind or test

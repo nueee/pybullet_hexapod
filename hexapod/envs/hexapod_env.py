@@ -59,13 +59,13 @@ class HexapodEnv(gym.Env):
         self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self.hexapod = None
         self.done = False
-        self.render_size = 1000
         self.reset()
         self.id = 1
         self.joint_damping_alpha = 0
         self.force_alpha = 0
 
         # get initial values for Domain Randomization
+
         for i in range(-1, 18, 1):
             ORIGINAL_VALUES.append(p.getDynamicsInfo(self.id, i))
         # print("original values")
@@ -82,7 +82,6 @@ class HexapodEnv(gym.Env):
         print("self values : ")
         print(self.joint_damping_alpha,self.force_alpha)
 
-
     @property
     def get_observation(self):
         # observation is flatten buffer of joint history + action history
@@ -95,6 +94,7 @@ class HexapodEnv(gym.Env):
 
     def step(self, action):
         prev_pos, prev_ang = self.hexapod.get_center_position()  # get previous center cartesian and euler for reward
+
         #print("given")
         #print(action)
         self.hexapod.apply_action(action)  # apply action position on servos
@@ -102,6 +102,7 @@ class HexapodEnv(gym.Env):
 
         #print("got")
         #print(self.hexapod.get_joint_values())
+
 
         # update obs buffer and act buffer
         self._jnt_buffer[1:] = self._jnt_buffer[:-1]
@@ -165,7 +166,6 @@ class HexapodEnv(gym.Env):
             print("see Dynamics")
             for i in range(-1,18,1):
             	print(p.getDynamicsInfo(1,i)[0])
-
             '''
             # 1. Mass Randomization
             # print("mass rand")
@@ -195,6 +195,7 @@ class HexapodEnv(gym.Env):
                     rand_force_array = np.array([1.5 - self.force_alpha] * 18)
                     for j in range(18):  # init respectively
                         rand_force_array[j] = rand_force_array[j] * (0.8 + 0.4 * np.random.random())
+
                     self.hexapod.set_joint_forces(rand_force_array)
 
             self.hexapod.reset_hexapod(fixed=fixed)
@@ -206,7 +207,7 @@ class HexapodEnv(gym.Env):
 
         return np.array(self.get_observation, dtype=np.float32)
 
-    def render(self, mode='rgbarray'):
+    def render(self, mode='rgbarray', render_size=1000):
         hex_id, client_id = self.hexapod.get_ids()
         proj_matrix = p.computeProjectionMatrixFOV(
             fov=80,
@@ -224,8 +225,8 @@ class HexapodEnv(gym.Env):
         view_matrix = p.computeViewMatrix(pos, pos + camera_vec, up_vec)
 
         # Display image
-        rgb_array = p.getCameraImage(self.render_size, self.render_size, view_matrix, proj_matrix)[2]
-        rgb_array = np.reshape(rgb_array, (self.render_size, self.render_size, 4))
+        rgb_array = p.getCameraImage(render_size, render_size, view_matrix, proj_matrix)[2]
+        rgb_array = np.reshape(rgb_array, (render_size, render_size, 4))
 
         return rgb_array
 
