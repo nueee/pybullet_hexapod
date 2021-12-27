@@ -1,49 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/26 fixed test possible">
+    <list default="true" id="765640c2-5627-4d5d-8c20-742904711bae" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configfile.ini" beforeDir="false" afterPath="$PROJECT_DIR$/configfile.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainload.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainload.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/power_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/power_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/deploy_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/deploy_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod.egg-info/PKG-INFO" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod.egg-info/PKG-INFO" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/main" />
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="22SgF4ilu0IuvsjP6XeFpxgaCIC" />
+  <component name="ProjectId" id="22r5sMB9I5nN7adRGvzETBqDnhC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -51,66 +26,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/anaconda3/lib/python3.8/site-packages/pybullet_utils" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="" />
-      <created>1639836295572</created>
+      <changelist id="765640c2-5627-4d5d-8c20-742904711bae" name="Changes" comment="" />
+      <created>1640583070985</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1639836295572</updated>
+      <updated>1640583070985</updated>
     </task>
-    <task id="LOCAL-00001" summary="12/24 integration before file structure refactoring">
-      <created>1640345039599</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1640345039599</updated>
-    </task>
-    <task id="LOCAL-00002" summary="12/24 file structure refactoring">
-      <created>1640353128546</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1640353128546</updated>
-    </task>
-    <task id="LOCAL-00003" summary="for checking fixed error">
-      <created>1640420124331</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1640420124331</updated>
-    </task>
-    <task id="LOCAL-00004" summary="12/26 fixed test possible">
-      <created>1640505826185</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1640505826185</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="12/24 integration before file structure refactoring" />
-    <MESSAGE value="12/24 file structure refactoring" />
-    <MESSAGE value="for checking fixed error" />
-    <MESSAGE value="12/26 fixed test possible" />
-    <option name="LAST_COMMIT_MESSAGE" value="12/26 fixed test possible" />
   </component>
 </project>

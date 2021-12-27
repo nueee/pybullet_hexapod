@@ -7,22 +7,14 @@ import time
 sys.path.append('./')
 import hexapod
 
-# ----------------------- model initialization ----------------------- #
+# ----------------------- command initialization ----------------------- #
 
-# load gym env and SB3 model
+# load command sequence, declare variables
 
-parser = argparse.ArgumentParser(description="load model, and show how much power is consumed.")
-parser.add_argument('--model', required=True, help='zipped model path to measure.')
-args = parser.parse_args()
-
-custom_objects = {"learning_rate": lambda x: 3e-5, "lr_schedule": lambda x: 3e-5, "clip_range": lambda x: 0.1}
-model = PPO.load(path=str(args.model), custom_objects=custom_objects)
-
-# declare variables
-
-buffer_size = 3
-_jnt_buffer = np.zeros((buffer_size, 18), dtype=np.float32)
-_act_buffer = np.zeros((buffer_size, 18), dtype=np.float32)
+LEN_SEQ = 20
+NUM_SAMPLING = 10
+command_seq = np.zeros((LEN_SEQ, 18), dtype=np.float32)
+sampled_seq = []
 
 # ----------------------- servo initialization ----------------------- #
 
@@ -111,22 +103,14 @@ if dxl_comm_result != COMM_SUCCESS:
 
 input("Type any key and enter to start loop.")
 
-# ----------------------- running PPO model ----------------------- #
+# ----------------------- running command sequence ----------------------- #
 
-while True:
+for line in range(LEN_SEQ):
     last_time = time.time()
-
-    # get action from observation by model ( < 6 ms )
-
-    observation = np.concatenate([
-        _jnt_buffer.ravel(),
-        _act_buffer.ravel()
-    ])
-    action, _ = model.predict(observation.astype(np.float32))
 
     # convert radian into integer ( < 4 ms )
 
-    dxl_goal_pos = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action))
+    dxl_goal_pos = list(map(lambda x: int(np.round(x*195.229+511.5)), command_seq[line]))
 
     # write action on servos ( < 1 ms )
 
@@ -147,39 +131,47 @@ while True:
     if dxl_comm_result != COMM_SUCCESS:
         print(packetHandler.getTxRxResult(dxl_comm_result))
 
-    # read state of servos ( ~ 290 ms, but reduce to ~ 35 ms, inexactly )
+    # sample the joint values
 
+    for s in range(NUM_SAMPLING):
+
+        # read state of servos ( ~ 290 ms, but reduce to ~ 35 ms, inexactly )
+
+        for i in range(NUM_DXL):
+            dxl_present_pos[i], dxl_comm_result, dxl_error = packetHandler.read2ByteTxRx(
+                port=portHandler,
+                dxl_id=DXL_ID[i],
+                address=ADDR_AX_PRESENT_POSITION
+            )
+            if dxl_comm_result != COMM_SUCCESS:
+                print(packetHandler.getTxRxResult(dxl_comm_result))
+            elif dxl_error:
+                print(packetHandler.getRxPacketError(dxl_error))
+
+        # convert integer into radian ( < 0.01 ms )
+
+        sampled_seq.append(list(map(lambda y: (y-511.5)*5.12218e-3, dxl_present_pos)))
+
+        # wait for dt_action ( dt for sampling : 50 ms )
+        # dt_sampling : 1/20 ms, read 20 times, read latency ignored.
+
+        while time.time() - last_time < 0.04995:
+            time.sleep(1e-6)
+
+        # printout current info (act, obs)
+
+        # print("goal : ", dxl_goal_pos)
+        # print("present : ", dxl_present_pos)
+        # print("elapsed time :", time.time() - last_time)
+        # print()
+
+f = open("sampled.csv", "w")
+for line in range(LEN_SEQ*NUM_SAMPLING):
     for i in range(NUM_DXL):
-        dxl_present_pos[i], dxl_comm_result, dxl_error = packetHandler.read2ByteTxRx(
-            port=portHandler,
-            dxl_id=DXL_ID[i],
-            address=ADDR_AX_PRESENT_POSITION
-        )
-        if dxl_comm_result != COMM_SUCCESS:
-            print(packetHandler.getTxRxResult(dxl_comm_result))
-        elif dxl_error:
-            print(packetHandler.getRxPacketError(dxl_error))
+        f.write(str(sampled_seq[i]))
+        if i == NUM_DXL-1:
+            f.write("\n")
+        else:
+            f.write(",")
 
-    # convert integer into radian ( < 0.01 ms )
-
-    joint_values = list(map(lambda y: (y-511.5)*5.12218e-3, dxl_present_pos))
-
-    # update buffer ( < 0.1 ms )
-
-    _jnt_buffer[1:] = _jnt_buffer[:-1]
-    _jnt_buffer[0] = joint_values  # get recent joint values
-    _act_buffer[1:] = _act_buffer[:-1]
-    _act_buffer[0] = action  # get recent action
-
-    # wait for dt_action ( dt for action : 50 ms )
-
-    while time.time() - last_time < 0.04995:
-        time.sleep(1e-6)
-
-    # printout current info (act, obs)
-
-    # print("goal : ", dxl_goal_pos)
-    # print("present : ", dxl_present_pos)
-    print("elapsed time :", time.time() - last_time)
-    # print()
-
+f.close()
