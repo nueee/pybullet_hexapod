@@ -39,7 +39,7 @@ class HexapodEnv(gym.Env):
         self.buffer_size = 3
         self.servo_high_limit = 2.62
         self.servo_low_limit = -2.62
-        self.dt = 1/600
+        self.dt = 1/20
         self.action_space = gym.spaces.box.Box(
             low=np.array([self.servo_low_limit] * self.joint_number, dtype=np.float32),
             high=np.array([self.servo_high_limit] * self.joint_number, dtype=np.float32)
@@ -75,7 +75,7 @@ class HexapodEnv(gym.Env):
 
         config_obj = configparser.ConfigParser()
 
-        config_obj.read("../configfile.ini") # add ../ depending on situation
+        config_obj.read("configfile.ini") # add ../ on lower dir
         dbparam = config_obj["alpha"]
         self.joint_damping_alpha = float(dbparam['joint_damping'])
         self.force_alpha =  float(dbparam['force'])

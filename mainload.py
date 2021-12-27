@@ -17,7 +17,7 @@ def analog_to_digital(x):
 #env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
 
 rendering = gym.make("HexapodRender-v0")
-model = PPO.load(path='./save_model_1226/power/hexapod_model_1226power_500000_steps', env=rendering)
+model = PPO.load(path='./save_model_1227/power/hexapod_model_1227power_2500000_steps', env=rendering)
 
 # start rendering the current model.
 obs = rendering.reset(load=True, fixed=False)
@@ -29,5 +29,5 @@ for i in range(10000):
     #print(obs)
     #print(analog_to_digital(action))
     #rendering.render()
-    if done:
-        obs = rendering.reset(load=True,fixed=False)
+    #if done:
+    #    obs = rendering.reset(load=True,fixed=False)
