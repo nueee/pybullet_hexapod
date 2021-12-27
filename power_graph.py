@@ -15,11 +15,14 @@ env = gym.make(str(args.env))
 model = PPO.load(path=str(args.model), env=env)
 
 total_tau = []
-
+torque_sampling_rate = 10 # # of torque samples per intended timestep
 obs = env.reset()
-for i in range(int(args.duration)):
-    action, _ = model.predict(obs.astype(np.float32))
-    obs, _, done, info = env.step(action)
+for i in range(int(args.duration)*torque_sampling_rate):
+    if i%torque_sampling_rate==0:
+        action, _ = model.predict(obs.astype(np.float32))
+        obs, _, done, info = env.step(action)
+    else:
+        obs,done,info = env.non_action_step()
     if done:
         obs = env.reset()
     total_tau.append(np.sum(np.abs(info['torques'])))

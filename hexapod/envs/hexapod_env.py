@@ -39,7 +39,7 @@ class HexapodEnv(gym.Env):
         self.buffer_size = 3
         self.servo_high_limit = 2.62
         self.servo_low_limit = -2.62
-        self.dt = 1/60
+        self.dt = 1/600
         self.action_space = gym.spaces.box.Box(
             low=np.array([self.servo_low_limit] * self.joint_number, dtype=np.float32),
             high=np.array([self.servo_high_limit] * self.joint_number, dtype=np.float32)
@@ -75,7 +75,7 @@ class HexapodEnv(gym.Env):
 
         config_obj = configparser.ConfigParser()
 
-        config_obj.read("configfile.ini") # add ../ depending on situation
+        config_obj.read("../configfile.ini") # add ../ depending on situation
         dbparam = config_obj["alpha"]
         self.joint_damping_alpha = float(dbparam['joint_damping'])
         self.force_alpha =  float(dbparam['force'])
@@ -91,6 +91,26 @@ class HexapodEnv(gym.Env):
         ])
 
         return observation
+
+    def non_action_step(self): # just advance one step without any instruction
+
+
+        p.stepSimulation()
+        torques = self.hexapod.get_joint_torques()
+        curr_pos, curr_ang = self.hexapod.get_center_position()
+
+        info = {
+            # 'reward': reward,
+            # 'forward delta': pos_del[1],
+            # 'side delta': curr_pos[0],
+            'torques': torques
+        }
+        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
+            self.done = True
+
+        return self.hexapod.get_joint_values(), self.done, info
+
+
 
     def step(self, action):
         prev_pos, prev_ang = self.hexapod.get_center_position()  # get previous center cartesian and euler for reward

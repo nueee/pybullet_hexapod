@@ -10,19 +10,20 @@ from stable_baselines3 import PPO
 import configparser
 
 # overall var
-model_path = "../save_model_1225/A/hexapod_model_1225A_500000_steps.zip"
+model_path = "../save_model_1226/power/hexapod_model_1226power_500000_steps.zip"
 iterations = 1000
 n = 2
 alpha = [0] * n # joint_damping, force
 da = 0.01
 lr = 0.001
+sample_rate = 10
 bf_lower_limit = [-0.7, -0.3]
 bf_upper_limit = [0.19, 0.5]
-total_timesteps = 20000
+total_timesteps = 2000
 # get command values
 commandValues = [[707, 707, 707, 707, 707, 512, 316, 316, 316, 316, 707, 316, 512, 316, 316, 316, 512, 512,], [512, 512, 316, 512, 316, 316, 512, 707, 512, 512, 512, 707, 707, 512, 707, 316, 707, 512,], [707, 512, 707, 512, 707, 512, 707, 512, 316, 512, 316, 707, 316, 512, 512, 707, 316, 512,], [512, 707, 707, 707, 512, 512, 316, 316, 316, 316, 316, 512, 707, 316, 316, 316, 707, 512,], [707, 316, 316, 512, 316, 316, 707, 707, 707, 512, 512, 707, 707, 707, 512, 316, 707, 512,], [512, 707, 707, 512, 707, 512, 707, 512, 316, 707, 316, 707, 316, 512, 512, 707, 316, 512,], [707, 707, 512, 707, 316, 707, 316, 316, 512, 316, 512, 316, 707, 316, 512, 316, 707, 512,], [512, 316, 512, 316, 316, 316, 707, 707, 512, 512, 707, 707, 707, 707, 512, 707, 512, 512,], [512, 707, 707, 707, 707, 707, 512, 512, 316, 707, 316, 512, 316, 316, 512, 707, 316, 512,], [316, 512, 316, 512, 316, 316, 316, 512, 512, 512, 707, 316, 707, 512, 512, 316, 707, 707,], [316, 316, 512, 316, 512, 316, 707, 707, 512, 707, 707, 707, 316, 512, 512, 707, 316, 512,], [316, 707, 707, 707, 707, 512, 512, 316, 316, 707, 316, 316, 316, 316, 707, 707, 316, 707,], [316, 512, 316, 707, 316, 316, 316, 512, 512, 316, 707, 316, 707, 316, 512, 316, 707, 707,], [512, 512, 707, 316, 707, 316, 707, 707, 512, 707, 512, 707, 316, 512, 512, 707, 316, 512,], [707, 707, 707, 707, 512, 512, 316, 316, 316, 316, 512, 316, 512, 316, 316, 316, 512, 512,], [512, 512, 316, 512, 316, 316, 512, 707, 512, 512, 707, 707, 707, 512, 512, 316, 707, 512,], [707, 512, 707, 512, 707, 707, 707, 512, 316, 512, 316, 707, 316, 512, 512, 707, 316, 512,], [707, 707, 316, 707, 316, 707, 316, 316, 316, 316, 316, 316, 707, 316, 512, 316, 707, 512,], [512, 316, 512, 316, 316, 316, 707, 707, 512, 512, 512, 707, 512, 707, 512, 707, 316, 512,], [512, 707, 707, 707, 707, 512, 512, 316, 316, 512, 512, 316, 316, 316, 512, 512, 316, 707,]]
 # deploy reference data generation from csv file or etc
-SCALE = 2
+SCALE = 1.5
 for i in range(20):
     for j in range(18):
         commandValues[i][j] = np.floor((commandValues[i][j]-512)*SCALE+512)
@@ -32,10 +33,10 @@ for i in range(20):
             commandValues[i][j] = 0
 commandValues = commandValues*1000
 real_data = []
-for i in range(total_timesteps):
+for i in range(total_timesteps*sample_rate):
 	temp = []
 	for j in range(18):
-		temp.append(commandValues[i][j])
+		temp.append(commandValues[i//sample_rate][j])
 	real_data.append(temp)
 
 
@@ -76,28 +77,21 @@ def E(a):  # temp linear function
     N = len(a)
     write_alpha(a) # upd alpha
     ret = 0
-    rendering = gym.make("HexapodRender-v0")
+    rendering = gym.make("Hexapod-v0")
     obs = rendering.reset(load=True,fixed=True)
     #rendering.render()
-    for i in range(total_timesteps):
-        #print("obs")
-        #print(obs)
-        #print("timestep E calc" + str(i))
-        #print(commandValues[i])
-        obs, _, done, _ = rendering.step(digital_to_analog(np.array(commandValues[i])))
-        #print(obs)
-        ret += np.sqrt(np.mean((real_data[i] - analog_to_digital(obs[:18]))**2))
-        #print("expected")
-        #print(real_data[i])
-        #print("real")
-        #print(analog_to_digital(obs[:18]))
+    #sample_rate = 1 # disable the method
+    for i in range(total_timesteps*sample_rate):
+        if i%sample_rate == 0:
+            obs, _, done, _ = rendering.step(digital_to_analog(np.array(commandValues[i])))
+            ret += np.sqrt(np.mean((real_data[i] - analog_to_digital(obs[:18]))**2))
+        else:
+            _obs, _ , _ = rendering.non_action_step()
+            ret += np.sqrt(np.mean((real_data[i] - analog_to_digital(_obs[:18]))**2))
 
-        # print(action)
-        # print(obs)
-        # print(analog_to_digital(action))
     rendering.close()
-    print("value is" + str(ret/total_timesteps))
-    return ret/total_timesteps
+    print("value is" + str(ret/total_timesteps/sample_rate))
+    return ret/total_timesteps/sample_rate
 
 
 def GradE(a):  # get the estimated value of gradient
@@ -153,7 +147,7 @@ print(E([0.2,0.1]))
 
 initial values must be equal 
 
-sim 2 real is not feasible 
+sim 2 real is not feasible => 
 
 
 '''
