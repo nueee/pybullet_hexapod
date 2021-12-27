@@ -177,7 +177,6 @@ class HexapodEnv(gym.Env):
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.8)
             Plane(self.client)
-
             self.hexapod = Hexapod(self.client)
         else:
 
@@ -194,22 +193,20 @@ class HexapodEnv(gym.Env):
                 # print(ORIGINAL_VALUES[i+1][0])
 
                 if load:  # if it is model loading phase, return to original parameters
-
                     p.changeDynamics(self.id, i, mass=ORIGINAL_VALUES[i + 1][0] * (1),
                                      lateralFriction=ORIGINAL_VALUES[i + 1][1] * (1),
-                                     restitution=ORIGINAL_VALUES[i + 1][-6], localInertiaDiagonal=(
-                        ORIGINAL_VALUES[i + 1][-8][0] * (1), ORIGINAL_VALUES[i + 1][-8][1] * (1),
-                        ORIGINAL_VALUES[i + 1][-8][2] * (1)),jointDamping=0.2-self.joint_damping_alpha)
-
+                                     restitution=ORIGINAL_VALUES[i + 1][5], localInertiaDiagonal=(
+                        ORIGINAL_VALUES[i + 1][2][0] * (1), ORIGINAL_VALUES[i + 1][2][1] * (1),
+                        ORIGINAL_VALUES[i + 1][2][2] * (1)),jointDamping=0.2-self.joint_damping_alpha)
                     self.hexapod.set_joint_forces(np.array([1.5 - self.force_alpha] * 18))
                 else:
 
                     p.changeDynamics(self.id, i, mass=ORIGINAL_VALUES[i + 1][0] * (0.8 + 0.4 * np.random.random()),
                                      lateralFriction=(0.5 + 0.75 * (np.random.random())),
                                      restitution=(0.0001 + 0.8999 * np.random.random()), localInertiaDiagonal=(
-                        ORIGINAL_VALUES[i + 1][-8][0] * (0.8 + 0.4 * np.random.random()),
-                        ORIGINAL_VALUES[i + 1][-8][1] * (0.8 + 0.4 * np.random.random()),
-                        ORIGINAL_VALUES[i + 1][-8][2] * (0.8 + 0.4 * np.random.random())),
+                        ORIGINAL_VALUES[i + 1][2][0] * (0.8 + 0.4 * np.random.random()),
+                        ORIGINAL_VALUES[i + 1][2][1] * (0.8 + 0.4 * np.random.random()),
+                        ORIGINAL_VALUES[i + 1][2][2] * (0.8 + 0.4 * np.random.random())),
                                      jointDamping=0.2-self.joint_damping_alpha, )
 
                     rand_force_array = np.array([1.5 - self.force_alpha] * 18)

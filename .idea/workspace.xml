@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/27 SA primary implementation added into ST + 7M Learning with def parameters" />
+    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainload.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainload.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -126,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640602345582</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models">
+      <created>1640602994518</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1640602994518</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,6 +164,7 @@
     <MESSAGE value="12/27 SA primary implementation" />
     <MESSAGE value="12/27 SA primary implementation added into ST" />
     <MESSAGE value="12/27 SA primary implementation added into ST + 7M Learning with def parameters" />
-    <option name="LAST_COMMIT_MESSAGE" value="12/27 SA primary implementation added into ST + 7M Learning with def parameters" />
+    <MESSAGE value="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models" />
+    <option name="LAST_COMMIT_MESSAGE" value="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models" />
   </component>
 </project>
