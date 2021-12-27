@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/26 nueee's manual revision">
-      <change afterPath="$PROJECT_DIR$/simulation_tuning/simulated_annealing_example.py" afterDir="false" />
+    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/27 SA primary implementation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configfile.ini" beforeDir="false" afterPath="$PROJECT_DIR$/configfile.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/power_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/power_graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulation_tuning/simul_err_calc.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation_tuning/simul_err_calc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation_tuning/simulated_annealing_example.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation_tuning/simulated_annealing_example.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640519737345</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="12/27 SA primary implementation">
+      <created>1640591093685</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1640591093685</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -135,6 +140,7 @@
     <MESSAGE value="12/26 fixed test possible + power reduction confirmed?" />
     <MESSAGE value="12/26 models" />
     <MESSAGE value="12/26 nueee's manual revision" />
-    <option name="LAST_COMMIT_MESSAGE" value="12/26 nueee's manual revision" />
+    <MESSAGE value="12/27 SA primary implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="12/27 SA primary implementation" />
   </component>
 </project>
