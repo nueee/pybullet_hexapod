@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="765640c2-5627-4d5d-8c20-742904711bae" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/deploy_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/deploy_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod.egg-info/PKG-INFO" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod.egg-info/PKG-INFO" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/sampling_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/sampling_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

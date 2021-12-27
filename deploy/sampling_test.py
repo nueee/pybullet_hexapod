@@ -11,9 +11,12 @@ import hexapod
 
 # load command sequence, declare variables
 
+
+NUM_DXL = 18
+
 LEN_SEQ = 20
 NUM_SAMPLING = 10
-command_seq = np.zeros((LEN_SEQ, 18), dtype=np.float32)
+command_seq = np.array([[0.5]*NUM_DXL, [-0.5]*NUM_DXL]*(LEN_SEQ//2), dtype=np.float32)
 sampled_seq = []
 
 # ----------------------- servo initialization ----------------------- #
@@ -28,7 +31,7 @@ LEN_AX_GOAL_POSITION = 2
 
 PROTOCOL_VERSION = 1.0  # AX-12 A supports protocol 1.0
 
-NUM_DXL = 18
+# NUM_DXL = 18
 DXL_ID = range(1, NUM_DXL+1)  # phantomx has 18 servos named ID : 1, 2, ..., 18
 BAUDRATE = 1000000
 DEVICENAME = '/dev/ttyUSB0'
@@ -162,13 +165,14 @@ for line in range(LEN_SEQ):
 
         # print("goal : ", dxl_goal_pos)
         # print("present : ", dxl_present_pos)
-        # print("elapsed time :", time.time() - last_time)
+        print("elapsed time :", time.time() - last_time)
+        last_time = time.time()
         # print()
 
 f = open("sampled.csv", "w")
 for line in range(LEN_SEQ*NUM_SAMPLING):
     for i in range(NUM_DXL):
-        f.write(str(sampled_seq[i]))
+        f.write(str(sampled_seq[line][i]))
         if i == NUM_DXL-1:
             f.write("\n")
         else:
