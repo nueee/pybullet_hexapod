@@ -124,7 +124,7 @@ while True:
 
     # convert radian into integer ( < 4 ms )
 
-    dxl_goal_pos = list(map(lambda x: int(np.round(x*195.229+511.5)), action))
+    dxl_goal_pos = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 412, 612), action))
 
     # write action on servos ( < 1 ms )
 
@@ -145,7 +145,7 @@ while True:
     if dxl_comm_result != COMM_SUCCESS:
         print(packetHandler.getTxRxResult(dxl_comm_result))
 
-    # read state of servos ( ~ 290 ms )
+    # read state of servos ( ~ 290 ms, but reduce to ~ 35 ms, inexactly )
 
     for i in range(NUM_DXL):
         dxl_present_pos[i], dxl_comm_result, dxl_error = packetHandler.read2ByteTxRx(
@@ -169,9 +169,15 @@ while True:
     _act_buffer[1:] = _act_buffer[:-1]
     _act_buffer[0] = action  # get recent action
 
+    # wait for dt_action ( dt for action : 50 ms )
+
+    while time.time() - last_time < 0.0499:
+        time.sleep(1e-6)
+
     # printout current info (act, obs)
 
-    print("goal : ", dxl_goal_pos)
-    print("present : ", dxl_present_pos)
-    print("elapsed time :", time.time() - last_time)
-    print()
+    # print("goal : ", dxl_goal_pos)
+    # print("present : ", dxl_present_pos)
+    # print("elapsed time :", time.time() - last_time)
+    # print()
+
