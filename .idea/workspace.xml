@@ -5,11 +5,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9f804bc-268e-4dec-993f-7ec2f5579218" name="Changes" comment="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models">
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_1000000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_1200000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_1400000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_1600000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_1800000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_2000000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_200000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_2200000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_2400000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_2600000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_2800000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_3000000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_400000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_600000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/X/hexapod_model_1229X_800000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_1000000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_1200000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_1400000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_1600000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_1800000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_2000000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_200000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_2200000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_2400000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_2600000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_2800000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_400000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_600000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_model_1229/Y/hexapod_model_1229Y_800000_steps.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229X_0/events.out.tfevents.1640686190.nue16-H81M-S2VP.44279.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229X_0/events.out.tfevents.1640687456.nue16-H81M-S2VP.44279.1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229X_0/events.out.tfevents.1640688698.nue16-H81M-S2VP.44279.2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229X_0/events.out.tfevents.1640689935.nue16-H81M-S2VP.44279.3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640699704.nue16-H81M-S2VP.430324.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640699769.nue16-H81M-S2VP.432452.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640699825.nue16-H81M-S2VP.434195.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640701120.nue16-H81M-S2VP.434195.1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640701423.nue16-H81M-S2VP.487676.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640701622.nue16-H81M-S2VP.494040.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640701689.nue16-H81M-S2VP.495989.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640702886.nue16-H81M-S2VP.495989.1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640702964.nue16-H81M-S2VP.541259.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640704144.nue16-H81M-S2VP.541259.1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229Y_1/events.out.tfevents.1640705304.nue16-H81M-S2VP.541259.2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/envs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/direct_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/direct_render.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/revisedST/newST.py" beforeDir="false" afterPath="$PROJECT_DIR$/revisedST/newST.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainload.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainload.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simple_tests/just_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/simple_tests/just_render.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_1229/tb_1229X_0/events.out.tfevents.1640685059.nue16-H81M-S2VP.10586.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_1229/tb_1229X_0/events.out.tfevents.1640685173.nue16-H81M-S2VP.13744.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +108,34 @@
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/hexapod/envs" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="direct_render" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="pybullet_hexapod" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/direct_render.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.direct_render" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

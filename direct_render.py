@@ -5,13 +5,13 @@ from stable_baselines3 import PPO
 import matplotlib.pyplot as plt
 
 
-render_size = 200
+render_size = 500
 
-env = gym.make("Hexapod-v0")
-model = PPO.load(path='./save_model_1226/power/hexapod_model_1226power_500000_steps.zip', env=env)
+env = gym.make("Hexapod-v1")
+model = PPO.load(path='./save_model_1229/Y/hexapod_model_1229Y_2800000_steps.zip', env=env)
 
 # start rendering the current model.
-obs = env.reset(load=True, fixed=False)
+obs = env.reset()
 frame = plt.imshow(np.zeros((render_size, render_size, 4)))
 for i in range(10000):
     action, _ = model.predict(obs.astype(np.float32))
