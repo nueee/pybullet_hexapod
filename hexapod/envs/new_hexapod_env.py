@@ -12,7 +12,7 @@ class SimpleHexapodEnv(gym.Env):
         self.buffer_size = 3
         self.servo_high_limit = 2.62
         self.servo_low_limit = -2.62
-        self.dt = 0.0025
+        self.dt = 0.05
         self.action_space = gym.spaces.box.Box(
             low=np.array([self.servo_low_limit] * self.joint_number, dtype=np.float32),
             high=np.array([self.servo_high_limit] * self.joint_number, dtype=np.float32)
@@ -75,10 +75,6 @@ class SimpleHexapodEnv(gym.Env):
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
         if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.04 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
-
-        if not self.done:
-            for i in range(19):
-                p.stepSimulation()  # elapse one timestep (above, we assign it as 1/60 s) on pybullet simulation
 
         info = {
             # 'reward': reward,

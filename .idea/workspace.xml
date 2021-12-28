@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/old/ASSY_phantom_urdf.urdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_sampled.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+    <list default="true" id="f9f804bc-268e-4dec-993f-7ec2f5579218" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/envs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf(original).urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/old/ASSY_phantom_urdf(original).urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/revisedST/newST.py" beforeDir="false" afterPath="$PROJECT_DIR$/revisedST/newST.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
