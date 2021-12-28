@@ -26,7 +26,6 @@ class Hexapod:
 
         self.legJoints = range(18)
         self.jointForces = np.array([1.5]*18)
-
         self.joint_pos = [0.0, -0.785398, 1.362578]*6
 
     def get_ids(self):

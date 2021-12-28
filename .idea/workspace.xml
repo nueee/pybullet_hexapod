@@ -9,10 +9,6 @@
       <change beforePath="$PROJECT_DIR$/direct_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/direct_render.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainload.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainload.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simple_tests/just_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/simple_tests/just_render.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tb_log_1229/tb_1229X_0/events.out.tfevents.1640685059.nue16-H81M-S2VP.10586.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tb_log_1229/tb_1229X_0/events.out.tfevents.1640685173.nue16-H81M-S2VP.13744.0" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

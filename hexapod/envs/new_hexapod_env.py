@@ -7,7 +7,7 @@ from hexapod.resources.plane import Plane
 
 
 class SimpleHexapodEnv(gym.Env):
-    def __init__(self, render=False):
+    def __init__(self):
         self.joint_number = 18
         self.buffer_size = 3
         self.servo_high_limit = 2.62
@@ -23,7 +23,7 @@ class SimpleHexapodEnv(gym.Env):
         )
 
         self.np_random, _ = gym.utils.seeding.np_random()
-        self.client = p.connect(p.GUI if render else p.DIRECT)
+        self.client = p.connect(p.DIRECT)
 
         p.setTimeStep(self.dt, self.client)  # probably, dt is 1/60 sec?
 
@@ -31,8 +31,6 @@ class SimpleHexapodEnv(gym.Env):
         self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self.hexapod = None
         self.done = False
-
-        # get initial values for Domain Randomization
 
     @property
     def get_observation(self):
@@ -69,10 +67,10 @@ class SimpleHexapodEnv(gym.Env):
         # calculate the reward function
         # (velocity to <+x> + epsilon) / (rms of applied torque + epsilon) / (error to <+-y> + epsilon)
         # each of epsilon will be determined by their corresponding parameter's 'general' dimensions
-        reward = (pos_del[1] + 0.01) / (torque_rms + 1.0) / (np.abs(curr_ang[2]) + 0.5)
+        reward = (pos_del[1] + 1e-3) / (torque_rms + 0.5) / (np.abs(curr_ang[2]) + 0.5)
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.04 or np.abs(curr_ang[2]) > 0.5:
+        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
 
         info = {
@@ -99,8 +97,8 @@ class SimpleHexapodEnv(gym.Env):
 
         self.done = False
         # reset history buffers
-        self._jnt_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
-        self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
+        self._jnt_buffer = np.array([self.hexapod.joint_pos]*3, dtype=np.float32)
+        self._act_buffer = np.array([self.hexapod.joint_pos]*3, dtype=np.float32)
 
         return np.array(self.get_observation, dtype=np.float32)
 
