@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models">
-      <change afterPath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" afterDir="false" />
+    <list default="true" id="36e4fcaa-419d-4bbe-aac8-5a81ac3fcfa2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/old/ASSY_phantom_urdf.urdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/new_sampled.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/envs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf(original).urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/old/ASSY_phantom_urdf(original).urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/revisedST/newST.py" beforeDir="false" afterPath="$PROJECT_DIR$/revisedST/newST.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +49,7 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="22SgF4ilu0IuvsjP6XeFpxgaCIC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -50,11 +58,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/hexapod/envs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/hexapod/envs" />
     </key>
   </component>

@@ -1,4 +1,5 @@
 from hexapod.envs.hexapod_env import HexapodEnv
+from hexapod.envs.new_hexapod_env import SimpleHexapodEnv
 
 
 class HexapodRenderEnv(HexapodEnv):

@@ -7,13 +7,14 @@ from hexapod import getDataPath
 
 
 NUM_DXL = 18
-dt = 0.002
+dt = 0.0025
 action_ratio = 50
 legJoints = range(NUM_DXL)
 
 LEN_SEQ = 20
 NUM_SAMP = 10
-command_seq = np.array([[0.5]*NUM_DXL, [-0.5]*NUM_DXL]*(LEN_SEQ//2), dtype=np.float32)
+command_seq = np.array([[0.27, -0.27, 0.27], [-0.27, 0.27, -0.27]]*(LEN_SEQ//4)
+                       + [[1.5, -1.5, 1.5], [-1.5, 1.5, -1.5]]*(LEN_SEQ//4), dtype=np.float32)
 sample_seq = np.zeros((LEN_SEQ, NUM_SAMP, NUM_DXL), dtype=np.float32)
 
 
@@ -32,7 +33,7 @@ robot = p.loadURDF(
 p.setTimeStep(dt)
 
 
-f = open('sampled.csv', 'r')
+f = open('new_sampled.csv', 'r')
 
 for i in range(LEN_SEQ):
     for j in range(NUM_SAMP):
@@ -43,22 +44,32 @@ for i in range(LEN_SEQ):
 f.close()
 
 
-error_seq = np.zeros((LEN_SEQ, NUM_SAMP, NUM_DXL), dtype=np.float32)
+def get_err():
+    error_seq = np.zeros((LEN_SEQ, NUM_SAMP, NUM_DXL), dtype=np.float32)
 
-for i in range(LEN_SEQ):
-    p.setJointMotorControlArray(
-        robot,
-        legJoints,
-        controlMode=p.POSITION_CONTROL,
-        targetPositions=command_seq[i],
-        forces=np.array([1.5]*NUM_DXL),
-        physicsClientId=client
-    )
-    for j in range(NUM_SAMP):
-        timer = 0.0
-        for k in range(NUM_DXL):
-            p.stepSimulation(dt)
-            timer += dt
-            joint_pos = np.array(p.getJointStates(robot, legJoints, client))[:, 0][k]
-            error_seq[i][j][k] = sample_seq[i][j][k] - joint_pos
-        
+    for l in range(LEN_SEQ):
+        p.setJointMotorControlArray(
+            robot,
+            legJoints,
+            controlMode=p.POSITION_CONTROL,
+            targetPositions=command_seq[i],
+            forces=np.array([1.5]*NUM_DXL),
+            physicsClientId=client
+        )
+        for m in range(NUM_SAMP):
+            timer = 0.0
+            for n in range(NUM_DXL):
+                p.stepSimulation(dt)
+                timer += dt
+                joint_pos = np.array(p.getJointStates(robot, legJoints, client))[:, 0][k]
+                error_seq[l][m][n] = sample_seq[l][m][n] - joint_pos
+            for n in range(9):
+                p.stepSimulation(dt)
+
+    return error_seq
+
+
+N = 100
+T = 100
+scale = np.sqrt(T)
+start = np.random()
