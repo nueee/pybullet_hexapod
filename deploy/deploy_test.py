@@ -126,7 +126,7 @@ while True:
 
     # convert radian into integer ( < 4 ms )
 
-    dxl_goal_pos = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action))
+    dxl_goal_pos = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 312, 712), action))
 
     # write action on servos ( < 1 ms )
 
