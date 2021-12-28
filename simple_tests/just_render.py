@@ -22,16 +22,28 @@ robot = p.loadURDF(
 dt = 1. / 30.
 p.setTimeStep(dt)
 legJoints = range(18)
+# p.createConstraint(
+#     parentBodyUniqueId=p.getBodyUniqueId(robot),
+#     parentLinkIndex=-1,
+#     childBodyUniqueId=-1,
+#     childLinkIndex=-1,
+#     jointType=p.JOINT_FIXED,
+#     jointAxis=[0, 0, 0],
+#     parentFramePosition=[0, 0, 0],
+#     childFramePosition=[0, 0, 0.5],
+#     childFrameOrientation=p.getQuaternionFromEuler([np.pi / 2, 0.0, 0.0]),
+# )
 
 while True:
     p.setJointMotorControlArray(
         robot,
         legJoints,
         controlMode=p.POSITION_CONTROL,
-        targetPositions=[0] * 18,
-        forces=np.array([200] * 18),
+        targetPositions=[0.0, -0.785398, 1.362578]*6,
+        forces=np.array([1.5] * 18),
         physicsClientId=client
     )
+
     # observation = np.array(p.getJointStates(robot, legJoints, client))[:, 0]
     # print(observation)
     p.stepSimulation()

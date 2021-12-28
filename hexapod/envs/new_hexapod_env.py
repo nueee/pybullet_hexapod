@@ -44,7 +44,6 @@ class SimpleHexapodEnv(gym.Env):
 
         return observation
 
-
     def step(self, action):
         prev_pos, prev_ang = self.hexapod.get_center_position()  # get previous center cartesian and euler for reward
 
@@ -70,7 +69,7 @@ class SimpleHexapodEnv(gym.Env):
         # calculate the reward function
         # (velocity to <+x> + epsilon) / (rms of applied torque + epsilon) / (error to <+-y> + epsilon)
         # each of epsilon will be determined by their corresponding parameter's 'general' dimensions
-        reward = (pos_del[1] + 0.02) / (torque_rms + 1.0) / (np.abs(curr_ang[2]) + 0.5)
+        reward = (pos_del[1] + 0.01) / (torque_rms + 1.0) / (np.abs(curr_ang[2]) + 0.5)
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
         if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.04 or np.abs(curr_ang[2]) > 0.5:
@@ -89,14 +88,14 @@ class SimpleHexapodEnv(gym.Env):
         self.np_random, seed = gym.utils.seeding.np_random(seed)
         return [seed]
 
-    def reset(self, load=False, fixed=False):
+    def reset(self):
         if self.hexapod is None:
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.8)
             Plane(self.client)
             self.hexapod = Hexapod(self.client)
-        else:
-            self.hexapod.reset_hexapod(fixed=fixed)
+
+        self.hexapod.reset_hexapod()
 
         self.done = False
         # reset history buffers
@@ -108,7 +107,7 @@ class SimpleHexapodEnv(gym.Env):
     def render(self, render_size=1000):
         hex_id, client_id = self.hexapod.get_ids()
         proj_matrix = p.computeProjectionMatrixFOV(
-            fov=80,
+            fov=100,
             aspect=1,
             nearVal=0.01,
             farVal=100
