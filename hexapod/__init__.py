@@ -16,6 +16,11 @@ register(
     entry_point='hexapod.envs:SimpleHexapodEnv'
 )
 
+register(
+    id='HexapodRender-v1',
+    entry_point='hexapod.envs:SimpleHexapodRenderEnv'
+)
+
 
 def getDataPath():
     return os.path.join(os.path.dirname(__file__))

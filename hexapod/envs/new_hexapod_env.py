@@ -7,12 +7,12 @@ from hexapod.resources.plane import Plane
 
 
 class SimpleHexapodEnv(gym.Env):
-    def __init__(self, render=False):
+    def __init__(self, render=False, dt=0.05):
         self.joint_number = 18
         self.buffer_size = 3
         self.servo_high_limit = 2.62
         self.servo_low_limit = -2.62
-        self.dt = 0.05
+        self.dt = dt
         self.action_space = gym.spaces.box.Box(
             low=np.array([self.servo_low_limit] * self.joint_number, dtype=np.float32),
             high=np.array([self.servo_high_limit] * self.joint_number, dtype=np.float32)

@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9f804bc-268e-4dec-993f-7ec2f5579218" name="Changes" comment="">
+    <list default="true" id="f9f804bc-268e-4dec-993f-7ec2f5579218" name="Changes" comment="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/envs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/revisedST/newST.py" beforeDir="false" afterPath="$PROJECT_DIR$/revisedST/newST.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
