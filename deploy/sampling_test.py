@@ -12,11 +12,12 @@ import hexapod
 # load command sequence, declare variables
 
 
-NUM_DXL = 18
+NUM_DXL = 3
 
 LEN_SEQ = 20
 NUM_SAMPLING = 10
-command_seq = np.array([[0.5]*NUM_DXL, [-0.5]*NUM_DXL]*(LEN_SEQ//2), dtype=np.float32)
+command_seq = np.array([[0.27, -0.27, 0.27], [-0.27, 0.27, -0.27]]*(LEN_SEQ//4)
+                       + [[1.5, -1.5, 1.5], [-1.5, 1.5, -1.5]]*(LEN_SEQ//4), dtype=np.float32)
 sampled_seq = []
 
 # ----------------------- servo initialization ----------------------- #
@@ -32,7 +33,8 @@ LEN_AX_GOAL_POSITION = 2
 PROTOCOL_VERSION = 1.0  # AX-12 A supports protocol 1.0
 
 # NUM_DXL = 18
-DXL_ID = range(1, NUM_DXL+1)  # phantomx has 18 servos named ID : 1, 2, ..., 18
+# DXL_ID = range(1, NUM_DXL+1)  # phantomx has 18 servos named ID : 1, 2, ..., 18
+DXL_ID = [1, 3, 5]  # for a leg
 BAUDRATE = 1000000
 DEVICENAME = '/dev/ttyUSB0'
 
@@ -81,9 +83,9 @@ for i in range(NUM_DXL):
 
 # declare variables
 
-dxl_goal_pos = [1] * 18
-dxl_present_pos = [1] * 18
-param_goal_pos = [[]] * 18
+dxl_goal_pos = [1] * NUM_DXL
+dxl_present_pos = [1] * NUM_DXL
+param_goal_pos = [[]] * NUM_DXL
 
 # reset servos center
 
@@ -135,12 +137,15 @@ for line in range(LEN_SEQ):
         print(packetHandler.getTxRxResult(dxl_comm_result))
 
     # sample the joint values
+    elapsed_time = 0
 
     for s in range(NUM_SAMPLING):
 
         # read state of servos ( ~ 290 ms, but reduce to ~ 35 ms, inexactly )
 
+        last_time = time.time()
         for i in range(NUM_DXL):
+
             dxl_present_pos[i], dxl_comm_result, dxl_error = packetHandler.read2ByteTxRx(
                 port=portHandler,
                 dxl_id=DXL_ID[i],
@@ -151,6 +156,8 @@ for line in range(LEN_SEQ):
             elif dxl_error:
                 print(packetHandler.getRxPacketError(dxl_error))
 
+        elapsed_time += time.time() - last_time
+
         # convert integer into radian ( < 0.01 ms )
 
         sampled_seq.append(list(map(lambda y: (y-511.5)*5.12218e-3, dxl_present_pos)))
@@ -158,18 +165,20 @@ for line in range(LEN_SEQ):
         # wait for dt_action ( dt for sampling : 50 ms )
         # dt_sampling : 1/20 ms, read 20 times, read latency ignored.
 
-        while time.time() - last_time < 0.04995:
-            time.sleep(1e-6)
+        while time.time() - last_time < 0.02495:
+            time.sleep(1e-5)
 
         # printout current info (act, obs)
 
         # print("goal : ", dxl_goal_pos)
         # print("present : ", dxl_present_pos)
-        print("elapsed time :", time.time() - last_time)
-        last_time = time.time()
+        # print("elapsed time :", time.time() - last_time)
+        # last_time = time.time()
         # print()
 
-f = open("sampled.csv", "w")
+print(elapsed_time / NUM_SAMPLING)
+
+f = open("new_sampled.csv", "w")
 for line in range(LEN_SEQ*NUM_SAMPLING):
     for i in range(NUM_DXL):
         f.write(str(sampled_seq[line][i]))

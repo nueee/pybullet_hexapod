@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="765640c2-5627-4d5d-8c20-742904711bae" name="Changes" comment="">
+    <list default="true" id="765640c2-5627-4d5d-8c20-742904711bae" name="Changes" comment="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/deploy_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/deploy_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/sampling_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/sampling_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,5 +35,8 @@
       <updated>1640583070985</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
