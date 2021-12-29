@@ -18,7 +18,8 @@ class revisedHexapod:
             fileName=f_name,
             basePosition=self.init_pos,
             baseOrientation=self.init_ori,
-            physicsClientId=client
+            physicsClientId=client,
+            flags=p.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT
         )
 
         self.legJoints = range(18)

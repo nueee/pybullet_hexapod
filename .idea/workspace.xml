@@ -5,19 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9f804bc-268e-4dec-993f-7ec2f5579218" name="Changes" comment="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models">
-      <change afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hexapod/resources/hexapod_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pybullet_hexapod.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/direct_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/direct_render.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/envs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/new_hexapod_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/revisedST/newST.py" beforeDir="false" afterPath="$PROJECT_DIR$/revisedST/newST.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simple_tests/just_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/simple_tests/just_render.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/complex/ASSY_phantom_urdf.urdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/plane.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/plane.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_1229/tb_1229revisedBaseEnv_0/events.out.tfevents.1640768366.nue16-H81M-S2VP.63491.0" beforeDir="false" afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229revisedBaseEnv_0/events.out.tfevents.1640768366.nue16-H81M-S2VP.63491.0" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

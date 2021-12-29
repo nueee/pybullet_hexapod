@@ -34,15 +34,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/torso.STL" />
-      </geometry>
-    </collision>
   </link>
   <link
     name="LF_thigh">
@@ -74,15 +65,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/LF_thigh.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="LF1"
@@ -132,15 +114,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/LF_calf.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="LF2"
@@ -248,15 +221,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/LM_thigh.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="LM1"
@@ -306,15 +270,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/LM_calf.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="LM2"
@@ -422,15 +377,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/LB_thigh.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="LB1"
@@ -480,15 +426,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/LB_calf.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="LB2"
@@ -596,15 +533,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/RF_thigh.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="RF1"
@@ -654,15 +582,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/RF_calf.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="RF2"
@@ -770,15 +689,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/RM_thigh.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="RM1"
@@ -828,15 +738,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/RM_calf.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="RM2"
@@ -944,15 +845,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/RB_thigh.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="RB1"
@@ -1002,15 +894,6 @@
           rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://ASSY_phantom_urdf/meshes/RB_calf.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="RB2"

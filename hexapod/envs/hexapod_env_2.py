@@ -12,8 +12,8 @@ class revisedHexapodEnv(gym.Env):
         self.buffer_size = 3
 
         self.offset = np.array([0.0, -0.785398, 1.362578]*6)
-        self.servo_high_limit = np.array([np.pi/4]*self.joint_number) + self.offset
-        self.servo_low_limit = np.array([-np.pi/4]*self.joint_number) + self.offset
+        self.servo_high_limit = np.tile(np.array([np.pi/2, np.pi/4, np.pi/4]), 6) + self.offset
+        self.servo_low_limit = np.tile(np.array([-np.pi/2, -np.pi/4, -np.pi/4]), 6) + self.offset
         self.dt = dt
 
         self.action_space = gym.spaces.box.Box(
@@ -34,10 +34,11 @@ class revisedHexapodEnv(gym.Env):
         self._jnt_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self.hexapod = None
+        self.plane = None
         self.done = False
 
         self.max_velocity = 5.0
-        self.max_torque = 30.0
+        self.max_torque = 1.5
         self.Kp = 1/12
         self.Kd = 0.4
 
@@ -82,10 +83,21 @@ class revisedHexapodEnv(gym.Env):
         # calculate the reward function
         # (velocity to <+x> + epsilon) / (rms of applied torque + epsilon) / (error to <+-y> + epsilon)
         # each of epsilon will be determined by their corresponding parameter's 'general' dimensions
-        reward = (pos_del[1] + 1e-3) / (torque_rms + 0.5) / (np.abs(curr_pos[0]) + 0.5)
+        reward = (pos_del[1] + 2e-2) / (torque_rms + 0.5) / (np.abs(curr_pos[0]) + 0.5)
+
+        contacts = p.getContactPoints(p.getBodyUniqueId(self.plane.plane), p.getBodyUniqueId(self.hexapod.hexapod))
+        for c in contacts:
+            if c[4] == -1 or c[4] % 3 != 2:
+                print(c[4], ' collided w/ plane')
+                self.done = True
+        contacts = p.getContactPoints(p.getBodyUniqueId(self.hexapod.hexapod), p.getBodyUniqueId(self.hexapod.hexapod))
+        for c in contacts:
+            print(c[3], ', ', c[4], ' collided w/ itself')
+            self.done = True
+
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
+        if np.abs(curr_pos[0]) > 0.5 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
 
         info = {
@@ -105,17 +117,27 @@ class revisedHexapodEnv(gym.Env):
         if self.hexapod is None:
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.81)
-            Plane(self.client)
+            self.plane = Plane(self.client)
             self.hexapod = revisedHexapod(self.client)
 
             for i in range(self.joint_number):
                 p.changeDynamics(
                     1, i,
-                    jointLimitForce=30.0,
-                    maxJointVelocity=5.0
+                    jointLimitForce=self.max_torque,
+                    maxJointVelocity=self.max_velocity
                 )
 
         self.hexapod.reset_hexapod(offset=self.offset)
+
+        for i in range(10):
+            self.hexapod.apply_action(
+                action=self.offset,
+                max_force=self.max_torque,
+                max_vel=self.max_velocity,
+                Kp=self.Kp,
+                Kd=self.Kd
+            )
+            p.stepSimulation()
 
         self.done = False
         # reset history buffers
