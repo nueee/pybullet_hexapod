@@ -1,5 +1,3 @@
-import numpy as np
-import gym
 import hexapod
 from typing import Callable
 from stable_baselines3 import PPO
@@ -16,7 +14,7 @@ def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], 
 
 
 date = "1229"
-trial = "Y"
+trial = "revisedBaseEnv"
 
 checkpoint_on_event = CheckpointCallback(
     save_freq=1,
@@ -31,7 +29,7 @@ event_callback = EveryNTimesteps(
 
 
 def main():
-    env = make_vec_env("Hexapod-v1", n_envs=4, seed=0, vec_env_cls=SubprocVecEnv)
+    env = make_vec_env("Hexapod-v2", n_envs=4, seed=0, vec_env_cls=SubprocVecEnv)
     env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
     model = PPO(
         "MlpPolicy",

@@ -2,6 +2,7 @@ import sys
 import numpy as np
 import pybullet as p
 import matplotlib.pyplot as plt
+import time
 
 sys.path.append('../')
 from hexapod import getDataPath
@@ -19,32 +20,33 @@ command_seq = np.array([[0.27, -0.27, 0.27], [-0.27, 0.27, -0.27]]*(LEN_SEQ//4)
 sample_seq = np.zeros((LEN_SEQ*NUM_SAMP, NUM_DXL), dtype=np.float32)
 
 
-client = p.connect(p.GUI)
-# p.setGravity(0, 0, -9.8)
-p.setGravity(0, 0, 0)
+client = p.connect(p.DIRECT)
+p.setGravity(0, 0, -9.8)
+# p.setGravity(0, 0, 0)
 
 p.setAdditionalSearchPath(getDataPath())
 floor = p.loadURDF('../hexapod/resources/plane.urdf')
 robot = p.loadURDF(
     fileName='../hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf',
-    basePosition=[0.0, 0.0, 0.5],
+    basePosition=[0.0, 0.0, 0.1],
     baseOrientation=p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0]),
     physicsClientId=client
 )
 
 p.setTimeStep(dt)
+p.setPhysicsEngineParameter(numSubSteps=10)
 
-# p.createConstraint(
-#     parentBodyUniqueId=p.getBodyUniqueId(robot),
-#     parentLinkIndex=-1,
-#     childBodyUniqueId=-1,
-#     childLinkIndex=-1,
-#     jointType=p.JOINT_FIXED,
-#     jointAxis=[0, 0, 0],
-#     parentFramePosition=[0, 0, 0],
-#     childFramePosition=[0, 0, 0.5],
-#     childFrameOrientation=p.getQuaternionFromEuler([np.pi / 2, 0.0, 0.0]),
-# )
+p.createConstraint(
+    parentBodyUniqueId=p.getBodyUniqueId(robot),
+    parentLinkIndex=-1,
+    childBodyUniqueId=-1,
+    childLinkIndex=-1,
+    jointType=p.JOINT_FIXED,
+    jointAxis=[0, 0, 0],
+    parentFramePosition=[0, 0, 0],
+    childFramePosition=[0, 0, 0.5],
+    childFrameOrientation=p.getQuaternionFromEuler([np.pi / 2, 0.0, 0.0]),
+)
 
 
 f = open('new_sampled.csv', 'r')
@@ -58,17 +60,15 @@ for i in range(LEN_SEQ):
 f.close()
 
 
-def plot_wave(joint_damping, max_torque=1.5):
-    p.resetBasePositionAndOrientation(robot, [0.0, 0.0, 0.15], p.getQuaternionFromEuler([np.pi / 2, 0.0, 0.0]), client)
-    p.resetBaseVelocity(robot, [0.0] * 3, [0.0] * 3, client)
+def plot_wave(max_torque, max_vel):
     for rj in range(p.getNumJoints(robot, client)):
         p.resetJointState(robot, rj, 0.0, 0.0, client)
 
     for dxl in range(NUM_DXL):
         p.changeDynamics(
             robot, dxl,
-            jointLimitForce=max_torque,
-            jointDamping=joint_damping
+            jointLimitForce=max_torque[dxl],
+            maxJointVelocity=max_vel
         )
 
     simul_seq = np.zeros((LEN_SEQ*NUM_SAMP, NUM_DXL), dtype=np.float32)
@@ -79,7 +79,7 @@ def plot_wave(joint_damping, max_torque=1.5):
             legJoints,
             controlMode=p.POSITION_CONTROL,
             targetPositions=command_seq[l],
-            forces=np.array([max_torque] * NUM_DXL),
+            forces=np.array(max_torque),
             physicsClientId=client
         )
         for m in range(NUM_SAMP):
@@ -103,9 +103,7 @@ def plot_wave(joint_damping, max_torque=1.5):
     plt.title("outermost servo")
 
 
-def get_err(max_torque=1.5):
-    p.resetBasePositionAndOrientation(robot, [0.0, 0.0, 0.15], p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0]), client)
-    p.resetBaseVelocity(robot, [0.0] * 3, [0.0] * 3, client)
+def get_err(max_torque):
     for rj in range(p.getNumJoints(robot, client)):
         p.resetJointState(robot, rj, 0.0, 0.0, client)
 
@@ -117,7 +115,7 @@ def get_err(max_torque=1.5):
             legJoints,
             controlMode=p.POSITION_CONTROL,
             targetPositions=command_seq[l],
-            forces=np.array([max_torque]*NUM_DXL),
+            forces=max_torque,
             physicsClientId=client
         )
         for m in range(NUM_SAMP):
@@ -125,43 +123,90 @@ def get_err(max_torque=1.5):
                 joint_pos = np.array(p.getJointStates(robot, legJoints, client))[:, 0][n]
                 error_seq[l*NUM_SAMP+m][n] = np.abs(sample_seq[l*NUM_SAMP+m][n] - joint_pos)
             p.stepSimulation()
+            # time.sleep(dt)
 
-    return np.mean(error_seq, axis=0)
+    return np.max(np.mean(error_seq, axis=0))
 
 
-N = 300
-err_grid = []
+N = 20
+err_grid = [[], [], []]
 min_err = 100.0
 
-jv = np.linspace(0, 1, N)
-jnt_dmp = np.float_power(10, -1 * jv)
-opt_jnt_dmp = 0.0
+# mv = [[], [], []]
+# max_torque = [[], [], []]
+# for d in range(NUM_DXL):
+#     mv[d] = np.linspace(0, 1, N)
+#     max_torque[d] = (mv[d]-0.5)*0.06
+# opt_max_tor = [1.5, 1.5, 1.5]
+#
+# for d in [2, 1, 0]:
+#     for i in range(N):
+#         p.changeDynamics(
+#             robot, d,
+#             jointLimitForce=max_torque[d][i],
+#             maxJointVelocity=4.142414
+#         )
+#         print(i)
+#         if d == 2:
+#             err = np.max(get_err(max_torque=[opt_max_tor[0], opt_max_tor[1], max_torque[2][i]]))
+#         elif d == 1:
+#             err = np.max(get_err(max_torque=[opt_max_tor[0], max_torque[1][i], opt_max_tor[2]]))
+#         else:
+#             err = np.max(get_err(max_torque=[max_torque[0][i], opt_max_tor[1], opt_max_tor[2]]))
+#         err_grid[d].append(err)
+#         if err < min_err:
+#             min_err = err
+#             opt_max_tor[d] = max_torque[d][i]
+#     print(min_err)
+#     print(opt_max_tor)
+#     p.changeDynamics(
+#         robot, d,
+#         jointLimitForce=opt_max_tor[d],
+#         maxJointVelocity=4.142414
+#     )
 
-for i in range(N):
-    for j in range(NUM_DXL):
-        p.changeDynamics(
-            robot, j,
-            jointLimitForce=1.5,
-            jointDamping=jnt_dmp[i]
-        )
-    print(i)
-    err = get_err(max_torque=1.5)[0]
-    err_grid.append(err)
-    if err < min_err:
-        min_err = err
-        opt_jnt_dmp = jnt_dmp[i]
-
-print(min_err)
-print(opt_jnt_dmp)
-
-iteration = range(N)
-plt.figure(1)
-plt.plot(iteration, err_grid)
-# plt.show()
+# iteration = range(N)
+# plt.figure(1)
+# plt.plot(iteration, err_grid[0], iteration, err_grid[1], iteration, err_grid[2])
 
 plt.figure(2)
-plot_wave(opt_jnt_dmp)
+plot_wave(max_torque=[0.04, 0.03, 1.5], max_vel=5)
 plt.show()
+
+
+# N = 100
+# err_grid = []
+# min_err = 100.0
+
+# jv = np.linspace(0, 1, N)
+# jnt_dmp = np.float_power(10, -1 * jv - 0.5)
+# opt_jnt_dmp = 0.0
+#
+# for i in range(N):
+#     for j in range(NUM_DXL):
+#         p.changeDynamics(
+#             robot, j,
+#             jointLimitForce=1.5,
+#             maxJointVelocity=4.142414,
+#             jointDamping=jnt_dmp[i]
+#         )
+#     print(i)
+#     err = np.max(get_err(max_torque=1.5))
+#     err_grid.append(err)
+#     if err < min_err:
+#         min_err = err
+#         opt_jnt_dmp = jnt_dmp[i]
+#
+# print(min_err)
+# print(opt_jnt_dmp)
+#
+# iteration = range(N)
+# plt.figure(1)
+# plt.plot(iteration, err_grid)
+
+# plt.figure(2)
+# plot_wave_for_dmp(joint_damping=0.1, max_vel=6)
+# plt.show()
 
 
 # mv = np.linspace(0, 1, N)
@@ -190,17 +235,18 @@ plt.show()
 
 
 # vv = np.linspace(0, 1, N)
-# max_vel = 100*vv+1e-3
+# max_vel = 10*vv+1e-3
 # opt_max_vel = 0.0
 #
 # for i in range(N):
 #     for j in range(NUM_DXL):
 #         p.changeDynamics(
 #             robot, j,
+#             jointLimitForce=1.5,
 #             maxJointVelocity=max_vel[i]
 #         )
 #     print(i)
-#     err = get_err()
+#     err = np.max(get_err(max_torque=1.5))
 #     err_grid.append(err)
 #     if err < min_err:
 #         min_err = err
@@ -210,9 +256,13 @@ plt.show()
 # print(opt_max_vel)
 #
 # iteration = range(N)
+#
+# plt.figure(1)
 # plt.plot(iteration, err_grid)
+#
+# plt.figure(2)
+# plot_wave_for_vel(opt_max_vel)
 # plt.show()
-
 
 # N = 1000
 # T = 1000

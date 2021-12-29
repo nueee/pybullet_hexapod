@@ -2,36 +2,44 @@ import gym
 import numpy as np
 import time
 import pybullet as p
-from hexapod.resources.hexapod import Hexapod
+from hexapod.resources.hexapod_2 import revisedHexapod
 from hexapod.resources.plane import Plane
 
 
-class SimpleHexapodEnv(gym.Env):
-    def __init__(self, render=False, dt=0.05):
+class revisedHexapodEnv(gym.Env):
+    def __init__(self, gui=False, dt=0.05):
         self.joint_number = 18
         self.buffer_size = 3
-        self.servo_high_limit = []
-        self.servo_low_limit = -2.62
+
+        self.offset = np.array([0.0, -0.785398, 1.362578]*6)
+        self.servo_high_limit = np.array([np.pi/4]*self.joint_number) + self.offset
+        self.servo_low_limit = np.array([-np.pi/4]*self.joint_number) + self.offset
         self.dt = dt
+
         self.action_space = gym.spaces.box.Box(
-            low=np.array([self.servo_low_limit] * self.joint_number, dtype=np.float32),
-            high=np.array([self.servo_high_limit] * self.joint_number, dtype=np.float32)
+            low=np.array(self.servo_low_limit, dtype=np.float32),
+            high=np.array(self.servo_high_limit, dtype=np.float32)
         )
         self.observation_space = gym.spaces.box.Box(
-            low=np.array([self.servo_low_limit] * self.joint_number * 2 * self.buffer_size, dtype=np.float32),
-            high=np.array([self.servo_high_limit] * self.joint_number * 2 * self.buffer_size, dtype=np.float32)
+            low=np.array(np.tile(self.servo_low_limit, 2*self.buffer_size), dtype=np.float32),
+            high=np.array(np.tile(self.servo_high_limit, 2*self.buffer_size), dtype=np.float32)
         )
 
         self.np_random, _ = gym.utils.seeding.np_random()
-        self.client = p.connect(p.DIRECT)
+        self.client = p.connect(p.GUI if gui else p.DIRECT)
 
-        p.setTimeStep(self.dt, self.client)  # probably, dt is 1/60 sec?
-        # p.setPhysicsEngineParameter(numSubSteps=1)
+        p.setTimeStep(self.dt, self.client)
+        p.setPhysicsEngineParameter(fixedTimeStep=self.dt, numSubSteps=6, numSolverIterations=10)
 
         self._jnt_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self._act_buffer = np.zeros((self.buffer_size, self.joint_number), dtype=np.float32)
         self.hexapod = None
         self.done = False
+
+        self.max_velocity = 5.0
+        self.max_torque = 30.0
+        self.Kp = 1/12
+        self.Kd = 0.4
 
     @property
     def get_observation(self):
@@ -46,7 +54,13 @@ class SimpleHexapodEnv(gym.Env):
     def step(self, action):
         prev_pos, prev_ang = self.hexapod.get_center_position()  # get previous center cartesian and euler for reward
 
-        self.hexapod.apply_action(action)  # apply action position on servos
+        self.hexapod.apply_action(
+            action=action,
+            max_vel=self.max_velocity,
+            max_force=self.max_torque,
+            Kp=self.Kp,
+            Kd=self.Kd
+        )  # apply action position on servos
         p.stepSimulation()  # elapse one timestep (above, we assign it as 1/60 s) on pybullet simulation
 
         # update obs buffer and act buffer
@@ -71,7 +85,7 @@ class SimpleHexapodEnv(gym.Env):
         reward = (pos_del[1] + 1e-3) / (torque_rms + 0.5) / (np.abs(curr_pos[0]) + 0.5)
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.max(np.abs(curr_ang)) > 0.5:
+        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
 
         info = {
@@ -90,23 +104,23 @@ class SimpleHexapodEnv(gym.Env):
     def reset(self):
         if self.hexapod is None:
             p.resetSimulation(self.client)
-            p.setGravity(0, 0, -9.8)
+            p.setGravity(0, 0, -9.81)
             Plane(self.client)
-            self.hexapod = Hexapod(self.client)
+            self.hexapod = revisedHexapod(self.client)
 
             for i in range(self.joint_number):
                 p.changeDynamics(
                     1, i,
-                    jointLimitForce=1.5,
+                    jointLimitForce=30.0,
                     maxJointVelocity=5.0
                 )
 
-        self.hexapod.reset_hexapod(offse)
+        self.hexapod.reset_hexapod(offset=self.offset)
 
         self.done = False
         # reset history buffers
-        self._jnt_buffer = np.array([self.hexapod.joint_pos]*3, dtype=np.float32)
-        self._act_buffer = np.array([self.hexapod.joint_pos]*3, dtype=np.float32)
+        self._jnt_buffer = np.array([self.offset]*3, dtype=np.float32)
+        self._act_buffer = np.array([self.offset]*3, dtype=np.float32)
 
         return np.array(self.get_observation, dtype=np.float32)
 

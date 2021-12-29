@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 render_size = 500
 
 env = gym.make("Hexapod-v1")
-model = PPO.load(path='./save_model_1229/Y/hexapod_model_1229Y_2800000_steps.zip', env=env)
+model = PPO.load(path='./save_model_1229/X/hexapod_model_1229X_2200000_steps.zip', env=env)
 
 # start rendering the current model.
 obs = env.reset()
