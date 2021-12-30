@@ -12,8 +12,8 @@ class revisedHexapodEnv(gym.Env):
         self.buffer_size = 3
 
         self.offset = np.array([0.0, -0.785398, 1.362578]*6)
-        self.servo_high_limit = np.tile(np.array([np.pi/2, np.pi/4, np.pi/4]), 6) + self.offset
-        self.servo_low_limit = np.tile(np.array([-np.pi/2, -np.pi/4, -np.pi/4]), 6) + self.offset
+        self.servo_high_limit = np.tile(np.array([np.pi/4, np.pi/8, 0.0]), 6) + self.offset
+        self.servo_low_limit = np.tile(np.array([-np.pi/4, -np.pi/4, -np.pi/4]), 6) + self.offset
         self.dt = dt
 
         self.action_space = gym.spaces.box.Box(
@@ -38,7 +38,7 @@ class revisedHexapodEnv(gym.Env):
         self.done = False
 
         self.max_velocity = 5.0
-        self.max_torque = 1.5
+        self.max_torque = 30.0
         self.Kp = 1/12
         self.Kd = 0.4
 
@@ -83,8 +83,9 @@ class revisedHexapodEnv(gym.Env):
         # calculate the reward function
         # (velocity to <+x> + epsilon) / (rms of applied torque + epsilon) / (error to <+-y> + epsilon)
         # each of epsilon will be determined by their corresponding parameter's 'general' dimensions
-        reward = (pos_del[1] + 2e-2) / (torque_rms + 0.5) / (np.abs(curr_pos[0]) + 0.5)
+        reward = (pos_del[1] + 5e-4) / (torque_rms + 0.5) / (np.abs(curr_ang[2]) + 0.5)
 
+        # print(torque_rms)
         contacts = p.getContactPoints(p.getBodyUniqueId(self.plane.plane), p.getBodyUniqueId(self.hexapod.hexapod))
         for c in contacts:
             if c[4] == -1 or c[4] % 3 != 2:
@@ -97,7 +98,7 @@ class revisedHexapodEnv(gym.Env):
 
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[0]) > 0.5 or np.abs(curr_ang[2]) > 0.5:
+        if np.abs(curr_pos[0]) > 1.0 or curr_pos[2] < 0.04 or np.abs(curr_ang[2]) > 1.0:
             self.done = True
 
         info = {

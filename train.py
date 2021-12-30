@@ -14,7 +14,7 @@ def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], 
 
 
 date = "1229"
-trial = "revisedBaseEnv"
+trial = "notorque"
 
 checkpoint_on_event = CheckpointCallback(
     save_freq=1,

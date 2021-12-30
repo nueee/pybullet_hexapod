@@ -13,3 +13,9 @@ class SimpleHexapodRenderEnv(SimpleHexapodEnv):
 
     def __init__(self, render=True):
         SimpleHexapodEnv.__init__(self, render=True)
+
+
+class revisedHexapodRenderEnv(revisedHexapodEnv):
+
+    def __init__(self, render=True):
+        revisedHexapodEnv.__init__(self, gui=True)

@@ -5,14 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9f804bc-268e-4dec-993f-7ec2f5579218" name="Changes" comment="12/27 SA primary implementation added into ST + 7M Learning with def parameters + models">
+      <change afterPath="$PROJECT_DIR$/continue.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/direct_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/direct_render.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/envs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/envs/hexapod_env_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/envs/hexapod_env_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/ASSY_phantom_urdf.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hexapod/resources/ASSY_phantom_urdf/urdf/complex/ASSY_phantom_urdf.urdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/resources/hexapod_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/hexapod_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hexapod/resources/plane.py" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/plane.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tb_log_1229/tb_1229revisedBaseEnv_0/events.out.tfevents.1640768366.nue16-H81M-S2VP.63491.0" beforeDir="false" afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229revisedBaseEnv_0/events.out.tfevents.1640768366.nue16-H81M-S2VP.63491.0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hexapod/resources/plane.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/hexapod/resources/plane.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainload.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainload.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/power_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/power_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1000000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1000000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1200000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1200000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1400000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1400000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1600000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1600000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_200000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_200000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_400000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_400000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_600000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_600000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_800000_steps.zip" beforeDir="false" afterPath="$PROJECT_DIR$/save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_800000_steps.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simple_tests/just_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/simple_tests/just_render.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_log_1229/tb_1229revisedBaseEnv_0/events.out.tfevents.1640774807.nue16-H81M-S2VP.66541.0" beforeDir="false" afterPath="$PROJECT_DIR$/tb_log_1229/tb_1229revisedBaseEnv_0/events.out.tfevents.1640774807.nue16-H81M-S2VP.66541.0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,14 +70,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/hexapod/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/hexapod/resources" />
       <recent name="$PROJECT_DIR$/hexapod/envs" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager">

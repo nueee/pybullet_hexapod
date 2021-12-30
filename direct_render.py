@@ -5,10 +5,10 @@ from stable_baselines3 import PPO
 import matplotlib.pyplot as plt
 
 
-render_size = 500
+render_size = 1500
 
 env = gym.make("Hexapod-v2")
-model = PPO.load(path='./save_model_1229/revisedBaseEnv/hexapod_model_1229revisedBaseEnv_1600000_steps.zip', env=env)
+model = PPO.load(path='./save_model_1229/restrictedJoint_branch2/hexapod_model_1229restrictedJoint_branch2_2200004_steps.zip', env=env)
 
 # start rendering the current model.
 obs = env.reset()

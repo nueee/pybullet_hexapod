@@ -19,7 +19,7 @@ class revisedHexapod:
             basePosition=self.init_pos,
             baseOrientation=self.init_ori,
             physicsClientId=client,
-            flags=p.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT
+            flags=p.URDF_USE_INERTIA_FROM_FILE+p.URDF_USE_SELF_COLLISION+p.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT
         )
 
         self.legJoints = range(18)

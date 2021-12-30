@@ -9,7 +9,8 @@ class Plane:
         self.plane = p.loadURDF(
             fileName=f_name,
             basePosition=[0, 0, 0],
-            physicsClientId=client
+            physicsClientId=client,
+            useFixedBase=True
         )
         p.setAdditionalSearchPath(getDataPath())
         p.loadTexture('tex256.png')
