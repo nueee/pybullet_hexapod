@@ -19,7 +19,7 @@ def analog_to_digital(x):
 #env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
 
 rendering = gym.make("HexapodRender-v2")
-model = PPO.load(path='./save_model_1229/restrictedJoint_branch4/hexapod_model_1229restrictedJoint_branch4_6000012_steps.zip', env=rendering)
+model = PPO.load(path='./save_model/save_model_1229/restrictedJoint_branch4/hexapod_model_1229restrictedJoint_branch4_6000012_steps.zip', env=rendering)
 
 pybullet.setRealTimeSimulation(True)
 # start rendering the current model.
