@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import time
 
 
-render_size = 500
+render_size = 200
 
 env = gym.make("Hexapod-v2")
-model = PPO.load(path='./save_model/save_model_1229/restrictedJoint_branch4/hexapod_model_1229restrictedJoint_branch4_6000012_steps.zip', env=env)
+model = PPO.load(path='./save_model/save_model_1231/something new/hexapod_model_1231something new_10000000_steps.zip', env=env)
 
 # start rendering the current model.
 obs = env.reset()

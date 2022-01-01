@@ -37,10 +37,10 @@ class revisedHexapodEnv(gym.Env):
         self.plane = None
         self.done = False
 
-        self.max_velocity = 5.0
-        self.max_torque = 30.0
-        self.Kp = 1/12
-        self.Kd = 0.4
+        self.max_velocity = 5.3
+        self.max_torque = 0.03
+        self.Kp = 0.01
+        self.Kd = 0.08
 
     @property
     def get_observation(self):

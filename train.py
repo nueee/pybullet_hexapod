@@ -13,8 +13,8 @@ def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], 
     return func
 
 
-date = "1229"
-trial = "notorque"
+date = "0101"
+trial = "long_batch_with_ST_value_revised_lr"
 
 checkpoint_on_event = CheckpointCallback(
     save_freq=1,
@@ -36,12 +36,12 @@ def main():
         env=env,
         verbose=2,
         tensorboard_log='./tb_log_' + date,
-        learning_rate=lin_schedule(3e-4, 3e-6),
+        learning_rate=lin_schedule(5e-4, 5e-6),
         clip_range=lin_schedule(0.3, 0.1),
         n_epochs=20,  # PPO internal epochs
         ent_coef=1e-4,
-        batch_size=128 * 4,
-        n_steps=128
+        batch_size=1024 * 4,
+        n_steps=1024
     )
 
     # if you need to continue learning by loading existing model, use below line.
@@ -49,7 +49,7 @@ def main():
 
     for i in range(10):
         model.learn(
-            int(1e6),  # total timesteps used for learning
+            int(2e6),  # total timesteps used for learning
             callback=event_callback,  # every n_steps, save the model.
             tb_log_name='tb_' + date + trial,
             reset_num_timesteps=False   # if you need to continue learning by loading existing model, use this option.
