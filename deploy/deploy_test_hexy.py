@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser(description="load model, and show how much powe
 parser.add_argument('--model', required=True, help='zipped model path to measure.')
 args = parser.parse_args()
 
-custom_objects = {"learning_rate": lambda x: 3e-5, "clip_range": lambda x: 10.0}
+custom_objects = {"learning_rate": lambda x: 3e-5, "lr_schedule": lambda x: 3e-5, "clip_range": lambda x: 0.1}
 model = PPO.load(path=str(args.model), custom_objects=custom_objects)
 
 # declare variables
@@ -29,7 +29,7 @@ _act_buffer = np.array([offset1]*3, dtype=np.float32)
 
 # set AX 12-A DXL python SDK protocol 1.0 constants
 
-offset = [0, -154, 267]*3+[0, 154, -267]*3
+offset = [0, -int(154/1.7), int(267/1.7)]*3+[0, int(154/1.7), -int(267/1.7)]*3
 
 ADDR_AX_TORQUE_ENABLE = 24
 ADDR_AX_GOAL_POSITION = 30
@@ -132,17 +132,17 @@ while True:
 
     # convert radian into integer ( < 4 ms )
 
-    dxl_goal_pos[0:7:3] = list(map(lambda x: np.clip(int(np.round(-x*195.229+511.5)), 0, 1023), action[0:7:3]))
-    dxl_goal_pos[1:8:3] = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action[1:8:3]))
-    dxl_goal_pos[2:9:3] = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action[2:9:3]))
-    dxl_goal_pos[9:18] = list(map(lambda x: np.clip(int(np.round(-x*195.229+511.5)), 0, 1023), action[9:18]))
+    dxl_goal_pos[0:7:3] = list(map(lambda x: np.clip(int(np.round(-x*195.229*0.15+511.5)), 0, 1023), action[0:7:3]))
+    dxl_goal_pos[1:8:3] = list(map(lambda x: np.clip(int(np.round(x*195.229*0.15+511.5)), 0, 1023), action[1:8:3]))
+    dxl_goal_pos[2:9:3] = list(map(lambda x: np.clip(int(np.round(x*195.229*0.15+511.5)), 0, 1023), action[2:9:3]))
+    dxl_goal_pos[9:18] = list(map(lambda x: np.clip(int(np.round(-x*195.229*0.15+511.5)), 0, 1023), action[9:18]))
     
     # write action on servos ( < 1 ms )
 
     for i in range(NUM_DXL):
         param_goal_pos[i] = [
-            DXL_LOBYTE(dxl_goal_pos[i]),
-            DXL_HIBYTE(dxl_goal_pos[i])
+            DXL_LOBYTE(dxl_goal_pos[i]+offset[i]),
+            DXL_HIBYTE(dxl_goal_pos[i]+offset[i])
         ]
         dxl_addparam_result = groupSyncWrite.changeParam(
             dxl_id=DXL_ID[i],
@@ -171,10 +171,10 @@ while True:
 
     # convert integer into radian ( < 0.01 ms )
 
-    joint_values[0:7:3] = list(map(lambda y: (511.5-y)*5.12218e-3, dxl_present_pos[0:7:3]))
-    joint_values[1:8:3] = list(map(lambda y: (y-511.5)*5.12218e-3, dxl_present_pos[1:8:3]))
-    joint_values[2:9:3] = list(map(lambda y: (y-511.5)*5.12218e-3, dxl_present_pos[2:9:3]))
-    joint_values[9:18] = list(map(lambda y: (511.5-y)*5.12218e-3, dxl_present_pos[9:18]))
+    joint_values[0:7:3] = list(map(lambda y: (511.5-y)*5.12218e-3, np.subtract(dxl_present_pos[0:7:3], offset[0:7:3])))
+    joint_values[1:8:3] = list(map(lambda y: (y-511.5)*5.12218e-3, np.subtract(dxl_present_pos[1:8:3], offset[1:8:3])))
+    joint_values[2:9:3] = list(map(lambda y: (y-511.5)*5.12218e-3, np.subtract(dxl_present_pos[2:9:3], offset[2:9:3])))
+    joint_values[9:18] = list(map(lambda y: (511.5-y)*5.12218e-3, np.subtract(dxl_present_pos[9:18], offset[9:18])))
     
     # print(joint_values)
 
@@ -192,8 +192,8 @@ while True:
 
     # printout current info (act, obs)
 
-    print("goal : ", dxl_goal_pos)
-    print("present : ", dxl_present_pos)
+    # print("goal : ", dxl_goal_pos)
+    # print("present : ", dxl_present_pos)
     # print("elapsed time :", time.time() - last_time)
     # print()
 
