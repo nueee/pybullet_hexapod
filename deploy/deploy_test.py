@@ -28,6 +28,8 @@ _act_buffer = np.zeros((buffer_size, 18), dtype=np.float32)
 
 # set AX 12-A DXL python SDK protocol 1.0 constants
 
+offset = [0, -154, 267]*3+[0, 154, -267]*3
+
 ADDR_AX_TORQUE_ENABLE = 24
 ADDR_AX_GOAL_POSITION = 30
 ADDR_AX_PRESENT_POSITION = 36
@@ -37,7 +39,7 @@ LEN_AX_GOAL_POSITION = 2
 PROTOCOL_VERSION = 1.0  # AX-12 A supports protocol 1.0
 
 NUM_DXL = 18
-DXL_ID = range(1, NUM_DXL+1)  # phantomx has 18 servos named ID : 1, 2, ..., 18
+DXL_ID = [1, 3, 5, 13, 15, 17, 7, 9, 11, 2, 4, 6, 14, 16, 18, 8, 10, 12]  # phantomx has 18 servos named ID : 1, 2, ..., 18
 BAUDRATE = 1000000
 DEVICENAME = '/dev/ttyUSB0'
 
@@ -87,6 +89,7 @@ for i in range(NUM_DXL):
 # declare variables
 
 dxl_goal_pos = [1] * 18
+joint_values = [1.0] * 18
 dxl_present_pos = [1] * 18
 param_goal_pos = [[]] * 18
 
@@ -94,8 +97,8 @@ param_goal_pos = [[]] * 18
 
 for i in range(NUM_DXL):
     param_goal_pos[i] = [
-        DXL_LOBYTE(512),
-        DXL_HIBYTE(512)
+        DXL_LOBYTE(512+offset[i]),
+        DXL_HIBYTE(512+offset[i])
     ]
     dxl_addparam_result = groupSyncWrite.addParam(
         dxl_id=DXL_ID[i],
@@ -123,11 +126,16 @@ while True:
         _act_buffer.ravel()
     ])
     action, _ = model.predict(observation.astype(np.float32))
+    # Observation : deploy index
+    # action : urdf index 
 
     # convert radian into integer ( < 4 ms )
 
-    dxl_goal_pos = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 312, 712), action))
-
+    dxl_goal_pos[0:7:3] = list(map(lambda x: np.clip(int(np.round(-x*195.229+511.5)), 0, 1023), action[0:7:3]))
+    dxl_goal_pos[1:8:3] = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action[1:8:3]))
+    dxl_goal_pos[2:9:3] = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action[2:9:3]))
+    dxl_goal_pos[9:18] = list(map(lambda x: np.clip(int(np.round(-x*195.229+511.5)), 0, 1023), action[9:18]))
+    
     # write action on servos ( < 1 ms )
 
     for i in range(NUM_DXL):
@@ -146,7 +154,7 @@ while True:
     dxl_comm_result = groupSyncWrite.txPacket()
     if dxl_comm_result != COMM_SUCCESS:
         print(packetHandler.getTxRxResult(dxl_comm_result))
-
+    
     # read state of servos ( ~ 290 ms, but reduce to ~ 35 ms, inexactly )
 
     for i in range(NUM_DXL):
@@ -162,7 +170,12 @@ while True:
 
     # convert integer into radian ( < 0.01 ms )
 
-    joint_values = list(map(lambda y: (y-511.5)*5.12218e-3, dxl_present_pos))
+    joint_values[0:7:3] = list(map(lambda y: (511.5-y)*5.12218e-3, dxl_present_pos[0:7:3]))
+    joint_values[1:8:3] = list(map(lambda y: (y-511.5)*5.12218e-3, dxl_present_pos[1:8:3]))
+    joint_values[2:9:3] = list(map(lambda y: (y-511.5)*5.12218e-3, dxl_present_pos[2:9:3]))
+    joint_values[9:18] = list(map(lambda y: (511.5-y)*5.12218e-3, dxl_present_pos[9:18]))
+    
+    # print(joint_values)
 
     # update buffer ( < 0.1 ms )
 

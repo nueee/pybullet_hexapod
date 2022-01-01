@@ -39,7 +39,7 @@ class HexapodEnv(gym.Env):
         self.buffer_size = 3
         self.servo_high_limit = 2.62
         self.servo_low_limit = -2.62
-        self.dt = 1/60
+        self.dt = 1/20
         self.action_space = gym.spaces.box.Box(
             low=np.array([self.servo_low_limit] * self.joint_number, dtype=np.float32),
             high=np.array([self.servo_high_limit] * self.joint_number, dtype=np.float32)
@@ -127,7 +127,7 @@ class HexapodEnv(gym.Env):
         #reward = (pos_del[1] + 0.001) / (np.abs(curr_pos[0]) + 0.5)
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
+        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.08 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
 
         info = {
