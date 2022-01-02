@@ -29,7 +29,7 @@ event_callback = EveryNTimesteps(
 
 
 def main():
-    env = make_vec_env("Hexapod-v2", n_envs=4, seed=0, vec_env_cls=SubprocVecEnv)
+    env = make_vec_env("Hexapod-v2", n_envs=4, vec_env_cls=SubprocVecEnv)
     env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
     model = PPO(
         "MlpPolicy",

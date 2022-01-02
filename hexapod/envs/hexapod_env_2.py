@@ -7,14 +7,21 @@ from hexapod.resources.plane import Plane
 
 
 class revisedHexapodEnv(gym.Env):
-    def __init__(self, gui=False, dt=0.05):
+    def __init__(self, gui=False, dt=0.05, isHexy=False):
         self.joint_number = 18
         self.buffer_size = 3
-
-        self.offset = np.array([0.0, -0.785398, 1.362578]*6)
-        self.servo_high_limit = np.tile(np.array([np.pi/4, np.pi/8, 0.0]), 6) + self.offset
-        self.servo_low_limit = np.tile(np.array([-np.pi/4, -np.pi/4, -np.pi/4]), 6) + self.offset
         self.dt = dt
+
+        if isHexy:
+            self.isHexy = True
+            self.offset = np.array([0.0, -0.785398/1.7, 1.362578/1.7]*6)
+            self.servo_high_limit = np.tile(np.array([1.5]), 18)
+            self.servo_low_limit = np.tile(np.array([-1.5]), 18)
+        else:
+            self.isHexy = False
+            self.offset = np.array([0.0, -0.785398, 1.362578]*6)
+            self.servo_high_limit = np.tile(np.array([np.pi/4, np.pi/8, 0.0]), 6) + self.offset
+            self.servo_low_limit = np.tile(np.array([-np.pi/4, -np.pi/4, -np.pi/4]), 6) + self.offset
 
         self.action_space = gym.spaces.box.Box(
             low=np.array(self.servo_low_limit, dtype=np.float32),
@@ -38,9 +45,9 @@ class revisedHexapodEnv(gym.Env):
         self.done = False
 
         self.max_velocity = 5.3
-        self.max_torque = 0.03
-        self.Kp = 0.01
-        self.Kd = 0.08
+        self.max_torque = 3.00
+        self.Kp = 1/12
+        self.Kd = 0.4
 
     @property
     def get_observation(self):
@@ -56,7 +63,7 @@ class revisedHexapodEnv(gym.Env):
         prev_pos, prev_ang = self.hexapod.get_center_position()  # get previous center cartesian and euler for reward
 
         self.hexapod.apply_action(
-            action=action,
+            action=action if not self.isHexy else 0.2*action+self.offset,
             max_vel=self.max_velocity,
             max_force=self.max_torque,
             Kp=self.Kp,
@@ -66,7 +73,7 @@ class revisedHexapodEnv(gym.Env):
 
         # update obs buffer and act buffer
         self._jnt_buffer[1:] = self._jnt_buffer[:-1]
-        self._jnt_buffer[0] = self.hexapod.get_joint_values()  # get recent joint values
+        self._jnt_buffer[0] = self.hexapod.get_joint_values() if not self.isHexy else self.hexapod.get_joint_values()-self.offset  # get recent joint values
         self._act_buffer[1:] = self._act_buffer[:-1]
         self._act_buffer[0] = action  # get recent action
 
@@ -98,7 +105,7 @@ class revisedHexapodEnv(gym.Env):
 
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[0]) > 1.0 or curr_pos[2] < 0.04 or np.abs(curr_ang[2]) > 1.0:
+        if np.abs(curr_pos[0]) > 1.0 or curr_pos[2] < 0.06 or np.abs(curr_ang[2]) > 1.0:
             self.done = True
 
         info = {
@@ -121,12 +128,12 @@ class revisedHexapodEnv(gym.Env):
             self.plane = Plane(self.client)
             self.hexapod = revisedHexapod(self.client)
 
-            for i in range(self.joint_number):
-                p.changeDynamics(
-                    1, i,
-                    jointLimitForce=self.max_torque,
-                    maxJointVelocity=self.max_velocity
-                )
+        for i in range(self.joint_number):
+            p.changeDynamics(
+                1, i,
+                jointLimitForce=self.max_torque,
+                maxJointVelocity=self.max_velocity
+            )
 
         self.hexapod.reset_hexapod(offset=self.offset)
 
@@ -150,17 +157,17 @@ class revisedHexapodEnv(gym.Env):
     def render(self, render_size=1000):
         hex_id, client_id = self.hexapod.get_ids()
         proj_matrix = p.computeProjectionMatrixFOV(
-            fov=100,
+            fov=110,
             aspect=1,
-            nearVal=0.01,
-            farVal=100
+            nearVal=0.1,
+            farVal=10
         )
         pos, ori = [list(i) for i in p.getBasePositionAndOrientation(hex_id, client_id)]
-        pos = np.add(pos, [0.5, 0, 0.1])
+        pos = np.add(pos, [0.4, 0, 0.12])
 
         # Rotate camera direction
         rot_mat = np.array([[1, 0, 0], [0, 0, -1], [0, 1, 0]])
-        camera_vec = np.matmul(rot_mat, [-1, 0, 0])
+        camera_vec = np.matmul(rot_mat, [-0.4, -0.12, 0])
         up_vec = np.matmul(rot_mat, np.array([0, 1, 0]))
         view_matrix = p.computeViewMatrix(pos, pos + camera_vec, up_vec)
 
@@ -172,3 +179,17 @@ class revisedHexapodEnv(gym.Env):
 
     def close(self):
         p.disconnect(self.client)
+
+    def changeSpacesAsHexy(self):
+        _offset = np.array([0.0, -0.785398, 1.362578] * 6)
+        _servo_high_limit = np.tile(np.array([1.5]), 18) + _offset
+        _servo_low_limit = np.tile(np.array([-1.5]), 18) + _offset
+
+        self.action_space = gym.spaces.box.Box(
+            low=np.array(_servo_low_limit, dtype=np.float32),
+            high=np.array(_servo_high_limit, dtype=np.float32)
+        )
+        self.observation_space = gym.spaces.box.Box(
+            low=np.array(np.tile(_servo_low_limit, 6), dtype=np.float32),
+            high=np.array(np.tile(_servo_high_limit, 6), dtype=np.float32)
+        )

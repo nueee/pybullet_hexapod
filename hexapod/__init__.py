@@ -27,6 +27,11 @@ register(
 )
 
 register(
+    id='HexapodHexy-v2',
+    entry_point='hexapod.envs:HexapodHexyEnv'
+)
+
+register(
     id='HexapodRender-v2',
     entry_point='hexapod.envs:revisedHexapodRenderEnv'
 )
