@@ -2,8 +2,6 @@ import sys
 import numpy as np
 import pybullet as p
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-from mpl_toolkits import mplot3d
 import time
 
 sys.path.append('../')
@@ -70,7 +68,7 @@ f.close()
 # --------------- define function --------------- #
 
 
-def get_err():
+def get_err_d():
     for dxl in legJoints:
         p.resetJointState(robot, dxl, 0.0, 0.0, client)
 
@@ -95,37 +93,72 @@ def get_err():
     return np.max(np.mean(error_seq, axis=0)), simul_seq
 
 
-def plot_wave():
-    _, simul_seq = get_err()
+def get_err_s():
+    for dxl in legJoints:
+        p.resetJointState(robot, dxl, 0.0, 0.0, client)
+        p.changeDynamics(
+            robot, dxl,
+            jointLimitForce=0.03,
+            maxJointVelocity=5.3
+        )
 
-    time = list(map(lambda t: t*dt, range(LEN_SEQ*NUM_SAMP)))
+    error_seq = np.zeros((LEN_SEQ*NUM_SAMP, NUM_DXL), dtype=np.float32)
+    simul_seq = np.zeros((LEN_SEQ*NUM_SAMP, NUM_DXL), dtype=np.float32)
 
-    plt.subplot(131)
-    plt.plot(time, simul_seq[:, 0], label='simulation')
-    plt.plot(time, sample_seq[:, 0], label='actual')
-    plt.title("innermost servo")
-    plt.ylabel('position(rad)', fontsize='large')
+    for l in range(LEN_SEQ):
+        for joint in legJoints:
+            p.setJointMotorControl2(
+                robot, joint,
+                controlMode=p.POSITION_CONTROL,
+                targetPosition=command_seq[l][joint],
+                positionGain=0.01,
+                velocityGain=0.08,
+                force=0.03,
+                maxVelocity=5.3,
+                physicsClientId=client
+            )
+        for m in range(NUM_SAMP):
+            for n in legJoints:
+                joint_pos = np.array(p.getJointStates(robot, legJoints, client))[:, 0][n]
+                simul_seq[l*NUM_SAMP+m][n] = joint_pos
+                error_seq[l*NUM_SAMP+m][n] = np.abs(sample_seq[l*NUM_SAMP+m][n] - joint_pos)
+            p.stepSimulation()
 
-    plt.legend(loc='lower left', fontsize='large')
-
-    plt.subplot(132)
-    plt.plot(time, simul_seq[:, 1])
-    plt.plot(time, sample_seq[:, 1])
-    plt.title("middle servo")
-    plt.xlabel('time(sec)', fontsize='large')
-
-    plt.subplot(133)
-    plt.plot(time, simul_seq[:, 2])
-    plt.plot(time, sample_seq[:, 2])
-    plt.title("outermost servo")
+    return np.max(np.mean(error_seq, axis=0)), simul_seq
 
 
-
-# ---------- 3D plotting -------- #
+# ---------- plotting -------- #
 
 
 plt.figure(2, figsize=(15, 5))
-plot_wave()
+
+_, simul_seq_default = get_err_d()
+_, simul_seq_ST = get_err_s()
+
+time = list(map(lambda t: t*dt, range(LEN_SEQ*NUM_SAMP)))
+
+plt.subplot(131)
+plt.plot(time, simul_seq_ST[:, 0], 'r', label='w/ ST sim')
+plt.plot(time, simul_seq_default[:, 0], 'b', label='w/o ST sim')
+plt.plot(time, sample_seq[:, 0], 'k--', label='actual')
+plt.title("innermost servo")
+plt.ylabel('position(rad)', fontsize='large')
+
+plt.legend(loc='lower left', fontsize='large')
+
+plt.subplot(132)
+plt.plot(time, simul_seq_ST[:, 1], 'r')
+plt.plot(time, simul_seq_default[:, 1], 'b')
+plt.plot(time, sample_seq[:, 1], 'k--')
+plt.title("middle servo")
+plt.xlabel('time(sec)', fontsize='large')
+
+plt.subplot(133)
+plt.plot(time, simul_seq_ST[:, 2], 'r')
+plt.plot(time, simul_seq_default[:, 2], 'b')
+plt.plot(time, sample_seq[:, 2], 'k--')
+plt.title("outermost servo")
+
 plt.tight_layout()
 plt.show()
 
