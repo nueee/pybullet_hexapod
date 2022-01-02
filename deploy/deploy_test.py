@@ -132,10 +132,10 @@ while True:
 
     # convert radian into integer ( < 4 ms )
 
-    dxl_goal_pos[0:7:3] = list(map(lambda x: np.clip(int(np.round(-x*195.229+511.5)), 0, 1023), action[0:7:3]))
-    dxl_goal_pos[1:8:3] = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action[1:8:3]))
-    dxl_goal_pos[2:9:3] = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action[2:9:3]))
-    dxl_goal_pos[9:18] = list(map(lambda x: np.clip(int(np.round(-x*195.229+511.5)), 0, 1023), action[9:18]))
+    dxl_goal_pos[0:7:3] = list(map(lambda x: np.clip(int(np.round(-x*195.229+511.5)), 0, 1023), action[0:7:3]*0.7))
+    dxl_goal_pos[1:8:3] = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action[1:8:3]*0.7))
+    dxl_goal_pos[2:9:3] = list(map(lambda x: np.clip(int(np.round(x*195.229+511.5)), 0, 1023), action[2:9:3]*0.7))
+    dxl_goal_pos[9:18] = list(map(lambda x: np.clip(int(np.round(-x*195.229+511.5)), 0, 1023), action[9:18]*0.7))
     
     # write action on servos ( < 1 ms )
 

@@ -21,7 +21,7 @@ model = PPO.load(path=str(args.model), custom_objects=custom_objects)
 # declare variables
 
 buffer_size = 3
-offset1 = np.array([0.0, -0.785398, 1.362578]*6)
+offset1 = np.array([0.0, -0.785398/1.7, 1.362578/1.7]*6)
 _jnt_buffer = np.array([offset1]*3, dtype=np.float32)
 _act_buffer = np.array([offset1]*3, dtype=np.float32)
 
