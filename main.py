@@ -15,7 +15,7 @@ def lin_schedule(initial_value: float, final_value: float) -> Callable[[float], 
 
 
 date = "1227"
-trial = "A"
+trial = "power_revised"
 
 
 checkpoint_on_event = CheckpointCallback(

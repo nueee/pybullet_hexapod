@@ -1,0 +1,1120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="ASSY_phantom_urdf">
+  <link
+    name="torso">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.73121" />
+      <inertia
+        ixx="0.0016575"
+        ixy="2.7575E-16"
+        ixz="-2.6251E-08"
+        iyy="0.0022272"
+        iyz="-1.4666E-10"
+        izz="0.00063419" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/torso.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/torso.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="LF_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0189187135333139 0.000478712531283565 -0.0260043189660493"
+        rpy="0 0 0" />
+      <mass
+        value="0.0376750978794187" />
+      <inertia
+        ixx="1.0382676450319E-05"
+        ixy="-4.82870833005025E-12"
+        ixz="2.19742306492425E-10"
+        iyy="1.03826762029704E-05"
+        iyz="2.07177635226539E-10"
+        izz="1.33200924059604E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LF_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LF_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LF1"
+    type="revolute">
+    <origin
+      xyz="0.06091 0 0.12191"
+      rpy="2.3562 0 -1.5708" />
+    <parent
+      link="torso" />
+    <child
+      link="LF_thigh" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+  </joint>
+  <link
+    name="LF_calf">
+    <inertial>
+      <origin
+        xyz="0.00118838114257201 -0.0257707005151322 -0.000595468071498656"
+        rpy="0 0 0" />
+      <mass
+        value="0.0806793259499741" />
+      <inertia
+        ixx="2.3728135432093E-05"
+        ixy="6.91387857203295E-07"
+        ixz="-1.86884977607436E-09"
+        iyy="1.767780563337E-05"
+        iyz="-2.42613365109201E-07"
+        izz="1.65430649290008E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LF_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LF_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LF2"
+    type="revolute">
+    <origin
+      xyz="-0.01844 0 -0.052"
+      rpy="1.5708 0.7854 0" />
+    <parent
+      link="LF_thigh" />
+    <child
+      link="LF_calf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+  </joint>
+  <link
+    name="LF_foot">
+    <inertial>
+      <origin
+        xyz="0.0260368144864791 -0.040459778839153 -0.000363415150998886"
+        rpy="0 0 0" />
+      <mass
+        value="0.103482656813031" />
+      <inertia
+        ixx="2.77294582675777E-05"
+        ixy="1.34850249812195E-05"
+        ixz="-1.89513292990375E-09"
+        iyy="3.65156461628875E-05"
+        iyz="-2.42568251679861E-07"
+        izz="4.94335793743486E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LF_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LF_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LF3"
+    type="revolute">
+    <origin
+      xyz="0.014589 -0.06443 0"
+      rpy="0 0 1.3658" />
+    <parent
+      link="LF_calf" />
+    <child
+      link="LF_foot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+  </joint>
+  <link
+    name="LM_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0189187144776559 0.000478714468876692 -0.0260043724674276"
+        rpy="0 0 0" />
+      <mass
+        value="0.0376751009203242" />
+      <inertia
+        ixx="1.03826695315805E-05"
+        ixy="-4.98915057940462E-12"
+        ixz="2.12172123273922E-10"
+        iyy="1.03826695315805E-05"
+        iyz="2.12171092886595E-10"
+        izz="1.33200927078181E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LM_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LM_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LM1"
+    type="revolute">
+    <origin
+      xyz="0.1035 0 0"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="torso" />
+    <child
+      link="LM_thigh" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+  </joint>
+  <link
+    name="LM_calf">
+    <inertial>
+      <origin
+        xyz="0.00118838484900423 -0.0257707055627347 -0.000595469226839227"
+        rpy="0 0 0" />
+      <mass
+        value="0.0806793241220326" />
+      <inertia
+        ixx="2.3728141096192E-05"
+        ixy="6.91392590582623E-07"
+        ixz="-1.869977571747E-09"
+        iyy="1.76778095623174E-05"
+        iyz="-2.42612120369138E-07"
+        izz="1.65430747191068E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LM_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LM_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LM2"
+    type="revolute">
+    <origin
+      xyz="-0.01844 0 -0.052"
+      rpy="1.5708 0.7854 0" />
+    <parent
+      link="LM_thigh" />
+    <child
+      link="LM_calf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="LM_foot">
+    <inertial>
+      <origin
+        xyz="0.0260368291642085 -0.0404597875260156 -0.000363415268275501"
+        rpy="0 0 0" />
+      <mass
+        value="0.103482638943844" />
+      <inertia
+        ixx="2.7729457807986E-05"
+        ixy="1.34850249887826E-05"
+        ixz="-1.89511305525402E-09"
+        iyy="3.65156462713776E-05"
+        iyz="-2.42568236083735E-07"
+        izz="4.9433579108479E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LM_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LM_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LM3"
+    type="revolute">
+    <origin
+      xyz="0.014589 -0.06443 0"
+      rpy="0 0 1.3658" />
+    <parent
+      link="LM_calf" />
+    <child
+      link="LM_foot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="LB_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0189187135333139 0.00047871253128369 -0.0260043189660493"
+        rpy="0 0 0" />
+      <mass
+        value="0.0376750978794186" />
+      <inertia
+        ixx="1.0382676450319E-05"
+        ixy="-4.82870833147012E-12"
+        ixz="2.19742306490418E-10"
+        iyy="1.03826762029704E-05"
+        iyz="2.07177635226115E-10"
+        izz="1.33200924059604E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LB_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LB_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LB1"
+    type="revolute">
+    <origin
+      xyz="0.06091 0 -0.12191"
+      rpy="0.7854 0 -1.5708" />
+    <parent
+      link="torso" />
+    <child
+      link="LB_thigh" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="LB_calf">
+    <inertial>
+      <origin
+        xyz="0.00118838114257189 -0.0257707005151321 -0.00059546807149885"
+        rpy="0 0 0" />
+      <mass
+        value="0.080679325949974" />
+      <inertia
+        ixx="2.37281354320929E-05"
+        ixy="6.91387857203288E-07"
+        ixz="-1.86884977607478E-09"
+        iyy="1.76778056333699E-05"
+        iyz="-2.4261336510919E-07"
+        izz="1.65430649290007E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LB_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LB_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LB2"
+    type="revolute">
+    <origin
+      xyz="-0.01844 0 -0.052"
+      rpy="1.5708 0.7854 0" />
+    <parent
+      link="LB_thigh" />
+    <child
+      link="LB_calf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="LB_foot">
+    <inertial>
+      <origin
+        xyz="0.0260368144864792 -0.0404597788391529 -0.000363415150998886"
+        rpy="0 0 0" />
+      <mass
+        value="0.103482656813031" />
+      <inertia
+        ixx="2.77294582675776E-05"
+        ixy="1.34850249812195E-05"
+        ixz="-1.89513292987579E-09"
+        iyy="3.65156461628875E-05"
+        iyz="-2.42568251679898E-07"
+        izz="4.94335793743485E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LB_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/LB_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LB3"
+    type="revolute">
+    <origin
+      xyz="0.014589 -0.06443 0"
+      rpy="0 0 1.3658" />
+    <parent
+      link="LB_calf" />
+    <child
+      link="LB_foot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RF_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0189188020479903 0.000478800845980093 0.0260043353596264"
+        rpy="0 0 0" />
+      <mass
+        value="0.0376758208259914" />
+      <inertia
+        ixx="1.03828764673456E-05"
+        ixy="-3.25408417106138E-11"
+        ixz="-3.46294905024973E-10"
+        iyy="1.03828761205044E-05"
+        iyz="-3.38463493359526E-10"
+        izz="1.33203665739127E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RF_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RF_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RF1"
+    type="revolute">
+    <origin
+      xyz="-0.06091 0 0.12191"
+      rpy="0.7854 0 -1.5708" />
+    <parent
+      link="torso" />
+    <child
+      link="RF_thigh" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RF_calf">
+    <inertial>
+      <origin
+        xyz="0.00118839448735411 -0.0257708306895506 0.000595485131191148"
+        rpy="0 0 0" />
+      <mass
+        value="0.0806797008140726" />
+      <inertia
+        ixx="2.37283128266096E-05"
+        ixy="6.91404529752462E-07"
+        ixz="1.80297348274294E-09"
+        iyy="1.76779102521873E-05"
+        iyz="2.42634869978194E-07"
+        izz="1.65431060541753E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RF_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RF_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RF2"
+    type="revolute">
+    <origin
+      xyz="-0.01844 0 0.052"
+      rpy="-1.5708 -0.7854 0" />
+    <parent
+      link="RF_thigh" />
+    <child
+      link="RF_calf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RF_foot">
+    <inertial>
+      <origin
+        xyz="0.0251523878039745 -0.0399190519547551 0.000363401002625788"
+        rpy="0 0 0" />
+      <mass
+        value="0.10348275962247" />
+      <inertia
+        ixx="2.77294725192849E-05"
+        ixy="1.34850252775453E-05"
+        ixz="1.89623156593185E-09"
+        iyy="3.65156682580468E-05"
+        iyz="2.42562482314532E-07"
+        izz="4.94335677074542E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RF_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RF_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RF3"
+    type="revolute">
+    <origin
+      xyz="0.014589 -0.06443 0"
+      rpy="0 0 1.3658" />
+    <parent
+      link="RF_calf" />
+    <child
+      link="RF_foot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RM_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0189188023390825 0.000478802347846601 0.0260043723573318"
+        rpy="0 0 0" />
+      <mass
+        value="0.0376758228348441" />
+      <inertia
+        ixx="1.03828709694775E-05"
+        ixy="-3.26232367538412E-11"
+        ixz="-3.41920389663727E-10"
+        iyy="1.03828709694775E-05"
+        iyz="-3.41921417827784E-10"
+        izz="1.33203669609511E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RM_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RM_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RM1"
+    type="revolute">
+    <origin
+      xyz="-0.1035 0 0"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="torso" />
+    <child
+      link="RM_thigh" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RM_calf">
+    <inertial>
+      <origin
+        xyz="0.001188397187932 -0.0257708336460533 0.000595485752764332"
+        rpy="0 0 0" />
+      <mass
+        value="0.0806797009667837" />
+      <inertia
+        ixx="2.37283162712528E-05"
+        ixy="6.91408117149425E-07"
+        ixz="1.80488388072659E-09"
+        iyy="1.76779140809598E-05"
+        iyz="2.42632916986097E-07"
+        izz="1.65431132788042E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RM_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RM_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RM2"
+    type="revolute">
+    <origin
+      xyz="-0.01844 0 0.052"
+      rpy="-1.5708 -0.7854 0" />
+    <parent
+      link="RM_thigh" />
+    <child
+      link="RM_calf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RM_foot">
+    <inertial>
+      <origin
+        xyz="0.0251524010551904 -0.039919059521808 0.000363400892952541"
+        rpy="0 0 0" />
+      <mass
+        value="0.103482743153361" />
+      <inertia
+        ixx="2.77294720723584E-05"
+        ixy="1.34850252865789E-05"
+        ixz="1.89621447560202E-09"
+        iyy="3.65156684057796E-05"
+        iyz="2.42562450521362E-07"
+        izz="4.94335674049255E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RM_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RM_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RM3"
+    type="revolute">
+    <origin
+      xyz="0.014589 -0.06443 0"
+      rpy="0 0 1.3658" />
+    <parent
+      link="RM_calf" />
+    <child
+      link="RM_foot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RB_thigh">
+    <inertial>
+      <origin
+        xyz="-0.0189188020479903 0.000478800845980204 0.0260043353596264"
+        rpy="0 0 0" />
+      <mass
+        value="0.0376758208259914" />
+      <inertia
+        ixx="1.03828764673456E-05"
+        ixy="-3.25408417113336E-11"
+        ixz="-3.46294905019275E-10"
+        iyy="1.03828761205044E-05"
+        iyz="-3.38463493341739E-10"
+        izz="1.33203665739127E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RB_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RB_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RB1"
+    type="revolute">
+    <origin
+      xyz="-0.06091 0 -0.12191"
+      rpy="2.3562 0 -1.5708" />
+    <parent
+      link="torso" />
+    <child
+      link="RB_thigh" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RB_calf">
+    <inertial>
+      <origin
+        xyz="0.00118839448735418 -0.0257708306895507 0.000595485131191037"
+        rpy="0 0 0" />
+      <mass
+        value="0.0806797008140726" />
+      <inertia
+        ixx="2.37283128266096E-05"
+        ixy="6.91404529752473E-07"
+        ixz="1.80297348272981E-09"
+        iyy="1.76779102521873E-05"
+        iyz="2.42634869978198E-07"
+        izz="1.65431060541753E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RB_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RB_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RB2"
+    type="revolute">
+    <origin
+      xyz="-0.01844 0 0.052"
+      rpy="-1.5708 -0.7854 0" />
+    <parent
+      link="RB_thigh" />
+    <child
+      link="RB_calf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+
+
+  </joint>
+  <link
+    name="RB_foot">
+    <inertial>
+      <origin
+        xyz="0.0251523878039747 -0.0399190519547549 0.000363401002625885"
+        rpy="0 0 0" />
+      <mass
+        value="0.103482759622469" />
+      <inertia
+        ixx="2.77294725192848E-05"
+        ixy="1.34850252775453E-05"
+        ixz="1.89623156589374E-09"
+        iyy="3.65156682580467E-05"
+        iyz="2.42562482314553E-07"
+        izz="4.94335677074541E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RB_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ASSY_phantom_urdf/meshes/RB_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RB3"
+    type="revolute">
+    <origin
+      xyz="0.014589 -0.06443 0"
+      rpy="0 0 1.3658" />
+    <parent
+      link="RB_calf" />
+    <child
+      link="RB_foot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.62"
+      upper="2.62"
+      effort="1.5"
+      velocity="0" />
+  </joint>
+</robot>

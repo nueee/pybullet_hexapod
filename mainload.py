@@ -1,32 +1,26 @@
 import numpy as np
 import gym
+import pybullet
+
 import hexapod
 from typing import Callable
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EveryNTimesteps, CheckpointCallback
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecNormalize
+import time
 
 
-def analog_to_digital(x):
-    r = (x + 2.62)*1023/5.24
-    return np.floor(r+0.5)
+rendering = gym.make("HexapodRender-v2")
+model = PPO.load(path='./save_model_0101/long_batch_without_ST_maxtorque_revised_lr/hexapod_model_0101long_batch_without_ST_maxtorque_revised_lr_8600000_steps.zip', env=rendering)
 
-#env = make_vec_env("Hexapod-v0", n_envs=4, seed=0, vec_env_cls=SubprocVecEnv)
-#env = SubprocVecEnv([lambda: gym.make("Hexapod-v0")])
-#env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
-
-rendering = gym.make("HexapodRender-v0")
-model = PPO.load(path='./save_model_1227/A/hexapod_model_1227A_1300000_steps.zip', env=rendering)
-
+pybullet.setRealTimeSimulation(True)
 # start rendering the current model.
-obs = rendering.reset(load=True, fixed=False)
+obs = rendering.reset()
 rendering.render()
 for i in range(10000):
     action, _ = model.predict(obs.astype(np.float32))
     obs, _, done, _ = rendering.step(action)
-    #print(action)
-    #print(obs)
-    #print(analog_to_digital(action))
-    if done:
-        obs = rendering.reset(load=True,fixed=False)
+    time.sleep(0.05)
+    # if done:
+    #    obs = rendering.reset(load=True,fixed=False)

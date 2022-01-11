@@ -26,6 +26,7 @@ class Hexapod:
 
         self.legJoints = range(18)
         self.jointForces = np.array([1.5]*18)
+        self.joint_pos = [0.0, -0.785398, 1.362578]*6
 
     def get_ids(self):
 
@@ -65,7 +66,7 @@ class Hexapod:
         p.resetBasePositionAndOrientation(self.hexapod, self.init_pos, self.init_ori, self.client)
         p.resetBaseVelocity(self.hexapod, [0.0]*3, [0.0]*3, self.client)
         for i in range(p.getNumJoints(self.hexapod, self.client)):
-            p.resetJointState(self.hexapod, i, 0.0, 0.0, self.client)
+            p.resetJointState(self.hexapod, i, self.joint_pos[i], 0.0, self.client)
         if fixed:
             p.createConstraint(
                 parentBodyUniqueId=p.getBodyUniqueId(self.hexapod),
@@ -78,7 +79,3 @@ class Hexapod:
                 childFramePosition=[0, 0, 0.5],
                 childFrameOrientation=p.getQuaternionFromEuler([np.pi/2, 0.0, 0.0]),
             )
-
-    def set_joint_forces(self,joint_forces_array):
-        for i in range(18):
-            self.jointForces[i] = joint_forces_array[i]

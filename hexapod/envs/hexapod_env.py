@@ -75,7 +75,7 @@ class HexapodEnv(gym.Env):
 
         config_obj = configparser.ConfigParser()
 
-        config_obj.read("configfile.ini") # add ../ depending on situation
+        config_obj.read("configfile.ini") # add ../ on lower dir
         dbparam = config_obj["alpha"]
         self.joint_damping_alpha = float(dbparam['joint_damping'])
         self.force_alpha =  float(dbparam['force'])
@@ -91,6 +91,26 @@ class HexapodEnv(gym.Env):
         ])
 
         return observation
+
+    def non_action_step(self): # just advance one step without any instruction
+
+
+        p.stepSimulation()
+        torques = self.hexapod.get_joint_torques()
+        curr_pos, curr_ang = self.hexapod.get_center_position()
+
+        info = {
+            # 'reward': reward,
+            # 'forward delta': pos_del[1],
+            # 'side delta': curr_pos[0],
+            'torques': torques
+        }
+        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
+            self.done = True
+
+        return self.hexapod.get_joint_values(), self.done, info
+
+
 
     def step(self, action):
         prev_pos, prev_ang = self.hexapod.get_center_position()  # get previous center cartesian and euler for reward
@@ -157,7 +177,6 @@ class HexapodEnv(gym.Env):
             p.resetSimulation(self.client)
             p.setGravity(0, 0, -9.8)
             Plane(self.client)
-
             self.hexapod = Hexapod(self.client)
         else:
 
@@ -174,22 +193,20 @@ class HexapodEnv(gym.Env):
                 # print(ORIGINAL_VALUES[i+1][0])
 
                 if load:  # if it is model loading phase, return to original parameters
-
                     p.changeDynamics(self.id, i, mass=ORIGINAL_VALUES[i + 1][0] * (1),
                                      lateralFriction=ORIGINAL_VALUES[i + 1][1] * (1),
-                                     restitution=ORIGINAL_VALUES[i + 1][-6], localInertiaDiagonal=(
-                        ORIGINAL_VALUES[i + 1][-8][0] * (1), ORIGINAL_VALUES[i + 1][-8][1] * (1),
-                        ORIGINAL_VALUES[i + 1][-8][2] * (1)),jointDamping=0.2-self.joint_damping_alpha)
-
+                                     restitution=ORIGINAL_VALUES[i + 1][5], localInertiaDiagonal=(
+                        ORIGINAL_VALUES[i + 1][2][0] * (1), ORIGINAL_VALUES[i + 1][2][1] * (1),
+                        ORIGINAL_VALUES[i + 1][2][2] * (1)),jointDamping=0.2-self.joint_damping_alpha)
                     self.hexapod.set_joint_forces(np.array([1.5 - self.force_alpha] * 18))
                 else:
 
                     p.changeDynamics(self.id, i, mass=ORIGINAL_VALUES[i + 1][0] * (0.8 + 0.4 * np.random.random()),
                                      lateralFriction=(0.5 + 0.75 * (np.random.random())),
                                      restitution=(0.0001 + 0.8999 * np.random.random()), localInertiaDiagonal=(
-                        ORIGINAL_VALUES[i + 1][-8][0] * (0.8 + 0.4 * np.random.random()),
-                        ORIGINAL_VALUES[i + 1][-8][1] * (0.8 + 0.4 * np.random.random()),
-                        ORIGINAL_VALUES[i + 1][-8][2] * (0.8 + 0.4 * np.random.random())),
+                        ORIGINAL_VALUES[i + 1][2][0] * (0.8 + 0.4 * np.random.random()),
+                        ORIGINAL_VALUES[i + 1][2][1] * (0.8 + 0.4 * np.random.random()),
+                        ORIGINAL_VALUES[i + 1][2][2] * (0.8 + 0.4 * np.random.random())),
                                      jointDamping=0.2-self.joint_damping_alpha, )
 
                     rand_force_array = np.array([1.5 - self.force_alpha] * 18)
@@ -219,7 +236,7 @@ class HexapodEnv(gym.Env):
         pos = np.add(pos, [0.5, 0, 0.1])
 
         # Rotate camera direction
-        rot_mat = np.array(p.getMatrixFromQuaternion(ori)).reshape(3, 3)
+        rot_mat = np.array([[1,0,0],[0,0,-1],[0,1,0]])
         camera_vec = np.matmul(rot_mat, [-1, 0, 0])
         up_vec = np.matmul(rot_mat, np.array([0, 1, 0]))
         view_matrix = p.computeViewMatrix(pos, pos + camera_vec, up_vec)
