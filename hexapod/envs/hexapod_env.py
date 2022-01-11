@@ -147,7 +147,7 @@ class HexapodEnv(gym.Env):
         #reward = (pos_del[1] + 0.001) / (np.abs(curr_pos[0]) + 0.5)
         # if current state is unhealthy, then terminate simulation
         # unhealthy if (1) y error is too large (2) or z position is too low (3) or yaw is too large
-        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.05 or np.abs(curr_ang[2]) > 0.5:
+        if np.abs(curr_pos[0]) > 0.5 or curr_pos[2] < 0.08 or np.abs(curr_ang[2]) > 0.5:
             self.done = True
 
         info = {
